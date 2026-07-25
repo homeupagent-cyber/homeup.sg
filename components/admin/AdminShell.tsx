@@ -12,7 +12,6 @@ const NAV_ITEMS = [
   { href: "/admin/listings", label: "Listings" },
   { href: "/admin/listings/pg-sources", label: "Listings Sync" },
   { href: "/admin/listings?tab=playbook&view=articles", label: "Articles" },
-  { href: "/admin/article-generation", label: "Article Generation" },
   { href: "/admin/article-analytics", label: "Article Analytics" },
   { href: "/playbook", label: "Playbook" },
   { href: "/admin/transactions", label: "Transaction Data" },

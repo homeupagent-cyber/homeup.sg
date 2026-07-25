@@ -2,17 +2,32 @@
  * HomeUP proprietary transaction-data moat.
  *
  * Reads from the `transactions` table (populated via the admin CSV-upload page)
- * and returns aggregate-only stats for injection into the draft prompt.
+ * and returns aggregate-only stats for the admin Transaction Data UI.
  *
  * Privacy guarantee (query-time):
  *   Any (town, property_type) cohort with fewer than MIN_SAMPLE rows is silently
  *   skipped — it contributes NO stat to the output. Individual rows are never
- *   returned or stored in any prompt or response.
+ *   returned to callers that expect aggregates only.
  */
 
 import { createServiceClient } from "@/lib/supabase/service";
 import { MIN_SAMPLE } from "./constants";
-import type { TopicCategory } from "./radarConfig";
+
+/** Topic categories used to map transaction cohorts for admin insights. */
+export type TopicCategory =
+  | "hdb_upgrade"
+  | "hdb_resale"
+  | "hdb_bto"
+  | "condo_resale"
+  | "condo_new_launch"
+  | "ec"
+  | "buying_first"
+  | "investment"
+  | "selling"
+  | "condo_tips"
+  | "landed"
+  | "finance"
+  | "legal";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 

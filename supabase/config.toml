@@ -1,5 +1,2 @@
 # See https://supabase.com/docs/guides/functions/function-configuration
-
-# Called server-to-server from n8n (no user JWT on the request).
-[functions.generate-room-clip]
-verify_jwt = false
+# No per-function JWT overrides currently required.

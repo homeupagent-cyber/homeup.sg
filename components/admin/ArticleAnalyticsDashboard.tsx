@@ -17,13 +17,11 @@ import {
   RefreshCw,
   Search,
   TrendingUp,
-  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { SlugMetric } from "@/lib/analytics/gsc";
 import type { LeadCount } from "@/app/api/admin/analytics/leads/route";
 import type { CitationSummary } from "@/lib/analytics/aiCitations";
-import type { RefreshQueueItem } from "@/app/api/admin/analytics/refresh-queue/route";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -133,8 +131,6 @@ export function ArticleAnalyticsDashboard() {
   const [citations, setCitations] = useState<CitationSummary[]>([]);
   const [citationsConfigured, setCitationsConfigured] = useState(false);
   const [gscConfigured, setGscConfigured] = useState(true);
-  const [refreshQueue, setRefreshQueue] = useState<RefreshQueueItem[]>([]);
-  const [dismissingId, setDismissingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [refreshMsg, setRefreshMsg] = useState<string | null>(null);
@@ -158,11 +154,10 @@ export function ArticleAnalyticsDashboard() {
       if (!Array.isArray(artPayload)) throw new Error("Invalid articles response");
       setArticles(artPayload as Article[]);
 
-      const [gscRes, leadsRes, citRes, queueRes] = await Promise.all([
+      const [gscRes, leadsRes, citRes] = await Promise.all([
         fetch("/api/admin/analytics/gsc"),
         fetch("/api/admin/analytics/leads"),
         fetch("/api/admin/analytics/citations"),
-        fetch("/api/admin/analytics/refresh-queue"),
       ]);
 
       if (gscRes.ok) {
@@ -179,10 +174,6 @@ export function ArticleAnalyticsDashboard() {
         const citData = await citRes.json() as { configured: boolean; summaries: CitationSummary[] };
         setCitationsConfigured(citData.configured);
         setCitations(citData.summaries ?? []);
-      }
-
-      if (queueRes.ok) {
-        setRefreshQueue(await queueRes.json() as RefreshQueueItem[]);
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
@@ -262,28 +253,12 @@ export function ArticleAnalyticsDashboard() {
     setCheckingSlug(null);
   }, []);
 
-  const handleDismissRefresh = useCallback(async (id: string) => {
-    setDismissingId(id);
-    await fetch("/api/admin/analytics/refresh-queue", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, status: "dismissed" }),
-    });
-    setRefreshQueue((q) => q.filter((r) => r.id !== id));
-    setDismissingId(null);
-  }, []);
-
   // Sort: most clicks first, then most leads
   rows.sort((a, b) => (b.metric?.clicks ?? 0) - (a.metric?.clicks ?? 0) || b.leads - a.leads);
 
   const totalClicks = metrics.reduce((s, m) => s + m.clicks, 0);
   const totalImpressions = metrics.reduce((s, m) => s + m.impressions, 0);
   const totalLeads = leads.reduce((s, l) => s + l.count, 0);
-  const titleBySlug = new Map(articles.map((a) => [a.slug, a.title]));
-
-  const generationPrefillUrl = (title: string) =>
-    `/admin/article-generation?topic=${encodeURIComponent(title)}&refresh=1`;
-
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <div className="space-y-6">
@@ -504,23 +479,14 @@ export function ArticleAnalyticsDashboard() {
 
                     {/* Actions */}
                     <td className="px-4 py-3">
-                      <div className="flex min-w-[7rem] flex-col gap-1">
-                        <Link
-                          href={`/playbook/${article.slug}`}
-                          target="_blank"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-neutral-600 hover:text-primary-600"
-                        >
-                          <ExternalLink className="h-3 w-3" />
-                          View live
-                        </Link>
-                        <Link
-                          href={generationPrefillUrl(article.title)}
-                          className="inline-flex items-center gap-1 text-xs font-medium text-primary-600 hover:text-primary-800"
-                        >
-                          <RefreshCw className="h-3 w-3" />
-                          Regenerate
-                        </Link>
-                      </div>
+                      <Link
+                        href={`/playbook/${article.slug}`}
+                        target="_blank"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-neutral-600 hover:text-primary-600"
+                      >
+                        <ExternalLink className="h-3 w-3" />
+                        View live
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -529,71 +495,6 @@ export function ArticleAnalyticsDashboard() {
           </div>
         )}
       </div>
-
-      {/* Needs Refresh queue */}
-      {!loading && refreshQueue.length > 0 && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
-          <h2 className="mb-3 flex items-center gap-2 text-sm font-bold text-amber-900">
-            <AlertCircle className="h-4 w-4 text-amber-500" />
-            Needs Refresh ({refreshQueue.length})
-          </h2>
-          <p className="mb-4 text-xs text-amber-700">
-            These articles were flagged by the freshness scanner. Regenerate them to keep content accurate, or dismiss to silence the alert.
-          </p>
-          <ul className="divide-y divide-amber-100">
-            {refreshQueue.map((item) => (
-              <li key={item.id} className="flex items-start justify-between gap-4 py-3 first:pt-0 last:pb-0">
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <Link
-                      href={`/playbook/${item.slug}`}
-                      target="_blank"
-                      className="text-sm font-medium text-amber-900 underline-offset-2 hover:underline"
-                    >
-                      {titleBySlug.get(item.slug) ?? item.slug}
-                    </Link>
-                    <Link
-                      href={generationPrefillUrl(titleBySlug.get(item.slug) ?? item.slug)}
-                      className="text-xs font-medium text-amber-800 hover:underline"
-                    >
-                      Regenerate
-                    </Link>
-                    <span className={cn(
-                      "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
-                      item.reason === "stale_year"    && "bg-orange-100 text-orange-700",
-                      item.reason === "stale_figure"  && "bg-red-100 text-red-700",
-                      item.reason === "ranking_drop"  && "bg-yellow-100 text-yellow-700",
-                      item.reason === "age"            && "bg-neutral-100 text-neutral-600",
-                    )}>
-                      {item.reason.replace("_", " ")}
-                    </span>
-                  </div>
-                  {item.detail && (
-                    <p className="mt-0.5 text-xs text-amber-700">{item.detail}</p>
-                  )}
-                  <p className="mt-0.5 text-[10px] text-amber-500">
-                    Detected {new Date(item.detected_at).toLocaleDateString()}
-                  </p>
-                </div>
-                <button
-                  onClick={() => void handleDismissRefresh(item.id)}
-                  disabled={dismissingId === item.id}
-                  className="shrink-0 rounded-md p-1.5 text-amber-400 hover:bg-amber-100 hover:text-amber-700 disabled:opacity-40"
-                  title="Dismiss"
-                >
-                  {dismissingId === item.id
-                    ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    : <X className="h-3.5 w-3.5" />
-                  }
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-3 text-xs text-amber-600">
-            To regenerate an article, use the <strong>Article Generation</strong> tab. Mark it as &quot;refreshed&quot; after publishing.
-          </p>
-        </div>
-      )}
 
       {/* Conversion funnel summary */}
       {!loading && totalClicks > 0 && (

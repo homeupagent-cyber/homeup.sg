@@ -10,7 +10,6 @@ const ROOT = join(import.meta.dirname, "..");
 const files = [
   "lib/playbook/playbook-db-write.ts",
   "components/admin/PlaybookTab.tsx",
-  "lib/pipeline/publishTarget.ts",
   "app/api/admin/playbook/route.ts",
 ];
 

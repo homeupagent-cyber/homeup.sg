@@ -1,11 +1,11 @@
 /**
- * Lightweight catalog of live /playbook articles for admin list UIs, dedup, and analytics.
+ * Lightweight catalog of live /playbook articles for admin list UIs and analytics.
  *
  * KEEP THIS MODULE MINIMAL — no imports from:
  *   - lib/playbook/queries (→ next/headers via supabase/server)
  *   - lib/playbook/server-queries (→ react cache + queries)
  *   - lib/playbook/article-sections (→ isomorphic-dompurify)
- *   - lib/pipeline/publishTarget (write path only)
+ *   - lib/supabase/server
  *
  * CI: scripts/check-admin-catalog-imports.mjs + ESLint no-restricted-imports.
  */
@@ -18,7 +18,7 @@ export type PlaybookPublishedArticleRef = {
   article?: string;
 };
 
-/** Alias used by pipeline dedup / radar. */
+/** Alias for callers that expect PublishedArticleRef. */
 export type PublishedArticleRef = PlaybookPublishedArticleRef;
 
 /** Same filter as the public /playbook page — article with content in either field. */

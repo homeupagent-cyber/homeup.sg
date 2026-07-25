@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { Loader2, X, Sparkles, Link, Upload } from "lucide-react";
+import { Loader2, X, Link, Upload } from "lucide-react";
 import type { FaqEntry, PlaybookVideo, VideoCategory } from "@/lib/data/playbook";
 import { CATEGORY_LABELS } from "@/lib/data/playbook";
 import { getPlaybookAgentOptions } from "@/lib/playbook/agent-attribution";
@@ -53,14 +53,11 @@ export function PlaybookForm({ video }: PlaybookFormProps) {
   const router = useRouter();
   const [form, setForm] = useState<FormState>(toFormState(video));
   const [saving, setSaving] = useState(false);
-  const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [aiSuccess, setAiSuccess] = useState(false);
   const [uploadTab, setUploadTab] = useState<"link" | "file">("link");
 
   function set(field: keyof FormState, value: string | boolean) {
     setForm((f) => ({ ...f, [field]: value }));
-    if (field === "videoUrl") setAiSuccess(false);
   }
 
   function setFaqItem(index: number, key: keyof FaqEntry, value: string) {
@@ -76,41 +73,6 @@ export function PlaybookForm({ video }: PlaybookFormProps) {
 
   function removeFaqItem(index: number) {
     setForm((f) => ({ ...f, faq: f.faq.filter((_, i) => i !== index) }));
-  }
-
-  async function handleAiFill() {
-    if (!form.videoUrl.trim()) {
-      setError("Paste a YouTube or Vimeo URL first.");
-      return;
-    }
-    setAiLoading(true);
-    setError(null);
-    setAiSuccess(false);
-
-    const res = await fetch("/api/admin/playbook-ai", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: form.videoUrl.trim() }),
-    });
-
-    const json = await res.json();
-    if (!res.ok) {
-      setError(json.error ?? "AI generation failed");
-      setAiLoading(false);
-      return;
-    }
-
-    setForm((f) => ({
-      ...f,
-      title: json.title ?? f.title,
-      description: json.description ?? f.description,
-      thumbnail: json.thumbnail || f.thumbnail,
-      metaDescription: json.metaDescription ?? f.metaDescription,
-      article: json.article ?? f.article,
-      faq: Array.isArray(json.faq) && json.faq.length > 0 ? json.faq : f.faq,
-    }));
-    setAiSuccess(true);
-    setAiLoading(false);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -200,37 +162,15 @@ export function PlaybookForm({ video }: PlaybookFormProps) {
         <div className="mt-3">
           {uploadTab === "link" ? (
             <div className="space-y-2">
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  value={form.videoUrl}
-                  onChange={(e) => set("videoUrl", e.target.value)}
-                  placeholder="https://www.youtube.com/watch?v=... or Vimeo URL"
-                  className="flex-1 rounded-lg border border-neutral-200 px-3 py-2 text-sm text-neutral-900 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleAiFill}
-                  disabled={aiLoading || !form.videoUrl.trim()}
-                  className="shrink-0 flex items-center gap-1.5 border-primary-200 text-primary-700 hover:bg-primary-50"
-                >
-                  {aiLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <Sparkles className="h-4 w-4" />
-                  )}
-                  {aiLoading ? "Generating…" : "AI fill"}
-                </Button>
-              </div>
-              {aiSuccess && (
-                <p className="flex items-center gap-1.5 text-xs text-primary-600">
-                  <Sparkles className="h-3 w-3" />
-                  Title, description, article, FAQ and meta description auto-filled — review and edit everything below before saving.
-                </p>
-              )}
+              <input
+                type="url"
+                value={form.videoUrl}
+                onChange={(e) => set("videoUrl", e.target.value)}
+                placeholder="https://www.youtube.com/watch?v=... or Vimeo URL"
+                className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm text-neutral-900 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+              />
               <p className="text-xs text-neutral-400">
-                Paste a YouTube or Vimeo link, then click <strong>AI fill</strong> to auto-generate the title, description, full SEO article, FAQ and meta description.
+                Paste a YouTube or Vimeo link, then fill in the title, description, article, FAQ and meta description below.
               </p>
             </div>
           ) : (
@@ -356,7 +296,6 @@ export function PlaybookForm({ video }: PlaybookFormProps) {
       {/* Article & SEO section */}
       <div className="space-y-6 rounded-xl border border-neutral-200 bg-neutral-50/60 p-4 sm:p-5">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary-600" />
           <p className="text-sm font-semibold text-neutral-900">Article &amp; SEO</p>
           <span className="text-xs text-neutral-400">Published at /playbook/{"{slug}"} for search &amp; AI discovery</span>
         </div>

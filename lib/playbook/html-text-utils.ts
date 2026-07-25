@@ -1,8 +1,7 @@
 /**
- * Lightweight HTML helpers for serverless-safe pipeline routes.
+ * Shared HTML → plain-text helpers for Playbook article bodies.
  *
- * Do NOT import isomorphic-dompurify here — it has caused Vercel function 500s
- * when pulled into /api/admin/generate via article-sections.
+ * Do NOT import isomorphic-dompurify here — it has caused Vercel function 500s.
  */
 
 /** Strip scripts/styles and event handlers from pipeline-generated HTML. */
