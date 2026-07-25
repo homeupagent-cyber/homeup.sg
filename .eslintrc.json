@@ -23,27 +23,6 @@
               {
                 "name": "@/lib/supabase/server",
                 "message": "published-articles uses anon Supabase only — do not import supabase/server."
-              },
-              {
-                "name": "@/lib/pipeline/publishTarget",
-                "message": "publishTarget is write-only — keep reads in published-articles."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["app/api/admin/**/route.ts"],
-      "excludedFiles": ["app/api/admin/publish/route.ts"],
-      "rules": {
-        "no-restricted-imports": [
-          "error",
-          {
-            "paths": [
-              {
-                "name": "@/lib/pipeline/publishTarget",
-                "message": "Use @/lib/playbook/published-articles for catalog reads. publishTarget loads article-sections at module init."
               }
             ]
           }

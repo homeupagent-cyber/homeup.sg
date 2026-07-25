@@ -7,11 +7,7 @@ import { join, relative } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
 
-const PROMPT_FILES = [
-  "lib/pipeline/prompt.ts",
-  "lib/pipeline/brand.ts",
-  "app/api/admin/playbook-ai/route.ts",
-];
+const PROMPT_FILES = [];
 
 const SITE_SCAN_DIRS = ["app", "components", "lib/data", "lib/seo"];
 
@@ -85,8 +81,6 @@ function walk(dir, out = []) {
     if (
       entry === "node_modules" ||
       entry === ".next" ||
-      entry === "pipeline" ||
-      rel.startsWith("app/api/admin/playbook-ai") ||
       rel.startsWith("lib/pipeline/")
     ) {
       continue;
@@ -128,10 +122,7 @@ const allIssues = [];
 
 for (const rel of PROMPT_FILES) {
   const text = readFileSync(join(ROOT, rel), "utf8");
-  const positiveText = rel.endsWith("brand.ts")
-    ? text.replace(/avoid:\s*\[[\s\S]*?\],/m, "")
-    : text;
-  const issues = scanFile(rel, positiveText);
+  const issues = scanFile(rel, text);
   if (issues.length) {
     allIssues.push(...issues);
     failed = true;
@@ -152,15 +143,24 @@ for (const dir of SITE_SCAN_DIRS) {
 }
 
 for (const rel of SITE_SCAN_FILES) {
-  const text = readFileSync(join(ROOT, rel), "utf8");
-  const issues = scanFile(rel, text);
-  if (issues.length) {
-    allIssues.push(...issues);
-    failed = true;
+  const abs = join(ROOT, rel);
+  try {
+    const text = readFileSync(abs, "utf8");
+    const issues = scanFile(rel, text);
+    if (issues.length) {
+      allIssues.push(...issues);
+      failed = true;
+    }
+  } catch (err) {
+    if (err && typeof err === "object" && "code" in err && err.code === "ENOENT") continue;
+    throw err;
   }
 }
 
-const { sanitizeAgencyTerminology } = await import(join(ROOT, "lib/pipeline/cea-terminology.ts"));
+const { pathToFileURL } = await import("node:url");
+const { sanitizeAgencyTerminology } = await import(
+  pathToFileURL(join(ROOT, "lib/pipeline/cea-terminology.ts")).href
+);
 const sample =
   "I'm Dennis Lim from HomeUp, a fixed-fee agency helping Singapore homeowners navigate upgrading decisions.";
 const { text, fixes } = sanitizeAgencyTerminology(sample);

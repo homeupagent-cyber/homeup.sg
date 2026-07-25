@@ -20,7 +20,6 @@ import type { InsightsSnapshot } from "@/lib/analytics/insights";
 import type { DatePreset, GaDateRange } from "@/lib/analytics/dateRange";
 import { resolveDateRange } from "@/lib/analytics/dateRange";
 import { AnalyticsDateRangePicker } from "@/components/admin/AnalyticsDateRangePicker";
-import { AnalyticsAskPanel } from "@/components/admin/AnalyticsAskPanel";
 import { GoogleIndexingPanel } from "@/components/admin/GoogleIndexingPanel";
 
 // ── Formatters ────────────────────────────────────────────────────────────────
@@ -448,9 +447,6 @@ export function AnalyticsTab() {
           />
         </Section>
       )}
-
-      {/* AI Analyst */}
-      <AnalyticsAskPanel dateRange={data.dateRange} />
 
       <GoogleIndexingPanel />
 

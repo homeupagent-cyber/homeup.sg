@@ -1,5 +1,0 @@
-{
-  "imports": {
-    "@fal-ai/client": "npm:@fal-ai/client@^1.5.0"
-  }
-}

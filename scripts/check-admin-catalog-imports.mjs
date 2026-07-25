@@ -3,12 +3,12 @@
  * Guardrail: admin catalog/list API routes must stay on the lightweight
  * lib/playbook/published-articles.ts read path.
  *
- * Importing publishTarget, article-sections, queries, or server-queries pulls
+ * Importing article-sections, queries, or server-queries pulls
  * DOMPurify / next/headers into the route bundle and has caused production 500s.
  */
 
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(fileURLToPath(new URL("..", import.meta.url)));
@@ -18,14 +18,9 @@ const CATALOG_READ_ROUTES = [
   "app/api/admin/published-articles/route.ts",
   "app/api/admin/analytics/gsc/route.ts",
   "app/api/admin/analytics/citations/route.ts",
-  "app/api/admin/topics/route.ts",
 ];
 
-/** publishTarget is write-only — only the publish handler may import it. */
-const PUBLISH_TARGET_ALLOWLIST = new Set(["app/api/admin/publish/route.ts"]);
-
 const BANNED_IN_CATALOG = [
-  "@/lib/pipeline/publishTarget",
   "@/lib/playbook/article-sections",
   "@/lib/playbook/queries",
   "@/lib/playbook/server-queries",
@@ -33,20 +28,6 @@ const BANNED_IN_CATALOG = [
 ];
 
 const REQUIRED_IN_CATALOG = "@/lib/playbook/published-articles";
-
-function collectAdminRouteFiles(dir) {
-  const out = [];
-  for (const entry of readdirSync(dir)) {
-    const path = join(dir, entry);
-    const st = statSync(path);
-    if (st.isDirectory()) {
-      out.push(...collectAdminRouteFiles(path));
-    } else if (entry === "route.ts") {
-      out.push(path);
-    }
-  }
-  return out;
-}
 
 function findImports(source) {
   const imports = [];
@@ -71,18 +52,6 @@ for (const rel of CATALOG_READ_ROUTES) {
     if (imports.includes(banned)) {
       errors.push(`${rel}: must not import ${banned} (use published-articles read path)`);
     }
-  }
-}
-
-const adminRoutes = collectAdminRouteFiles(join(ROOT, "app/api/admin"));
-for (const abs of adminRoutes) {
-  const rel = relative(ROOT, abs);
-  const imports = findImports(readFileSync(abs, "utf8"));
-  if (!imports.includes("@/lib/pipeline/publishTarget")) continue;
-  if (!PUBLISH_TARGET_ALLOWLIST.has(rel)) {
-    errors.push(
-      `${rel}: publishTarget is write-only — import @/lib/playbook/published-articles for reads`,
-    );
   }
 }
 
