@@ -17,8 +17,8 @@ export const BUY_TEAM_AWARDS: TeamAward[] = [
     title: "Top Pte Buying Transactor 2025",
   },
   {
-    source: "C21",
-    title: "Double Centurion Award",
+    source: "SG",
+    title: "#1 Private Resale Buying Transactor 2025",
   },
 ];
 
