@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { Building2, ChevronDown, Home, Menu, Sparkles, Trees } from "lucide-react";
 
 import {
@@ -61,33 +61,48 @@ interface Navbar1Props {
   className?: string;
 }
 
-function NavLink({
-  href,
-  className,
-  children,
-  external,
-}: {
+type NavLinkProps = Omit<ComponentPropsWithoutRef<"a">, "href"> & {
   href: string;
-  className?: string;
-  children: ReactNode;
   external?: boolean;
-}) {
+};
+
+/**
+ * Anchor wrapper used across the navbar.
+ *
+ * Must forward its ref and spread unknown props onto the underlying <a>.
+ * Radix primitives (DropdownMenuItem asChild, Button asChild, SheetTrigger asChild)
+ * inject onClick/onKeyDown/ref/data-* through Slot; a component that swallows them
+ * renders a link that looks right but never responds to the menu's own click
+ * handling. Keeping the real <a href> is what makes these links crawlable and
+ * openable in a new tab.
+ */
+const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
+  { href, className, children, external, ...props },
+  ref,
+) {
   const isExternal = external ?? href.startsWith("http");
 
   if (isExternal) {
     return (
-      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
+      <a
+        {...props}
+        ref={ref}
+        href={href}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link {...props} ref={ref} href={href} className={className}>
       {children}
     </Link>
   );
-}
+});
 
 /** Ghost top-level nav: text only, no pill/rectangle backgrounds on desktop */
 const desktopNavItemClass =
