@@ -26,7 +26,9 @@ export async function fetchOEmbedThumbnail(videoUrl: string): Promise<string> {
 
     const res = await fetch(endpoint, {
       headers: { Accept: "application/json", "User-Agent": UA },
-      next: { revalidate: 60 * 60 * 24 * 7 },
+      // TikTok's signed thumbnail URL is only valid for ~2 days; keep this well under
+      // that so a cached fetch never outlives its own signature.
+      next: { revalidate: 60 * 60 * 24 },
     });
 
     if (!res.ok) return "";
