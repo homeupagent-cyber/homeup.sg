@@ -8,6 +8,7 @@ import { PlaybookExclusiveWatch, PlaybookVideoModalOverlay } from "@/components/
 import type { AgentProfileVideo, AgentVideoCategory } from "@/lib/agents/profile-videos";
 import { AGENT_VIDEO_CATEGORIES, rowToAgentProfileVideo, type AgentProfileVideoRow } from "@/lib/agents/profile-videos";
 import { getVideoPlatform } from "@/lib/playbook/embed";
+import { enrichVideoThumbnailsClient } from "@/lib/playbook/oembed";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -48,9 +49,10 @@ export function AgentProfileVideos({
       .eq("featured_in_display_b", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: false })
-      .then(({ data, error }) => {
+      .then(async ({ data, error }) => {
         if (error || !data?.length) return;
-        setVideos(data.map((row) => rowToAgentProfileVideo(row as AgentProfileVideoRow)));
+        const rows = data.map((row) => rowToAgentProfileVideo(row as AgentProfileVideoRow));
+        setVideos(await enrichVideoThumbnailsClient(rows));
       });
   }, [agentSlug]);
 

@@ -48,3 +48,36 @@ export async function enrichVideoThumbnails<T extends { videoUrl: string; thumbn
     }),
   );
 }
+
+/** Client-safe version of fetchOEmbedThumbnail — proxies through /api/video-oembed
+ *  since TikTok/Vimeo's oEmbed endpoints don't send CORS headers for browser fetches. */
+export async function fetchOEmbedThumbnailClient(videoUrl: string): Promise<string> {
+  const url = videoUrl.trim();
+  if (!url) return "";
+
+  const platform = getVideoPlatform(url);
+  if (platform === "youtube") return youtubeThumbnailCandidates(url)[0] ?? "";
+  if (platform !== "tiktok" && platform !== "vimeo") return "";
+
+  try {
+    const res = await fetch(`/api/video-oembed?url=${encodeURIComponent(url)}`);
+    if (!res.ok) return "";
+    const data = (await res.json()) as OEmbedPayload;
+    return typeof data.thumbnail_url === "string" ? data.thumbnail_url.trim() : "";
+  } catch {
+    return "";
+  }
+}
+
+/** Client-safe version of enrichVideoThumbnails, for use in "use client" components. */
+export async function enrichVideoThumbnailsClient<T extends { videoUrl: string; thumbnail: string }>(
+  items: T[],
+): Promise<T[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      if (item.thumbnail.trim()) return item;
+      const thumbnail = await fetchOEmbedThumbnailClient(item.videoUrl);
+      return thumbnail ? { ...item, thumbnail } : item;
+    }),
+  );
+}
