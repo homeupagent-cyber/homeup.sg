@@ -26,7 +26,9 @@ export async function fetchOEmbedThumbnail(videoUrl: string): Promise<string> {
 
     const res = await fetch(endpoint, {
       headers: { Accept: "application/json", "User-Agent": UA },
-      next: { revalidate: 60 * 60 * 24 * 7 },
+      // TikTok's signed thumbnail URL is only valid for ~2 days; keep this well under
+      // that so a cached fetch never outlives its own signature.
+      next: { revalidate: 60 * 60 * 24 },
     });
 
     if (!res.ok) return "";
@@ -44,6 +46,39 @@ export async function enrichVideoThumbnails<T extends { videoUrl: string; thumbn
     items.map(async (item) => {
       if (item.thumbnail.trim()) return item;
       const thumbnail = await fetchOEmbedThumbnail(item.videoUrl);
+      return thumbnail ? { ...item, thumbnail } : item;
+    }),
+  );
+}
+
+/** Client-safe version of fetchOEmbedThumbnail — proxies through /api/video-oembed
+ *  since TikTok/Vimeo's oEmbed endpoints don't send CORS headers for browser fetches. */
+export async function fetchOEmbedThumbnailClient(videoUrl: string): Promise<string> {
+  const url = videoUrl.trim();
+  if (!url) return "";
+
+  const platform = getVideoPlatform(url);
+  if (platform === "youtube") return youtubeThumbnailCandidates(url)[0] ?? "";
+  if (platform !== "tiktok" && platform !== "vimeo") return "";
+
+  try {
+    const res = await fetch(`/api/video-oembed?url=${encodeURIComponent(url)}`);
+    if (!res.ok) return "";
+    const data = (await res.json()) as OEmbedPayload;
+    return typeof data.thumbnail_url === "string" ? data.thumbnail_url.trim() : "";
+  } catch {
+    return "";
+  }
+}
+
+/** Client-safe version of enrichVideoThumbnails, for use in "use client" components. */
+export async function enrichVideoThumbnailsClient<T extends { videoUrl: string; thumbnail: string }>(
+  items: T[],
+): Promise<T[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      if (item.thumbnail.trim()) return item;
+      const thumbnail = await fetchOEmbedThumbnailClient(item.videoUrl);
       return thumbnail ? { ...item, thumbnail } : item;
     }),
   );

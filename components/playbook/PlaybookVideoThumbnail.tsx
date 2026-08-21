@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Play } from "lucide-react";
+import { HomeUpLogo } from "@/components/ui/HomeUpLogo";
 import { getVideoPlatform, resolveVideoThumbnailCandidatesForDisplay } from "@/lib/playbook/embed";
 import { cn } from "@/lib/utils";
 
@@ -92,7 +92,7 @@ export function PlaybookVideoThumbnail({
         )}
         aria-hidden
       >
-        <Play className="h-8 w-8 text-white/70" />
+        <HomeUpLogo variant="icon" showText={false} imageClassName="h-8 w-8 opacity-60" />
       </div>
     );
   }

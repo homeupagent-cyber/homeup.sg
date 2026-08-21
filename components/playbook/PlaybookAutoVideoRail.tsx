@@ -152,6 +152,9 @@ export function PlaybookAutoVideoRail({
           onTouchEnd={() => scheduleResume(RESUME_DELAY_MS)}
         >
           {loopItems.map((video, index) => {
+            const setIndex = Math.floor(index / videos.length);
+            const isDuplicateSet = setIndex > 0;
+
             const tile = (
               <PlaybookVideoBrowseTile
                 thumbnail={video.thumbnail}
@@ -164,10 +167,15 @@ export function PlaybookAutoVideoRail({
             );
 
             return (
-              <div key={`${video.id}-${index}`} className="relative shrink-0 py-1">
+              <div
+                key={`${video.id}-${index}`}
+                className="relative shrink-0 py-1"
+                aria-hidden={isDuplicateSet || undefined}
+              >
                 {onVideoSelect ? (
                   <button
                     type="button"
+                    tabIndex={isDuplicateSet ? -1 : undefined}
                     onClick={() => onVideoSelect(video)}
                     className="group/tile block w-[148px] text-left transition duration-200 sm:w-[168px] hover:-translate-y-0.5"
                     aria-label={`Watch ${video.title}`}
@@ -177,6 +185,7 @@ export function PlaybookAutoVideoRail({
                 ) : (
                   <Link
                     href={hrefFor(video)}
+                    tabIndex={isDuplicateSet ? -1 : undefined}
                     className="group/tile block w-[148px] transition duration-200 sm:w-[168px] hover:-translate-y-0.5"
                     aria-label={`Watch ${video.title}`}
                   >
