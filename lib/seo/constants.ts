@@ -16,6 +16,6 @@ export const ORG_SAME_AS = [
   CEA_WEBSITE_URL,
   "https://www.instagram.com/homeup_singapore",
   "https://www.tiktok.com/@homeup.sg",
-  "https://www.facebook.com/share/1GmU7rZQfK/",
+  "https://www.facebook.com/homeupagents/",
   "https://youtube.com/@homeupdennis",
 ] as const;

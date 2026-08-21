@@ -49,10 +49,10 @@ const footerSections: FooterSection[] = [
   {
     label: "Social",
     links: [
-      { title: "Instagram", href: ORG_SAME_AS[0], external: true },
-      { title: "TikTok", href: ORG_SAME_AS[1], external: true },
-      { title: "Facebook", href: ORG_SAME_AS[2], external: true },
-      { title: "YouTube", href: ORG_SAME_AS[3], external: true },
+      { title: "Instagram", href: ORG_SAME_AS[2], external: true },
+      { title: "TikTok", href: ORG_SAME_AS[3], external: true },
+      { title: "Facebook", href: ORG_SAME_AS[4], external: true },
+      { title: "YouTube", href: ORG_SAME_AS[5], external: true },
     ],
   },
 ];
