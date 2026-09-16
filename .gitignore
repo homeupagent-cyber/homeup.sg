@@ -49,3 +49,6 @@ secrets/
 batam-handoff/
 tmp-kit-smoke/
 tmp-listings-sync-kit/
+
+# TypeScript incremental build cache — machine-local, regenerated on every build
+tsconfig.tsbuildinfo
