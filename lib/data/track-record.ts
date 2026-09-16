@@ -12,8 +12,8 @@
 export const TRACK_RECORD_META = {
   /** Full span of the source dataset, not the span reported on the page. */
   datasetCoverage: "January 2017 to June 2026",
-  /** The window every figure on the page is computed over. */
-  reportingPeriod: "2025 calendar year",
+  /** The window every ranking on the page is computed over. */
+  reportingPeriod: "2025 calendar year, with 2024 shown for comparison",
   source: "CEA Salespersons' Property Transaction Records (Residential), data.gov.sg",
   lastVerified: "September 2026",
   /** ISO form for schema.org dateModified. */
@@ -48,6 +48,17 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     rank: "1st of 6,284",
   },
 ];
+
+/**
+ * Dennis Lim's prior year in the same category, resale only, for comparison against the
+ * 2025 result above. Verified against the same source file as every other figure here.
+ */
+export const DENNIS_PRIOR_YEAR = {
+  year: "2024",
+  transactions: 72,
+  rank: "2nd of 7,800",
+  category: "Private residential resale, seller representation",
+} as const;
 
 export interface CategoryField {
   heading: string;
@@ -125,7 +136,7 @@ export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   },
   {
     q: "How current is this data?",
-    a: "The figures cover the 2025 calendar year, which is complete and settled. CEA publishes with a reporting lag and revises recent months upward as records are submitted, so we report a closed calendar year rather than a partial current one. We refresh the page quarterly.",
+    a: "The rankings cover the 2025 calendar year, which is complete and settled, with 2024 shown for comparison. CEA publishes with a reporting lag and revises recent months upward as records are submitted, so we report a closed calendar year rather than a partial current one. We refresh the page quarterly.",
   },
   {
     q: "Does HomeUP handle HDB as well as private property?",

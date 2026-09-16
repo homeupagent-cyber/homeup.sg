@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import {
   CATEGORY_FIELDS,
+  DENNIS_PRIOR_YEAR,
   HDB_RESULT,
   HEADLINE_RANKINGS,
   TRACK_RECORD_FAQS,
@@ -67,8 +68,8 @@ export function TrackRecordContent() {
               <strong className="font-semibold text-neutral-900">
                 number one position in Singapore
               </strong>{" "}
-              in their categories. Figures below cover the 2025 calendar year, which is complete
-              and will not be revised further.
+              in their categories. The rankings below cover the 2025 calendar year, which is
+              complete and will not be revised further.
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -93,6 +94,24 @@ export function TrackRecordContent() {
                   </dl>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-neutral-900">
+                Dennis Lim, the year before
+              </h3>
+              <p className={`mt-2 ${PROSE}`}>
+                In {DENNIS_PRIOR_YEAR.year}, in the same category, he closed{" "}
+                <strong className="font-semibold text-neutral-900">
+                  {DENNIS_PRIOR_YEAR.transactions} transactions
+                </strong>{" "}
+                and ranked{" "}
+                <strong className="font-semibold text-neutral-900">
+                  {DENNIS_PRIOR_YEAR.rank}
+                </strong>{" "}
+                nationally. The {DENNIS_PRIOR_YEAR.year} figure is resale only, on the same
+                definition used everywhere else on this page.
+              </p>
             </div>
           </div>
         </div>
@@ -199,9 +218,10 @@ export function TrackRecordContent() {
               <strong className="font-semibold text-neutral-900">
                 This is a 2025 figure and we state it as one.
               </strong>{" "}
-              Every ranking on this page is a 2025 calendar year result. We report the calendar
-              year because it is the period in which the result was achieved and because it is
-              closed, not because it is the most flattering window available.
+              Every ranking on this page is a 2025 calendar year result, and the one earlier
+              figure we show is labelled 2024. We report the calendar year because it is the
+              period in which the result was achieved and because it is closed, not because it
+              is the most flattering window available.
             </p>
           </div>
         </div>
@@ -245,8 +265,9 @@ export function TrackRecordContent() {
               </li>
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">Reporting period:</strong>{" "}
-                every figure on this page covers the 2025 calendar year. The source file spans{" "}
-                {TRACK_RECORD_META.datasetCoverage}.
+                every ranking on this page is a 2025 calendar year result. Dennis Lim&apos;s 2024
+                result is shown alongside it for comparison and is labelled as 2024 wherever it
+                appears. The source file spans {TRACK_RECORD_META.datasetCoverage}.
               </li>
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">Reporting lag.</strong> CEA
