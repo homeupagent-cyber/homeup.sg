@@ -40,14 +40,14 @@ export function TrackRecordContent() {
               Our Track Record, Verified Against CEA Records
             </h1>
             <p className={`mt-6 ${PROSE}`}>
-              Plenty of people in Singapore property describe themselves as top producers.
-              Almost none show you where the number comes from.
+              Rankings in Singapore property are easy to claim and hard to check. Ours are set
+              out below with the source, the method and the size of the field, so you can check
+              them yourself.
             </p>
             <p className={`mt-4 ${PROSE}`}>
               Every figure on this page is computed from the Council for Estate Agencies&apos;
               published salesperson transaction records, the same dataset anyone can download
-              from data.gov.sg. We show the method, the size of the field and the shape of the
-              distribution, so you can reproduce the work yourself.
+              from data.gov.sg.
             </p>
 
             <dl className="mt-8 flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
