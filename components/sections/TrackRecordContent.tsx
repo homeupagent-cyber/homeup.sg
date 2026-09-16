@@ -113,6 +113,13 @@ export function TrackRecordContent() {
                 only, on the same definition used everywhere else on this page.
               </p>
             </div>
+
+            <p className={`mt-6 ${PROSE}`}>
+              CEA publishes transaction records per salesperson, so every ranking on this page
+              measures one individual&apos;s transactions rather than a team&apos;s. Volume at
+              this level reflects a defined working method, and at HomeUP that method is one
+              Dennis Lim and Yeo Tong Boon personally train every advisor in.
+            </p>
           </div>
         </div>
       </section>
