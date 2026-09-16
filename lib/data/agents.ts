@@ -75,8 +75,8 @@ export const AGENTS: Agent[] = [
     accolades: [
       "BBA (Hons), NUS¹",
       "Asian Business Fellowship Award, MTI²",
-      "#2 Transactor³ in Singapore | 2024 (Private Residential Sale)",
-      "#1 Transactor³ in Singapore | 2025 (Private Residential Sale)",
+      "#2 Transactor³ in Singapore | 2024 (Private Residential Resale)",
+      "#1 Transactor³ in Singapore | 2025 (Private Residential Resale)",
     ],
     accoladeFootnotes: [
       {
@@ -93,7 +93,7 @@ export const AGENTS: Agent[] = [
       },
       {
         marker: "³",
-        text: "Rankings based on seller-represented sale transactions (Condo, Landed, EC) | 2024 (96 Deals); 2025 (101 Deals) | Source: Data.gov.sg",
+        text: "Rankings based on seller-represented resale transactions (Condo, Landed, EC) | 2024 (72 Deals); 2025 (96 Deals) | Source: Data.gov.sg",
       },
     ],
     about: [],
