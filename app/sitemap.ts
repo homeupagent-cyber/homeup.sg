@@ -31,6 +31,12 @@ function coreSitemapEntries(now: Date): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/agents`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     ...agentPages,
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    {
+      url: `${SITE_URL}/track-record`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     { url: `${SITE_URL}/playbook`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     ...PLAYBOOK_TOPICS.map((topic) => ({
       url: `${SITE_URL}/playbook/topic/${topic}`,

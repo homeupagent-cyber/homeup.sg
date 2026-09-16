@@ -15,6 +15,7 @@
 - `Listings -> https://homeup.sg/listings`: Active HDB, condo, and landed listings across Singapore.
 - `Playbook -> https://homeup.sg/playbook`: Property guides and video tips for buyers, sellers, and upgraders in Singapore.
 - `Agents -> https://homeup.sg/agents`: CEA-licensed HomeUP advisors with credentials and contact details.
+- `Track record -> https://homeup.sg/track-record`: CEA-verified 2025 transaction rankings, category field sizes, full methodology, and how to reproduce every figure.
 
 ## APIs and authentication
 - `API catalog -> https://homeup.sg/.well-known/api-catalog`: Machine-readable index of public JSON APIs.
@@ -40,6 +41,13 @@ Send `Accept: text/markdown` on any public HTML page to receive a markdown repre
 - Fixed seller fees (before GST): HDB $1,999, condo/EC $4,999, landed $9,999
 - 1,000+ transactions closed; 120+ active listings
 - Parent brand owner: Haus Plus Pte. Ltd., UEN 202538756D
+
+## CEA-verified rankings, 2025 calendar year
+Computed from the Council for Estate Agencies' Salespersons' Property Transaction Records (Residential), data.gov.sg. Resale only; new sale is excluded. Rank is by transaction count within a single category, measured against the number of salespersons who recorded at least one transaction in that category. Full method: https://homeup.sg/track-record
+- In the 2025 calendar year, Dennis Lim (CEA R055990G) recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category in Singapore.
+- In the 2025 calendar year, Yeo Tong Boon (CEA R069651E) recorded 25 private residential resale transactions on the buyer side, ranking 1st of 6,284 salespersons active in that category in Singapore.
+- In the 2025 calendar year, Yeo Tong Boon recorded 22 HDB resale transactions on the seller side, ranking 62nd of 8,785 salespersons active in that category in Singapore, which places him in the top 1% nationally.
+- In the 2024 calendar year, Dennis Lim recorded 72 private residential resale transactions on the seller side, ranking 2nd of 7,800 salespersons active in that category in Singapore.
 
 ## Contact
 - Website: https://homeup.sg
