@@ -73,7 +73,7 @@ export const AGENTS: Agent[] = [
       "Dennis brings extensive experience across Singapore's property market, with 5 private property investments including a landed home in Singapore held under trust and 3 properties in China.",
     quoteThirdPerson: true,
     accolades: [
-      "BBA (Hons), NUS¹",
+      "BBA (Honours), NUS¹",
       "Asian Business Fellowship Award, MTI²",
       "#2 Transactor³ in Singapore | 2024 (Private Residential Resale)",
       "#1 Transactor³ in Singapore | 2025 (Private Residential Resale)",
@@ -81,7 +81,7 @@ export const AGENTS: Agent[] = [
     accoladeFootnotes: [
       {
         marker: "¹",
-        text: "Bachelor of Business Administration (Hons), NUS",
+        text: "Bachelor of Business Administration (Honours), NUS",
       },
       {
         marker: "²",
@@ -133,7 +133,7 @@ export const AGENTS: Agent[] = [
       "Having completed hundreds of property transactions across Singapore, Tong Boon has helped hundreds of families successfully upgrade and acquire their next home. His market insights and transaction experience have led to invitations from CNA and features on 99.co, where he shares commentary on Singapore's residential property market as a subject matter expert.",
     quoteThirdPerson: true,
     accolades: [
-      "NUS Real Estate (Hons)",
+      "NUS Real Estate (Honours)",
       "Top Agent Under 40 | C&H 2025",
       "#1 Transactor in Agency | C&H 2025 (Private Residential Purchase)¹",
       "#1 Transactor in Singapore | 2025 (Private Resale Purchase)²",
@@ -218,7 +218,7 @@ export const AGENTS: Agent[] = [
     quote:
       "Kenji Ching provides patient, practical support for homeowners navigating resale or their first upgrade. He is known for responsive follow-through on viewings and offers, with experience across HDB and private property transactions from listing through completion.",
     quoteThirdPerson: true,
-    accolades: ["BBA (Hons), NUS", "Top Rookie | C&H 2025"],
+    accolades: ["BBA (Honours), NUS", "Top Rookie | C&H 2025"],
     about: [],
     specialties: ["First-time sellers", "HDB resale", "Viewing coordination"],
     social: {
