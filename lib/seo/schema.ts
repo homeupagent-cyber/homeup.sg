@@ -3,6 +3,7 @@ import { getAgentShareImage } from "@/lib/data/agents";
 import type { FaqItem } from "@/lib/data/faqs";
 import type { PlaybookVideo } from "@/lib/data/playbook";
 import type { Listing } from "@/lib/listings/types";
+import { TRACK_RECORD_META } from "@/lib/data/track-record";
 import { getPublicListingUrl } from "@/lib/listings/utils";
 import {
   externalVideoWatchUrl,
@@ -609,5 +610,65 @@ export function serviceSchema({
         })),
       },
     }),
+  };
+}
+
+/**
+ * Citation graph for /track-record. The WebPage node points at the sitewide
+ * `#website` and `#organization` nodes rather than defining its own, so the page
+ * attaches to the existing entity graph instead of creating a parallel one.
+ */
+export function trackRecordSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/track-record#webpage`,
+        url: `${SITE_URL}/track-record`,
+        name: "Our Track Record | HomeUP, Verified Against CEA Records",
+        description:
+          "Two HomeUP advisors rank #1 in Singapore for private residential resale, with a top 1% HDB seller-side result, in CEA's published transaction records.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": ORG_ID },
+        dateModified: TRACK_RECORD_META.lastVerifiedIso,
+      },
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/agents/dennis-lim#person`,
+        name: "Dennis Lim",
+        alternateName: "Lim Swee Ser",
+        identifier: "R055990G",
+        jobTitle: "Co-Founder",
+        worksFor: { "@id": ORG_ID },
+        url: `${SITE_URL}/agents/dennis-lim`,
+      },
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/agents/yeo-tong-boon#person`,
+        name: "Yeo Tong Boon",
+        identifier: "R069651E",
+        jobTitle: "Co-Founder",
+        worksFor: { "@id": ORG_ID },
+        url: `${SITE_URL}/agents/yeo-tong-boon`,
+        alumniOf: {
+          "@type": "CollegeOrUniversity",
+          name: "National University of Singapore",
+        },
+      },
+      {
+        "@type": "Dataset",
+        "@id": `${SITE_URL}/track-record#dataset`,
+        name: "CEA Salespersons' Property Transaction Records (Residential)",
+        description:
+          "Published transaction records for licensed property salespersons in Singapore, used as the source for all figures on this page.",
+        creator: {
+          "@type": "GovernmentOrganization",
+          name: "Council for Estate Agencies",
+        },
+        isAccessibleForFree: true,
+        url: "https://data.gov.sg",
+      },
+    ],
   };
 }

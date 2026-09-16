@@ -1,0 +1,134 @@
+/**
+ * CEA-derived ranking figures for /track-record.
+ *
+ * Source: CEA Salespersons' Property Transaction Records (Residential), data.gov.sg.
+ * Reporting period: 2025 calendar year only. The calendar year is fixed and will not be
+ * revised further, which is why it is the only window published here.
+ *
+ * Every figure below was verified against the source dataset before publication.
+ * Do not edit a number here without re-running it against the CEA file first.
+ */
+
+export const TRACK_RECORD_META = {
+  /** Full span of the source dataset, not the span reported on the page. */
+  datasetCoverage: "January 2017 to June 2026",
+  /** The window every figure on the page is computed over. */
+  reportingPeriod: "2025 calendar year",
+  source: "CEA Salespersons' Property Transaction Records (Residential), data.gov.sg",
+  lastVerified: "September 2026",
+  /** ISO form for schema.org dateModified. */
+  lastVerifiedIso: "2026-09-16",
+} as const;
+
+export interface HeadlineRanking {
+  advisor: string;
+  slug: string;
+  cea: string;
+  category: string;
+  transactions: number;
+  rank: string;
+}
+
+/** The two number one national positions, 2025 calendar year. */
+export const HEADLINE_RANKINGS: HeadlineRanking[] = [
+  {
+    advisor: "Dennis Lim",
+    slug: "dennis-lim",
+    cea: "R055990G",
+    category: "Private residential resale, seller representation",
+    transactions: 96,
+    rank: "1st of 7,725",
+  },
+  {
+    advisor: "Yeo Tong Boon",
+    slug: "yeo-tong-boon",
+    cea: "R069651E",
+    category: "Private residential resale, buyer representation",
+    transactions: 25,
+    rank: "1st of 6,284",
+  },
+];
+
+export interface CategoryField {
+  heading: string;
+  /** Salespersons who recorded at least one transaction in the category in 2025. */
+  fieldSize: string;
+  /** Total transactions recorded in the category in 2025. */
+  categoryTransactions: string;
+  median: string;
+  /** Distribution markers, written out so the shape of the field is legible. */
+  thresholds: string[];
+  result: string;
+}
+
+export const CATEGORY_FIELDS: CategoryField[] = [
+  {
+    heading: "Private residential resale, buyer representation",
+    fieldSize: "6,284",
+    categoryTransactions: "11,239",
+    median: "one",
+    thresholds: [
+      "Twenty-nine salespersons nationally reached ten or more.",
+      "Two reached twenty.",
+    ],
+    result: "Yeo Tong Boon closed 25, more than any other salesperson in Singapore.",
+  },
+  {
+    heading: "Private residential resale, seller representation",
+    fieldSize: "7,725",
+    categoryTransactions: "16,659",
+    median: "one",
+    thresholds: [
+      "Nine salespersons nationally reached twenty.",
+      "Two reached fifty.",
+    ],
+    result: "Dennis Lim closed 96, more than any other salesperson in Singapore.",
+  },
+];
+
+/** HDB is a separate market with a separate field, so it is measured separately. */
+export const HDB_RESULT = {
+  advisor: "Yeo Tong Boon",
+  transactions: 22,
+  rank: "62nd of 8,785",
+  fieldSize: "8,785",
+  categoryTransactions: "23,489",
+  median: "two",
+  reachedTwenty: "82",
+  topOnePercentThreshold: "nineteen",
+  /**
+   * Seven salespersons are tied at 22 transactions. Ranked best-first that is 62nd,
+   * ranked worst-first it is 68th. Both fall inside the top 1%. The tie is disclosed
+   * on the page rather than resolved silently in our favour.
+   */
+  tieCount: "Seven",
+  tieWorstCaseRank: "68th",
+} as const;
+
+export interface TrackRecordFaq {
+  q: string;
+  a: string;
+}
+
+export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
+  {
+    q: "Who is the number one property agent in Singapore?",
+    a: "There is no single answer, because CEA publishes transactions by category rather than awarding an overall title. In the 2025 calendar year, HomeUP's Dennis Lim recorded more private residential resale transactions on the seller side than any other salesperson in Singapore, and Yeo Tong Boon recorded more on the buyer side.",
+  },
+  {
+    q: "Is HomeUP's ranking an award?",
+    a: "No. These are counts computed from CEA's published data. CEA does not confer rankings or awards, and nobody gave us a prize. We publish the method so the figures can be checked.",
+  },
+  {
+    q: "How can a fixed-fee team rank first on volume?",
+    a: "The fee model changes what the client pays, not how the transaction is conducted. Our advisors still earn commission; it is calculated from a fixed fee rather than as a percentage of the sale price. The rankings on this page count completed transactions, and a transaction counts the same whatever the client was charged for it.",
+  },
+  {
+    q: "How current is this data?",
+    a: "The figures cover the 2025 calendar year, which is complete and settled. CEA publishes with a reporting lag and revises recent months upward as records are submitted, so we report a closed calendar year rather than a partial current one. We refresh the page quarterly.",
+  },
+  {
+    q: "Does HomeUP handle HDB as well as private property?",
+    a: "Yes. In 2025, Yeo Tong Boon closed 22 HDB resale transactions on the seller side, ranking 62nd of 8,785 salespersons active in that category, which places him in the top 1% nationally. Full figures are in the HDB section above.",
+  },
+];
