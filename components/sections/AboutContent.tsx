@@ -148,12 +148,19 @@ export function AboutContent({
             ))}
           </StaggerContainer>
 
-          <FadeInUp delay={0.15} className="mt-8 text-center">
+          <FadeInUp delay={0.15} className="mt-8 flex flex-col items-center gap-3 text-center">
             <Link
               href="/agents"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-700"
             >
               View full agent profiles
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/track-record"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:text-primary-700"
+            >
+              See our verified track record
               <ArrowRight className="h-4 w-4" />
             </Link>
           </FadeInUp>

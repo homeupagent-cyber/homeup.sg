@@ -9,6 +9,9 @@ import { AgentSocialLinks } from "@/components/ui/AgentSocialLinks";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { youtubeThumbnail } from "@/lib/youtube";
 
+/** Only the advisors whose figures actually appear on /track-record link to it. */
+const TRACK_RECORD_AGENT_SLUGS = ["dennis-lim", "yeo-tong-boon"];
+
 interface AgentProfileProps {
   agent: Agent;
   profileVideos: AgentProfileVideo[];
@@ -133,6 +136,14 @@ export function AgentProfile({ agent, profileVideos }: AgentProfileProps) {
                         <AccoladeFootnote key={footnote.marker} footnote={footnote} />
                       ))}
                     </div>
+                  )}
+                  {TRACK_RECORD_AGENT_SLUGS.includes(agent.slug) && (
+                    <Link
+                      href="/track-record"
+                      className="mt-4 inline-flex text-sm font-semibold text-primary-600 transition hover:text-primary-700"
+                    >
+                      See our verified track record
+                    </Link>
                   )}
                 </div>
               )}
