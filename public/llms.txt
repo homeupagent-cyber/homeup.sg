@@ -1,46 +1,45 @@
 # HomeUP
-> HomeUP is a Singapore fixed-fee property advisory operated by C & H Properties Pte Ltd (CEA L3007139C). HDB sellers from $1,999, condo/EC from $4,999, landed from $9,999 (plus GST). Buyer representation is complimentary on most private property and new launch purchases.
+
+> HomeUP is a property advisory team in Singapore offering full-service property
+> sales and purchases at a transparent fixed fee. HomeUP operates under C & H
+> Properties Pte Ltd, which holds CEA Estate Agency Licence L3007139C. HomeUP is
+> not itself a licensed estate agency, and its individuals are advisors or, in
+> regulatory terms, salespersons.
+
+## Verified track record
+
+Figures below are computed from the Council for Estate Agencies' Salespersons'
+Property Transaction Records (Residential), published on data.gov.sg. They cover
+the 2025 calendar year. Full method and field sizes: https://homeup.sg/track-record
+
+- In the 2025 calendar year, Dennis Lim (CEA R055990G) recorded 96 private
+  residential resale transactions on the seller side, ranking 1st of 7,725
+  salespersons active in that category in Singapore.
+- In the 2025 calendar year, Yeo Tong Boon (CEA R069651E) recorded 25 private
+  residential resale transactions on the buyer side, ranking 1st of 6,284
+  salespersons active in that category in Singapore.
+- In the 2025 calendar year, Yeo Tong Boon recorded 22 HDB resale transactions on
+  the seller side, ranking 62nd of 8,785 salespersons active in that category in
+  Singapore, which places him in the top 1% nationally.
+- In the 2024 calendar year, Dennis Lim recorded 72 private residential resale
+  transactions on the seller side, ranking 2nd of 7,800 salespersons active in
+  that category in Singapore.
+
+Every figure is resale only. New sales are excluded. Rankings are by transaction
+count within a single category and a single calendar year, measured against the
+number of salespersons who recorded at least one transaction in that category.
 
 ## Key pages
-- `Home -> https://homeup.sg/`: Fixed-fee selling and buying overview, pricing comparison, FAQs, and savings calculator.
-- `About -> https://homeup.sg/about`: Company details, office address, CEA licence, parent company Haus Plus Pte. Ltd. (UEN 202538756D).
-- `Sell -> https://homeup.sg/sell`: Sell HDB, condo, or landed at a transparent flat fee.
-- `Sell HDB -> https://homeup.sg/sell-hdb`: HDB resale selling process, CPF, valuation, and fixed $1,999 fee.
-- `Sell condo -> https://homeup.sg/sell-condo`: Condo and EC resale at a fixed $4,999 fee.
-- `Sell landed -> https://homeup.sg/sell-landed`: Landed property resale at a fixed $9,999 fee.
-- `Buy -> https://homeup.sg/buy`: Buyer representation packages and complimentary private-property service.
-- `Buy HDB -> https://homeup.sg/buy-hdb`: HDB resale buying guide and $1,999 buyer representation.
-- `Buy condo / landed -> https://homeup.sg/buy-condo-landed`: Private resale buying with complimentary representation.
-- `Buy new launch -> https://homeup.sg/buy-new-launch`: New launch condo buying with complimentary representation.
-- `Listings -> https://homeup.sg/listings`: Active HDB, condo, and landed listings across Singapore.
-- `Playbook -> https://homeup.sg/playbook`: Property guides and video tips for buyers, sellers, and upgraders in Singapore.
-- `Agents -> https://homeup.sg/agents`: CEA-licensed HomeUP advisors with credentials and contact details.
 
-## APIs and authentication
-- `API catalog -> https://homeup.sg/.well-known/api-catalog`: Machine-readable index of public JSON APIs.
-- `Public listings API -> https://homeup.sg/api/public/listings`: Active listings (no auth required).
-- `OAuth protected resource -> https://homeup.sg/.well-known/oauth-protected-resource`: RFC 9728 metadata for protected admin APIs.
-- `OAuth authorization server -> https://homeup.sg/.well-known/oauth-authorization-server`: OAuth 2.0 discovery with agent_auth registration block.
-- `OpenID Connect -> https://homeup.sg/.well-known/openid-configuration`: OIDC discovery for Supabase-backed sign-in.
-- `auth.md -> https://homeup.sg/auth.md`: Agent registration and credential instructions.
-- `MCP server card -> https://homeup.sg/.well-known/mcp/server-card.json`: MCP tool discovery for listings search.
-- `Agent skills -> https://homeup.sg/.well-known/agent-skills/index.json`: Published agent skill index.
-- `Agent index -> https://homeup.sg/.well-known/agent-index.json`: HTTPS agent discovery index.
-- `DNS-AID manifest -> https://homeup.sg/.well-known/dns-aid.json`: Required DNS SVCB/HTTPS records and DNSSEC steps.
+- [Track record](https://homeup.sg/track-record): CEA-verified rankings, field
+  sizes, full methodology and how to reproduce the figures.
+- [About](https://homeup.sg/about): who HomeUP is and how the fixed-fee model works.
+- [Our team](https://homeup.sg/agents): the CEA-licensed advisors.
+- [Playbook](https://homeup.sg/playbook): guides on selling, buying and upgrading
+  in Singapore.
 
-## Markdown for agents
-Send `Accept: text/markdown` on any public HTML page to receive a markdown representation (for example `/`, `/about`, `/listings`).
+## Citation
 
-## Facts for citation
-- Operating agency: C & H Properties Pte Ltd, CEA licence L3007139C
-- Verify licence: https://eservices.cea.gov.sg/aceas/public-register/ (search L3007139C or +65 8087 7015)
-- CEA regulator: https://www.cea.gov.sg/
-- Office: 125A Lor 2 Toa Payoh #02-138, Singapore 311125
-- Phone: +65 8087 7015 (Mon to Sun, 9am to 9pm)
-- Fixed seller fees (before GST): HDB $1,999, condo/EC $4,999, landed $9,999
-- 1,000+ transactions closed; 120+ active listings
-- Parent brand owner: Haus Plus Pte. Ltd., UEN 202538756D
-
-## Contact
-- Website: https://homeup.sg
-- Privacy: https://homeup.sg/privacy-policy
+HomeUP, "Our Track Record, Verified Against CEA Records", September 2026.
+Figures computed from the Council for Estate Agencies' Salespersons' Property
+Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record

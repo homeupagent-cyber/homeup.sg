@@ -27,6 +27,12 @@ export interface HeadlineRanking {
   category: string;
   transactions: number;
   rank: string;
+  /**
+   * A single self-contained sentence carrying advisor, count, category, year, rank,
+   * field size and source. Written this way so an AI answer engine or a journalist can
+   * lift one sentence and still have an accurate, attributable claim.
+   */
+  statement: string;
 }
 
 /** The two number one national positions, 2025 calendar year. */
@@ -38,6 +44,8 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     category: "Private residential resale, seller representation",
     transactions: 96,
     rank: "1st of 7,725",
+    statement:
+      "In the 2025 calendar year, Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category in Singapore, in the Council for Estate Agencies' published transaction records.",
   },
   {
     advisor: "Yeo Tong Boon",
@@ -46,6 +54,8 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     category: "Private residential resale, buyer representation",
     transactions: 25,
     rank: "1st of 6,284",
+    statement:
+      "In the 2025 calendar year, Yeo Tong Boon recorded 25 private residential resale transactions on the buyer side, ranking 1st of 6,284 salespersons active in that category in Singapore, in the Council for Estate Agencies' published transaction records.",
   },
 ];
 
@@ -58,6 +68,8 @@ export const DENNIS_PRIOR_YEAR = {
   transactions: 72,
   rank: "2nd of 7,800",
   category: "Private residential resale, seller representation",
+  statement:
+    "In the 2024 calendar year, Dennis Lim recorded 72 private residential resale transactions on the seller side, ranking 2nd of 7,800 salespersons active in that category in Singapore.",
 } as const;
 
 export interface CategoryField {
@@ -82,7 +94,8 @@ export const CATEGORY_FIELDS: CategoryField[] = [
       "Twenty-nine salespersons nationally reached ten or more.",
       "Two reached twenty.",
     ],
-    result: "Yeo Tong Boon closed 25, more than any other salesperson in Singapore.",
+    result:
+      "Yeo Tong Boon closed 25 private residential resale transactions on the buyer side in 2025, more than any other salesperson in Singapore.",
   },
   {
     heading: "Private residential resale, seller representation",
@@ -93,7 +106,8 @@ export const CATEGORY_FIELDS: CategoryField[] = [
       "Nine salespersons nationally reached twenty.",
       "Two reached fifty.",
     ],
-    result: "Dennis Lim closed 96, more than any other salesperson in Singapore.",
+    result:
+      "Dennis Lim closed 96 private residential resale transactions on the seller side in 2025, more than any other salesperson in Singapore.",
   },
 ];
 
@@ -114,7 +128,13 @@ export const HDB_RESULT = {
    */
   tieCount: "Seven",
   tieWorstCaseRank: "68th",
+  statement:
+    "In the 2025 calendar year, Yeo Tong Boon recorded 22 HDB resale transactions on the seller side, ranking 62nd of 8,785 salespersons active in that category in Singapore, which places him in the top 1% nationally.",
 } as const;
+
+/** Pre-written attribution for journalists, researchers and AI answer engines. */
+export const PAGE_CITATION =
+  "HomeUP, “Our Track Record, Verified Against CEA Records”, September 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";
 
 export interface TrackRecordFaq {
   q: string;

@@ -5,6 +5,7 @@ import {
   DENNIS_PRIOR_YEAR,
   HDB_RESULT,
   HEADLINE_RANKINGS,
+  PAGE_CITATION,
   TRACK_RECORD_FAQS,
   TRACK_RECORD_META,
 } from "@/lib/data/track-record";
@@ -59,10 +60,14 @@ export function TrackRecordContent() {
         </div>
       </section>
 
-      <section aria-label="The headline" className={`section-padding bg-white ${SECTION_RULE}`}>
+      <section
+        id="rankings-2025"
+        aria-label="Who ranked first in Singapore in 2025"
+        className={`section-padding bg-white ${SECTION_RULE}`}
+      >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">The headline</h2>
+            <h2 className="section-title !text-left">Who ranked first in Singapore in 2025</h2>
             <p className={`mt-4 ${PROSE}`}>
               Two HomeUP advisors hold the{" "}
               <strong className="font-semibold text-neutral-900">
@@ -92,25 +97,20 @@ export function TrackRecordContent() {
                       <dd className="mt-0.5 text-2xl font-bold text-primary-700">{row.rank}</dd>
                     </div>
                   </dl>
+                  <p className="speakable-ranking mt-5 border-t border-neutral-200 pt-5 text-sm leading-relaxed text-neutral-700">
+                    {row.statement}
+                  </p>
                 </div>
               ))}
             </div>
 
             <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-6">
               <h3 className="text-sm font-semibold text-neutral-900">
-                Dennis Lim, the year before
+                Dennis Lim in {DENNIS_PRIOR_YEAR.year}, the year before
               </h3>
-              <p className={`mt-2 ${PROSE}`}>
-                In {DENNIS_PRIOR_YEAR.year}, in the same category, he closed{" "}
-                <strong className="font-semibold text-neutral-900">
-                  {DENNIS_PRIOR_YEAR.transactions} transactions
-                </strong>{" "}
-                and ranked{" "}
-                <strong className="font-semibold text-neutral-900">
-                  {DENNIS_PRIOR_YEAR.rank}
-                </strong>{" "}
-                nationally. The {DENNIS_PRIOR_YEAR.year} figure is resale only, on the same
-                definition used everywhere else on this page.
+              <p className={`speakable-ranking mt-2 ${PROSE}`}>
+                {DENNIS_PRIOR_YEAR.statement} That {DENNIS_PRIOR_YEAR.year} figure is resale
+                only, on the same definition used everywhere else on this page.
               </p>
             </div>
           </div>
@@ -118,12 +118,15 @@ export function TrackRecordContent() {
       </section>
 
       <section
-        aria-label="What first place means"
+        id="the-field"
+        aria-label="How many salespersons were in each category"
         className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
       >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">What first place actually means</h2>
+            <h2 className="section-title !text-left">
+              How many salespersons were in each category
+            </h2>
             <p className={`mt-4 ${PROSE}`}>
               A rank is only meaningful next to the field it was measured against. Here is the
               shape of each category in 2025.
@@ -159,10 +162,14 @@ export function TrackRecordContent() {
         </div>
       </section>
 
-      <section aria-label="HDB resale 2025" className={`section-padding bg-white ${SECTION_RULE}`}>
+      <section
+        id="hdb-2025"
+        aria-label="HDB resale rankings 2025"
+        className={`section-padding bg-white ${SECTION_RULE}`}
+      >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">HDB resale, 2025</h2>
+            <h2 className="section-title !text-left">HDB resale rankings, 2025</h2>
             <p className={`mt-4 ${PROSE}`}>
               The two number one positions on this page are in private property. HDB is a
               separate market with a separate field, so it is measured separately.
@@ -171,6 +178,7 @@ export function TrackRecordContent() {
             <h3 className="mt-10 text-lg font-semibold text-neutral-900">
               Yeo Tong Boon, top 1% in Singapore, HDB resale seller representation, 2025
             </h3>
+            <p className={`speakable-ranking mt-3 ${PROSE}`}>{HDB_RESULT.statement}</p>
             <ul className="mt-4 flex list-disc flex-col gap-2 pl-5">
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">
@@ -228,12 +236,15 @@ export function TrackRecordContent() {
       </section>
 
       <section
-        aria-label="For HDB sellers"
+        id="hdb-sellers"
+        aria-label="Why these rankings matter if you are selling an HDB flat"
         className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
       >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">For HDB sellers</h2>
+            <h2 className="section-title !text-left">
+              Why private resale rankings matter if you are selling an HDB flat
+            </h2>
             <p className={`mt-4 ${PROSE}`}>
               If you are selling an HDB flat, two of the rankings on this page are in a different
               market. Here is why they still matter to you, alongside the HDB result above.
@@ -253,10 +264,16 @@ export function TrackRecordContent() {
         </div>
       </section>
 
-      <section aria-label="Methodology" className={`section-padding bg-white ${SECTION_RULE}`}>
+      <section
+        id="methodology"
+        aria-label="Methodology"
+        className={`section-padding bg-white ${SECTION_RULE}`}
+      >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">Methodology</h2>
+            <h2 className="section-title !text-left">
+              Methodology: how these rankings are calculated
+            </h2>
             <ul className="mt-6 flex list-disc flex-col gap-3 pl-5">
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">Source:</strong> CEA
@@ -315,12 +332,13 @@ export function TrackRecordContent() {
       </section>
 
       <section
-        aria-label="Verify this yourself"
+        id="verify"
+        aria-label="How to verify these figures yourself"
         className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
       >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">Verify this yourself</h2>
+            <h2 className="section-title !text-left">How to verify these figures yourself</h2>
             <ul className="mt-6 flex list-disc flex-col gap-3 pl-5">
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">CEA Public Register:</strong>{" "}
@@ -360,11 +378,26 @@ export function TrackRecordContent() {
               If you reproduce these figures and get a different answer, tell us and we will
               either correct the page or show you our working.
             </p>
+
+            <div
+              id="cite"
+              className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6"
+            >
+              <h3 className="text-sm font-semibold text-neutral-900">Cite this page</h3>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-600">{PAGE_CITATION}</p>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-600">
+                Individual sections can be linked directly: the 2025 rankings at{" "}
+                <code className="text-neutral-900">#rankings-2025</code>, the HDB result at{" "}
+                <code className="text-neutral-900">#hdb-2025</code>, and the method at{" "}
+                <code className="text-neutral-900">#methodology</code>.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <section
+        id="faq"
         aria-label="Frequently asked questions"
         className={`section-padding bg-white ${SECTION_RULE}`}
       >

@@ -632,6 +632,12 @@ export function trackRecordSchema() {
         isPartOf: { "@id": `${SITE_URL}/#website` },
         about: { "@id": ORG_ID },
         dateModified: TRACK_RECORD_META.lastVerifiedIso,
+        lastReviewed: TRACK_RECORD_META.lastVerifiedIso,
+        citation: { "@id": `${SITE_URL}/track-record#dataset` },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: [".speakable-ranking"],
+        },
       },
       {
         "@type": "Person",
@@ -668,6 +674,14 @@ export function trackRecordSchema() {
         },
         isAccessibleForFree: true,
         url: "https://data.gov.sg",
+        temporalCoverage: "2017-01/2026-06",
+        spatialCoverage: { "@type": "Country", name: "Singapore" },
+        license: "https://data.gov.sg/open-data-licence",
+        includedInDataCatalog: {
+          "@type": "DataCatalog",
+          name: "data.gov.sg",
+          url: "https://data.gov.sg",
+        },
       },
     ],
   };
