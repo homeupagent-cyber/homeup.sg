@@ -69,7 +69,7 @@ export function TrackRecordContent() {
           <div className="mx-auto max-w-3xl">
             <h2 className="section-title !text-left">Who ranked first in Singapore in 2025</h2>
             <p className={`mt-4 ${PROSE}`}>
-              Two HomeUP advisors hold the{" "}
+              Both of HomeUP&apos;s co-founders hold the{" "}
               <strong className="font-semibold text-neutral-900">
                 number one position in Singapore
               </strong>{" "}
@@ -83,7 +83,13 @@ export function TrackRecordContent() {
                   key={row.slug}
                   className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6"
                 >
-                  <h3 className="text-lg font-semibold text-neutral-900">{row.advisor}</h3>
+                  <h3 className="flex flex-wrap items-center gap-x-2 text-lg font-semibold text-neutral-900">
+                    {row.advisor}
+                    <span aria-hidden="true" className="font-bold text-neutral-400">
+                      ·
+                    </span>
+                    <span className="text-sm font-semibold text-primary-700">{row.role}</span>
+                  </h3>
                   <p className="mt-1 text-sm text-neutral-600">{row.category}</p>
                   <dl className="mt-5 flex flex-col gap-4 border-t border-neutral-200 pt-5">
                     <div>
