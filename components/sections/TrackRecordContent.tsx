@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import {
   CATEGORY_FIELDS,
   DENNIS_PRIOR_YEAR,
+  HDB_DIVISION,
   HDB_RESULT,
   HEADLINE_RANKINGS,
   PAGE_CITATION,
@@ -246,28 +247,32 @@ export function TrackRecordContent() {
 
       <section
         id="hdb-sellers"
-        aria-label="Why these rankings matter if you are selling an HDB flat"
+        aria-label="Is HomeUP strong in HDB"
         className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
       >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">
-              Why private resale rankings matter if you are selling an HDB flat
-            </h2>
+            <h2 className="section-title !text-left">Is HomeUP strong in HDB?</h2>
             <p className={`mt-4 ${PROSE}`}>
-              If you are selling an HDB flat, two of the rankings on this page are in a different
-              market. Here is why they still matter to you, alongside the HDB result above.
+              Yes. HDB is led by co-founder {HDB_DIVISION.leadAdvisor} alongside{" "}
+              {HDB_DIVISION.partner}, a partner with {HDB_DIVISION.partnerTenure} in HDB resale
+              and {HDB_DIVISION.partnerTransactions} HDB transactions to his name.
+            </p>
+            <p className={`speakable-ranking mt-4 ${PROSE}`}>{HDB_RESULT.statement}</p>
+            <p className={`mt-4 ${PROSE}`}>
+              Between them they run the HDB side of the business, so an owner selling a flat gets
+              the same method and the same fixed fee as everyone else we act for.
             </p>
             <p className={`mt-4 ${PROSE}`}>
-              Buyer representation volume is a direct measure of how many active buyers an
-              advisory team is working with at any time. When your flat is listed with us, it is
-              being shown to the buyer pipeline of the salesperson who represented more private
-              resale buyers than anyone else in Singapore, plus the rest of our team.
+              The pairing also covers the upgrade. If you are selling an HDB flat in order to buy
+              private, your purchase is handled by the salesperson who represented more private
+              residential resale buyers in 2025 than anyone else in Singapore.
             </p>
-            <p className={`mt-4 ${PROSE}`}>
-              Upgrader demand is also the main driver of HDB resale pricing at the upper end. A
-              team that transacts heavily in private resale sees where that demand is moving
-              before it shows up in HDB data.
+            <p className="mt-6 rounded-2xl bg-white p-6 text-sm leading-relaxed text-neutral-600">
+              <strong className="font-semibold text-neutral-900">
+                Where {HDB_DIVISION.partner}&apos;s figure comes from.
+              </strong>{" "}
+              {HDB_DIVISION.partnerSourceNote}
             </p>
           </div>
         </div>

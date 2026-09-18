@@ -140,6 +140,23 @@ export const HDB_RESULT = {
 export const PAGE_CITATION =
   "HomeUP, “Our Track Record, Verified Against CEA Records”, September 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";
 
+/**
+ * The HDB division. Edmund Lee's total is agency-verified by C & H Properties rather
+ * than computed from CEA's published file, because most of it predates that dataset,
+ * which begins January 2017. The page states that distinction rather than blurring it.
+ */
+export const HDB_DIVISION = {
+  leadAdvisor: "Yeo Tong Boon",
+  leadRole: "Co-Founder",
+  partner: "Edmund Lee",
+  partnerRole: "Partner",
+  partnerCea: "R023385H",
+  partnerTenure: "three decades",
+  partnerTransactions: "more than 800",
+  partnerSourceNote:
+    "Edmund Lee's total of more than 800 HDB transactions spans three decades and is verified by C & H Properties. CEA's published dataset begins in January 2017, so most of that record predates it. That figure is agency-verified rather than computed from public data, and we label it as such.",
+} as const;
+
 export interface TrackRecordFaq {
   q: string;
   a: string;
