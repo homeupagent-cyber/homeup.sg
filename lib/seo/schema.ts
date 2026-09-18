@@ -1,8 +1,9 @@
 import type { Agent } from "@/lib/data/agents";
-import { getAgentShareImage } from "@/lib/data/agents";
+import { getAgentBySlug, getAgentShareImage } from "@/lib/data/agents";
 import type { FaqItem } from "@/lib/data/faqs";
 import type { PlaybookVideo } from "@/lib/data/playbook";
 import type { Listing } from "@/lib/listings/types";
+import { getPublishedPressEntries, PRESS_META, type PressEntry } from "@/lib/data/press";
 import { TRACK_RECORD_META } from "@/lib/data/track-record";
 import { getPublicListingUrl } from "@/lib/listings/utils";
 import {
@@ -127,7 +128,7 @@ export function organizationSchema() {
     "@type": ["Organization", "RealEstateAgent", "LocalBusiness"],
     "@id": ORG_ID,
     name: "HomeUP",
-    alternateName: ["HOMEUP", LEGAL_NAME],
+    alternateName: ["HOMEUP", "HomeUP.sg", LEGAL_NAME],
     legalName: LEGAL_NAME,
     parentOrganization: {
       "@type": "Organization",
@@ -683,6 +684,134 @@ export function trackRecordSchema() {
           url: "https://data.gov.sg",
         },
       },
+    ],
+  };
+}
+
+
+function pressDurationToIso(duration: string): string | undefined {
+  const parts = duration.split(":").map(Number);
+  if (parts.some(Number.isNaN)) return undefined;
+  if (parts.length === 2) return `PT${parts[0]}M${parts[1]}S`;
+  if (parts.length === 3) return `PT${parts[0]}H${parts[1]}M${parts[2]}S`;
+  return undefined;
+}
+
+/**
+ * One node per published coverage item. Radio segments become PodcastEpisode inside a
+ * PodcastSeries, written pieces become NewsArticle, and a release we issue ourselves is
+ * an Article published by HomeUP. Every node is `about` the organisation and `mentions`
+ * the advisors it features, so the coverage attaches to the existing entity graph.
+ */
+function pressCoverageNode(entry: PressEntry) {
+  const id = `${SITE_URL}/press#${entry.slug}`;
+  const isRelease = entry.kind === "press-release";
+  const type = isRelease ? "Article" : entry.medium === "Radio" ? "PodcastEpisode" : "NewsArticle";
+  const duration = entry.duration ? pressDurationToIso(entry.duration) : undefined;
+
+  return {
+    "@type": type,
+    "@id": id,
+    name: entry.headline,
+    ...(type === "NewsArticle" && { headline: entry.headline }),
+    description: entry.statement ?? entry.summary,
+    ...(entry.summary && entry.statement && { abstract: entry.summary }),
+    ...(entry.url && { url: entry.url }),
+    ...(entry.date.length === 10 && { datePublished: entry.date }),
+    ...(duration && { duration }),
+    inLanguage: "en-SG",
+    publisher: isRelease
+      ? { "@id": ORG_ID }
+      : {
+          "@type": "NewsMediaOrganization",
+          name: entry.outlet,
+          ...(entry.outletUrl && { url: entry.outletUrl }),
+        },
+    ...(type === "PodcastEpisode" &&
+      entry.programme && {
+        partOfSeries: {
+          "@type": "PodcastSeries",
+          name: entry.programme,
+          ...(entry.programmeUrl && { url: entry.programmeUrl }),
+        },
+      }),
+    ...(entry.presenters?.length && {
+      actor: entry.presenters.map((name) => ({ "@type": "Person", name })),
+    }),
+    about: { "@id": ORG_ID },
+    ...(entry.people.length > 0 && {
+      mentions: entry.people.map((slug) => ({ "@id": `${SITE_URL}/agents/${slug}#person` })),
+    }),
+  };
+}
+
+/**
+ * Citation graph for /press. Only published coverage is listed; upcoming entries stay
+ * out of structured data until they exist. The CollectionPage points at the sitewide
+ * `#website` and `#organization` nodes, and each featured advisor gets a Person node
+ * whose `subjectOf` lists the coverage they appear in.
+ */
+export function pressPageSchema() {
+  const published = getPublishedPressEntries();
+  const coverageIds = new Map<string, string[]>();
+  for (const entry of published) {
+    for (const slug of entry.people) {
+      const ids = coverageIds.get(slug) ?? [];
+      ids.push(`${SITE_URL}/press#${entry.slug}`);
+      coverageIds.set(slug, ids);
+    }
+  }
+
+  const people = [...coverageIds.entries()].flatMap(([slug, ids]) => {
+    const agent = getAgentBySlug(slug);
+    if (!agent) return [];
+    return [
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/agents/${slug}#person`,
+        name: agent.name,
+        url: `${SITE_URL}/agents/${slug}`,
+        ...(agent.profileTitle && { jobTitle: agent.profileTitle }),
+        worksFor: { "@id": ORG_ID },
+        subjectOf: ids.map((id) => ({ "@id": id })),
+      },
+    ];
+  });
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${SITE_URL}/press#webpage`,
+        url: `${SITE_URL}/press`,
+        name: "Press and Media | HomeUP in the News",
+        description:
+          "Media coverage of HomeUP, Singapore's fixed-fee property advisory, with press releases, spokespeople, boilerplate and brand assets for journalists.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": ORG_ID },
+        datePublished: PRESS_META.publishedIso,
+        dateModified: PRESS_META.lastUpdatedIso,
+        lastReviewed: PRESS_META.lastUpdatedIso,
+        inLanguage: "en-SG",
+        mainEntity: { "@id": `${SITE_URL}/press#coverage` },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: [".speakable-coverage", ".speakable-boilerplate"],
+        },
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${SITE_URL}/press#coverage`,
+        name: "Media coverage of HomeUP",
+        numberOfItems: published.length,
+        itemListElement: published.map((entry, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: pressCoverageNode(entry),
+        })),
+      },
+      ...people,
     ],
   };
 }

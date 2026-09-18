@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import { getListingBySlugServer, getActiveListingsServer } from "@/lib/listings/server-queries";
 import { formatListingPrice } from "@/lib/listings/public-utils";
+import {
+  getPressFaqs,
+  getPublishedPressEntries,
+  PRESS_BOILERPLATE,
+  PRESS_META,
+  PRESS_PAGE_CITATION,
+} from "@/lib/data/press";
 import { SITE_URL, CEA_LICENSE, LEGAL_NAME } from "@/lib/seo/constants";
 
 /** Rough token estimate for x-markdown-tokens (chars / 4). */
@@ -86,6 +93,36 @@ Buyer representation for Singapore property purchases.
 - [Buy Condo / Landed](${SITE_URL}/buy-condo-landed)
 - [Buy New Launch](${SITE_URL}/buy-new-launch)
 `,
+
+  "/press": () => {
+    const coverage = getPublishedPressEntries().map((entry) => {
+      const line = `- **${entry.dateLabel}, ${entry.outlet}${entry.programme ? `, ${entry.programme}` : ""}:** ${entry.statement ?? entry.summary}`;
+      return entry.url ? `${line} [Source](${entry.url})` : line;
+    });
+    const faqs = getPressFaqs().map((faq) => `### ${faq.q}\n\n${faq.a}`);
+    return `# HomeUP in the Press
+
+Media coverage of HomeUP, press releases, spokespeople and media resources. Last updated ${PRESS_META.lastUpdated}.
+
+## Coverage
+
+${coverage.join("\n")}
+
+## About HomeUP (boilerplate)
+
+${PRESS_BOILERPLATE}
+
+## Frequently asked questions
+
+${faqs.join("\n\n")}
+
+## Cite this page
+
+${PRESS_PAGE_CITATION}
+
+[Press page](${SITE_URL}/press) · [Track record](${SITE_URL}/track-record) · [About](${SITE_URL}/about)
+`;
+  },
 
   "/listings": () => "", // filled dynamically
 };

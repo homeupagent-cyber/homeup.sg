@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, Building2, Home, Info, Sparkles, Trees } from "lucide-react";
+import { BarChart3, Building2, Home, Info, Newspaper, Sparkles, Trees } from "lucide-react";
 import { Navbar1, type MenuItem } from "@/components/ui/shadcnblocks-com-navbar1";
 import { HomeUpLogo } from "@/components/ui/HomeUpLogo";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
@@ -76,6 +76,12 @@ export const HOMEUP_NAV_MENU: MenuItem[] = [
         description: "CEA-verified 2025 rankings",
         icon: <BarChart3 className="size-5 shrink-0 text-primary-600" />,
         url: "/track-record",
+      },
+      {
+        title: "Press",
+        description: "Media coverage and enquiries",
+        icon: <Newspaper className="size-5 shrink-0 text-amber-600" />,
+        url: "/press",
       },
     ],
   },
