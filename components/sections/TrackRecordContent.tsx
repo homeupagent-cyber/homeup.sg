@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TeamRecordSection } from "@/components/sections/TeamRecordSection";
@@ -81,14 +82,27 @@ export function TrackRecordContent() {
                   key={row.slug}
                   className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6"
                 >
-                  <h3 className="flex flex-wrap items-center gap-x-2 text-lg font-semibold text-neutral-900">
-                    {row.advisor}
-                    <span aria-hidden="true" className="font-bold text-neutral-400">
-                      ·
-                    </span>
-                    <span className="text-sm font-semibold text-primary-700">{row.role}</span>
-                  </h3>
-                  <p className="mt-1 text-sm text-neutral-600">{row.category}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-neutral-100">
+                      <Image
+                        src={row.photo}
+                        alt={row.advisor}
+                        fill
+                        className="object-cover object-top"
+                        sizes="56px"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="flex flex-wrap items-center gap-x-2 text-lg font-semibold text-neutral-900">
+                        {row.advisor}
+                        <span aria-hidden="true" className="font-bold text-neutral-400">
+                          ·
+                        </span>
+                        <span className="text-sm font-semibold text-primary-700">{row.role}</span>
+                      </h3>
+                      <p className="mt-0.5 text-sm text-neutral-600">{row.category}</p>
+                    </div>
+                  </div>
                   <dl className="mt-5 flex flex-col gap-4 border-t border-neutral-200 pt-5">
                     <div>
                       <dt className="text-sm text-neutral-600">Transactions, 2025</dt>

@@ -26,6 +26,7 @@ export interface HeadlineRanking {
   cea: string;
   /** Role at HomeUP. Both number one positions are held by the two co-founders. */
   role: string;
+  photo: string;
   category: string;
   transactions: number;
   rank: string;
@@ -44,6 +45,7 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     slug: "dennis-lim",
     cea: "R055990G",
     role: "Co-Founder",
+    photo: "/images/agent-dennis.png",
     category: "Private residential resale, seller representation",
     transactions: 96,
     rank: "1st of 7,725",
@@ -55,6 +57,7 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     slug: "yeo-tong-boon",
     cea: "R069651E",
     role: "Co-Founder",
+    photo: "/images/agent-tong-boon.png",
     category: "Private residential resale, buyer representation",
     transactions: 25,
     rank: "1st of 6,284",
