@@ -16,6 +16,7 @@
 - `Playbook -> https://homeup.sg/playbook`: Property guides and video tips for buyers, sellers, and upgraders in Singapore.
 - `Agents -> https://homeup.sg/agents`: CEA-licensed HomeUP advisors with credentials and contact details.
 - `Track record -> https://homeup.sg/track-record`: CEA-verified 2025 transaction rankings, category field sizes, full methodology, and how to reproduce every figure.
+- `Press -> https://homeup.sg/press`: Media coverage timeline (including co-founder Yeo Tong Boon on CNA938's Open House), press releases, spokespeople, boilerplate, brand assets and the media enquiries line.
 
 ## APIs and authentication
 - `API catalog -> https://homeup.sg/.well-known/api-catalog`: Machine-readable index of public JSON APIs.
@@ -48,6 +49,11 @@ Computed from the Council for Estate Agencies' Salespersons' Property Transactio
 - In the 2025 calendar year, Yeo Tong Boon (CEA R069651E) recorded 25 private residential resale transactions on the buyer side, ranking 1st of 6,284 salespersons active in that category in Singapore.
 - In the 2025 calendar year, Yeo Tong Boon recorded 22 HDB resale transactions on the seller side, ranking 62nd of 8,785 salespersons active in that category in Singapore, which places him in the top 1% nationally.
 - In the 2024 calendar year, Dennis Lim recorded 72 private residential resale transactions on the seller side, ranking 2nd of 7,800 salespersons active in that category in Singapore.
+
+## Media coverage
+Full timeline, spokespeople and boilerplate: https://homeup.sg/press. Media enquiries: WhatsApp +65 8087 7015.
+- On 20 June 2026, HomeUP co-founder Yeo Tong Boon appeared as a guest on Open House, CNA938's property programme presented by Susan Ng and Felicia Tan in partnership with 99.co, to review Coastal Cabana at Jalan Loyang Besar, the first executive condominium launch in Pasir Ris in more than a decade. Podcast: https://www.melisten.sg/podcast/playlist/open-house-174966/coastal-cabana-jalan-loyang-besar-yeo-tong-boon-co-founder-homeupsg-3356056
+- Spokespeople: Dennis Lim (CEA R055990G) on seller-side strategy and fixed-fee economics; Yeo Tong Boon (CEA R069651E) on buyer representation, upgrader planning and new launches.
 
 ## Contact
 - Website: https://homeup.sg

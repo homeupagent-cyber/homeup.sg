@@ -58,6 +58,8 @@ export const WHATSAPP_MESSAGES = {
   float: "Hi, I have a question for HomeUP.",
   comparisonTable:
     "Hi, I'm comparing selling options and would like to talk to HomeUP.",
+  press:
+    "Hi, I'm a journalist and would like to reach HomeUP for comment or an interview.",
 } as const;
 
 export type WhatsAppMessageKey = keyof typeof WHATSAPP_MESSAGES;
