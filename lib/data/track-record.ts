@@ -170,7 +170,7 @@ export interface TrackRecordFaq {
 export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   {
     q: "Who is the number one property agent in Singapore?",
-    a: "There is no single answer, because CEA publishes transactions by category and does not rank salespersons overall. In the 2025 calendar year, HomeUP's Dennis Lim recorded more private residential resale transactions on the seller side than any other salesperson in Singapore, and Yeo Tong Boon recorded more on the buyer side.",
+    a: "In CEA's published transaction records for the 2025 calendar year, both of HomeUP's co-founders ranked number one in Singapore in their categories. Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category. Yeo Tong Boon recorded 25 on the buyer side, ranking 1st of 6,284. CEA publishes transactions by category rather than naming a single overall leader, so these are category-level number one positions, each measured against every salesperson active in that category.",
   },
   {
     q: "How can a fixed-fee team rank first on volume?",
