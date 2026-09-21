@@ -255,25 +255,29 @@ export function TrackRecordContent() {
           <div className="mx-auto max-w-3xl">
             <h2 className="section-title !text-left">Is HomeUP strong in HDB?</h2>
             <p className={`mt-4 ${PROSE}`}>
-              Yes. HDB is led by co-founder {HDB_DIVISION.leadAdvisor} alongside{" "}
-              {HDB_DIVISION.partner}, a partner with {HDB_DIVISION.partnerTenure} in HDB resale
-              and {HDB_DIVISION.partnerTransactions} HDB transactions to his name.
+              Yes. HomeUP&apos;s HDB team puts together the two things that usually sit in
+              different firms: decades of HDB experience, and current top 1% volume.
+            </p>
+            <p className={`speakable-ranking mt-4 ${PROSE}`}>
+              {HDB_DIVISION.partner} has been transacting HDB flats since{" "}
+              {HDB_DIVISION.partnerSince} and has {HDB_DIVISION.partnerTransactions} HDB
+              transactions to his name.
             </p>
             <p className={`speakable-ranking mt-4 ${PROSE}`}>{HDB_RESULT.statement}</p>
             <p className={`mt-4 ${PROSE}`}>
-              Between them they run the HDB side of the business, so an owner selling a flat gets
-              the same method and the same fixed fee as everyone else we act for.
+              Experience on one side, momentum on the other. {HDB_DIVISION.partner} has seen how
+              HDB pricing behaves across cycles most advisors have never worked through.{" "}
+              {HDB_DIVISION.leadAdvisor} brings a live buyer pipeline and current top 1%
+              seller-side volume. Selling a flat with HomeUP gets you both, at a fixed fee.
+            </p>
+            <p className={`mt-4 ${PROSE}`}>
+              That is deliberate. A fixed fee should buy better advice, not a thinner version of
+              it, and the HDB team is where we are proving it.
             </p>
             <p className={`mt-4 ${PROSE}`}>
               The pairing also covers the upgrade. If you are selling an HDB flat in order to buy
               private, your purchase is handled by the salesperson who represented more private
               residential resale buyers in 2025 than anyone else in Singapore.
-            </p>
-            <p className="mt-6 rounded-2xl bg-white p-6 text-sm leading-relaxed text-neutral-600">
-              <strong className="font-semibold text-neutral-900">
-                Where {HDB_DIVISION.partner}&apos;s figure comes from.
-              </strong>{" "}
-              {HDB_DIVISION.partnerSourceNote}
             </p>
           </div>
         </div>

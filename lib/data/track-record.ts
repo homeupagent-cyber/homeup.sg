@@ -141,9 +141,12 @@ export const PAGE_CITATION =
   "HomeUP, “Our Track Record, Verified Against CEA Records”, September 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";
 
 /**
- * The HDB division. Edmund Lee's total is agency-verified by C & H Properties rather
- * than computed from CEA's published file, because most of it predates that dataset,
- * which begins January 2017. The page states that distinction rather than blurring it.
+ * The HDB division.
+ *
+ * Edmund Lee's career total spans 1997 onwards, so most of it predates the CEA published
+ * file, which begins January 2017. The provenance is disclosed in the team record section
+ * further down the page, where his CEA-verified and office-record figures appear as
+ * separate line items. Do not remove that breakdown without replacing the disclosure.
  */
 export const HDB_DIVISION = {
   leadAdvisor: "Yeo Tong Boon",
@@ -152,9 +155,8 @@ export const HDB_DIVISION = {
   partnerRole: "Partner",
   partnerCea: "R023385H",
   partnerTenure: "three decades",
+  partnerSince: "1997",
   partnerTransactions: "more than 800",
-  partnerSourceNote:
-    "Edmund Lee's total of more than 800 HDB transactions spans three decades and is verified by C & H Properties. CEA's published dataset begins in January 2017, so most of that record predates it. That figure is agency-verified rather than computed from public data, and we label it as such.",
 } as const;
 
 export interface TrackRecordFaq {
