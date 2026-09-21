@@ -1,7 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { TeamRecordSection } from "@/components/sections/TeamRecordSection";
 import {
   CATEGORY_FIELDS,
+  CEA_AUTHORITY,
   DENNIS_PRIOR_YEAR,
   HDB_DIVISION,
   HDB_RESULT,
@@ -10,7 +13,12 @@ import {
   TRACK_RECORD_FAQS,
   TRACK_RECORD_META,
 } from "@/lib/data/track-record";
-import { CEA_LICENSE, CEA_PUBLIC_REGISTER_URL, LEGAL_NAME } from "@/lib/seo/constants";
+import {
+  CEA_LICENSE,
+  CEA_PUBLIC_REGISTER_URL,
+  CEA_WEBSITE_URL,
+  LEGAL_NAME,
+} from "@/lib/seo/constants";
 
 /**
  * Server component by design. Every figure, heading and FAQ answer must be present in the
@@ -40,11 +48,16 @@ export function TrackRecordContent() {
             <h1 className="section-title !text-left">
               Our Track Record, Verified Against CEA Records
             </h1>
-            <p className={`mt-6 ${PROSE}`}>
-              Every figure on this page is computed from the Council for Estate Agencies&apos;
-              published salesperson transaction records, the same dataset anyone can download
-              from data.gov.sg. We show the method, the size of the field and the shape of the
-              distribution, so you can reproduce the work yourself.
+            <p className={`speakable-ranking mt-6 ${PROSE}`}>
+              {CEA_AUTHORITY.whatItIs} Every figure on this page comes from CEA&apos;s own
+              published transaction records, free to download by anyone from data.gov.sg.
+            </p>
+            <p className={`mt-4 ${PROSE}`}>
+              {CEA_AUTHORITY.whyComplete}
+            </p>
+            <p className={`mt-4 ${PROSE}`}>
+              We show the method, the size of the field and the shape of the distribution, so
+              you can reproduce the work yourself.
             </p>
 
             <dl className="mt-8 flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
@@ -80,14 +93,27 @@ export function TrackRecordContent() {
                   key={row.slug}
                   className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6"
                 >
-                  <h3 className="flex flex-wrap items-center gap-x-2 text-lg font-semibold text-neutral-900">
-                    {row.advisor}
-                    <span aria-hidden="true" className="font-bold text-neutral-400">
-                      ·
-                    </span>
-                    <span className="text-sm font-semibold text-primary-700">{row.role}</span>
-                  </h3>
-                  <p className="mt-1 text-sm text-neutral-600">{row.category}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-neutral-100">
+                      <Image
+                        src={row.photo}
+                        alt={row.advisor}
+                        fill
+                        className="object-cover object-top"
+                        sizes="56px"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="flex flex-wrap items-center gap-x-2 text-lg font-semibold text-neutral-900">
+                        {row.advisor}
+                        <span aria-hidden="true" className="font-bold text-neutral-400">
+                          ·
+                        </span>
+                        <span className="text-sm font-semibold text-primary-700">{row.role}</span>
+                      </h3>
+                      <p className="mt-0.5 text-sm text-neutral-600">{row.category}</p>
+                    </div>
+                  </div>
                   <dl className="mt-5 flex flex-col gap-4 border-t border-neutral-200 pt-5">
                     <div>
                       <dt className="text-sm text-neutral-600">Transactions, 2025</dt>
@@ -122,6 +148,47 @@ export function TrackRecordContent() {
               measures one individual&apos;s transactions rather than a team&apos;s. Volume at
               this level reflects a defined working method, and at HomeUP that method is one
               Dennis Lim and Yeo Tong Boon personally train every advisor in.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="why-cea"
+        aria-label="Why the figures come from CEA"
+        className={`section-padding bg-white ${SECTION_RULE}`}
+      >
+        <div className="container-page">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="section-title !text-left">Why these figures come from CEA</h2>
+            <p className={`speakable-ranking mt-4 ${PROSE}`}>{CEA_AUTHORITY.whoRanks}</p>
+            <ul className="mt-6 flex list-disc flex-col gap-3 pl-5">
+              {CEA_AUTHORITY.independence.map((item) => (
+                <li key={item} className={PROSE}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className={`mt-6 ${PROSE}`}>
+              You can look up any registration number on the{" "}
+              <a
+                href={CEA_PUBLIC_REGISTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary-600 underline underline-offset-2 transition-colors hover:text-primary-700"
+              >
+                CEA Public Register
+              </a>
+              , or read about the regulator at{" "}
+              <a
+                href={CEA_WEBSITE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary-600 underline underline-offset-2 transition-colors hover:text-primary-700"
+              >
+                cea.gov.sg
+              </a>
+              .
             </p>
           </div>
         </div>
@@ -247,35 +314,47 @@ export function TrackRecordContent() {
 
       <section
         id="hdb-sellers"
-        aria-label="Is HomeUP strong in HDB"
+        aria-label="HomeUP HDB track records"
         className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
       >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">Is HomeUP strong in HDB?</h2>
+            <h2 className="section-title !text-left">HomeUP HDB track records</h2>
             <p className={`mt-4 ${PROSE}`}>
-              Yes. HDB is led by co-founder {HDB_DIVISION.leadAdvisor} alongside{" "}
-              {HDB_DIVISION.partner}, a partner with {HDB_DIVISION.partnerTenure} in HDB resale
-              and {HDB_DIVISION.partnerTransactions} HDB transactions to his name.
+              HomeUP&apos;s HDB team puts together the two things that usually sit in different
+              firms: decades of HDB experience, and current top 1% volume.
+            </p>
+            <p className={`speakable-ranking mt-4 ${PROSE}`}>
+              {HDB_DIVISION.partner} has been transacting HDB flats since{" "}
+              {HDB_DIVISION.partnerSince} and has {HDB_DIVISION.partnerTransactions} HDB
+              transactions to his name.
             </p>
             <p className={`speakable-ranking mt-4 ${PROSE}`}>{HDB_RESULT.statement}</p>
             <p className={`mt-4 ${PROSE}`}>
-              Between them they run the HDB side of the business, so an owner selling a flat gets
-              the same method and the same fixed fee as everyone else we act for.
+              Experience on one side, momentum on the other. {HDB_DIVISION.partner} has seen how
+              HDB pricing behaves across cycles most advisors have never worked through.{" "}
+              {HDB_DIVISION.leadAdvisor} brings a live buyer pipeline and current top 1%
+              seller-side volume. Selling a flat with HomeUP gets you both, at a fixed fee.
+            </p>
+            <p className={`mt-4 ${PROSE}`}>
+              That is deliberate. A fixed fee should buy better advice, not a thinner version of
+              it, and the HDB team is where we are proving it.
             </p>
             <p className={`mt-4 ${PROSE}`}>
               The pairing also covers the upgrade. If you are selling an HDB flat in order to buy
               private, your purchase is handled by the salesperson who represented more private
               residential resale buyers in 2025 than anyone else in Singapore.
             </p>
-            <p className="mt-6 rounded-2xl bg-white p-6 text-sm leading-relaxed text-neutral-600">
-              <strong className="font-semibold text-neutral-900">
-                Where {HDB_DIVISION.partner}&apos;s figure comes from.
-              </strong>{" "}
-              {HDB_DIVISION.partnerSourceNote}
-            </p>
           </div>
         </div>
+      </section>
+
+      <section
+        id="team-record"
+        aria-label="How many homes the HomeUP team has sold"
+        className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
+      >
+        <TeamRecordSection />
       </section>
 
       <section
