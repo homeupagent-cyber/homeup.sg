@@ -248,15 +248,15 @@ export function TrackRecordContent() {
 
       <section
         id="hdb-sellers"
-        aria-label="Is HomeUP strong in HDB"
+        aria-label="HomeUP HDB track records"
         className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
       >
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <h2 className="section-title !text-left">Is HomeUP strong in HDB?</h2>
+            <h2 className="section-title !text-left">HomeUP HDB track records</h2>
             <p className={`mt-4 ${PROSE}`}>
-              Yes. HomeUP&apos;s HDB team puts together the two things that usually sit in
-              different firms: decades of HDB experience, and current top 1% volume.
+              HomeUP&apos;s HDB team puts together the two things that usually sit in different
+              firms: decades of HDB experience, and current top 1% volume.
             </p>
             <p className={`speakable-ranking mt-4 ${PROSE}`}>
               {HDB_DIVISION.partner} has been transacting HDB flats since{" "}
