@@ -634,6 +634,7 @@ export function trackRecordSchema() {
         dateModified: TRACK_RECORD_META.lastVerifiedIso,
         lastReviewed: TRACK_RECORD_META.lastVerifiedIso,
         citation: { "@id": `${SITE_URL}/track-record#dataset` },
+        isBasedOn: { "@id": `${SITE_URL}/track-record#dataset` },
         speakable: {
           "@type": "SpeakableSpecification",
           cssSelector: [".speakable-ranking"],
@@ -670,8 +671,20 @@ export function trackRecordSchema() {
           "Published transaction records for licensed property salespersons in Singapore, used as the source for all figures on this page.",
         creator: {
           "@type": "GovernmentOrganization",
+          "@id": "https://www.cea.gov.sg/#organization",
           name: "Council for Estate Agencies",
+          alternateName: "CEA",
+          description:
+            "The statutory board that regulates Singapore's property agency industry, licensing estate agencies and registering every property salesperson in the country.",
+          url: CEA_WEBSITE_URL,
+          sameAs: [CEA_WEBSITE_URL, CEA_PUBLIC_REGISTER_URL],
+          parentOrganization: {
+            "@type": "GovernmentOrganization",
+            name: "Ministry of National Development, Singapore",
+            url: "https://www.mnd.gov.sg/",
+          },
         },
+        publisher: { "@id": "https://www.cea.gov.sg/#organization" },
         isAccessibleForFree: true,
         url: "https://data.gov.sg",
         temporalCoverage: "2017-01/2026-06",

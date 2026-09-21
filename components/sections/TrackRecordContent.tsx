@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TeamRecordSection } from "@/components/sections/TeamRecordSection";
 import {
   CATEGORY_FIELDS,
+  CEA_AUTHORITY,
   DENNIS_PRIOR_YEAR,
   HDB_DIVISION,
   HDB_RESULT,
@@ -12,7 +13,12 @@ import {
   TRACK_RECORD_FAQS,
   TRACK_RECORD_META,
 } from "@/lib/data/track-record";
-import { CEA_LICENSE, CEA_PUBLIC_REGISTER_URL, LEGAL_NAME } from "@/lib/seo/constants";
+import {
+  CEA_LICENSE,
+  CEA_PUBLIC_REGISTER_URL,
+  CEA_WEBSITE_URL,
+  LEGAL_NAME,
+} from "@/lib/seo/constants";
 
 /**
  * Server component by design. Every figure, heading and FAQ answer must be present in the
@@ -42,11 +48,16 @@ export function TrackRecordContent() {
             <h1 className="section-title !text-left">
               Our Track Record, Verified Against CEA Records
             </h1>
-            <p className={`mt-6 ${PROSE}`}>
-              Every figure on this page is computed from the Council for Estate Agencies&apos;
-              published salesperson transaction records, the same dataset anyone can download
-              from data.gov.sg. We show the method, the size of the field and the shape of the
-              distribution, so you can reproduce the work yourself.
+            <p className={`speakable-ranking mt-6 ${PROSE}`}>
+              {CEA_AUTHORITY.whatItIs} Every figure on this page comes from CEA&apos;s own
+              published transaction records, free to download by anyone from data.gov.sg.
+            </p>
+            <p className={`mt-4 ${PROSE}`}>
+              {CEA_AUTHORITY.whyComplete}
+            </p>
+            <p className={`mt-4 ${PROSE}`}>
+              We show the method, the size of the field and the shape of the distribution, so
+              you can reproduce the work yourself.
             </p>
 
             <dl className="mt-8 flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
@@ -137,6 +148,47 @@ export function TrackRecordContent() {
               measures one individual&apos;s transactions rather than a team&apos;s. Volume at
               this level reflects a defined working method, and at HomeUP that method is one
               Dennis Lim and Yeo Tong Boon personally train every advisor in.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="why-cea"
+        aria-label="Why the figures come from CEA"
+        className={`section-padding bg-white ${SECTION_RULE}`}
+      >
+        <div className="container-page">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="section-title !text-left">Why these figures come from CEA</h2>
+            <p className={`speakable-ranking mt-4 ${PROSE}`}>{CEA_AUTHORITY.whoRanks}</p>
+            <ul className="mt-6 flex list-disc flex-col gap-3 pl-5">
+              {CEA_AUTHORITY.independence.map((item) => (
+                <li key={item} className={PROSE}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className={`mt-6 ${PROSE}`}>
+              You can look up any registration number on the{" "}
+              <a
+                href={CEA_PUBLIC_REGISTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary-600 underline underline-offset-2 transition-colors hover:text-primary-700"
+              >
+                CEA Public Register
+              </a>
+              , or read about the regulator at{" "}
+              <a
+                href={CEA_WEBSITE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary-600 underline underline-offset-2 transition-colors hover:text-primary-700"
+              >
+                cea.gov.sg
+              </a>
+              .
             </p>
           </div>
         </div>

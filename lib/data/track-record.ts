@@ -139,6 +139,28 @@ export const HDB_RESULT = {
     "In the 2025 calendar year, Yeo Tong Boon recorded 22 HDB resale transactions on the seller side, ranking 62nd of 8,785 salespersons active in that category in Singapore, which places him in the top 1% nationally.",
 } as const;
 
+/**
+ * How the source is described on the page.
+ *
+ * CEA publishes the transaction records. CEA does not rank salespersons, and nothing here
+ * should imply a government body endorsed or ranked HomeUP. The ranking is arithmetic
+ * performed on published data, which is why the page keeps saying anyone can repeat it.
+ */
+export const CEA_AUTHORITY = {
+  whatItIs:
+    "The Council for Estate Agencies is the statutory board that regulates Singapore's property agency industry. It licenses every estate agency and registers every property salesperson in the country.",
+  whyComplete:
+    "Registration is compulsory, so the register covers every licensed salesperson in Singapore. A rank against that field is a rank against everyone who transacted in the category, not against a sample, a survey, or the members of one firm.",
+  whoRanks:
+    "CEA publishes the transaction records. It does not rank salespersons and it has not endorsed HomeUP. The rankings on this page are counts we computed from the published data, which is why we show the method: anyone can repeat the arithmetic and check us.",
+  independence: [
+    "The data is collected and published by the regulator, not commissioned by us.",
+    "We cannot edit it, influence it, or choose which transactions appear in it.",
+    "It is free for anyone to download from data.gov.sg and check against what we publish.",
+    "Every advisor is matched by CEA registration number, so the figures cannot be attributed to the wrong person.",
+  ],
+} as const;
+
 /** Pre-written attribution for journalists, researchers and AI answer engines. */
 export const PAGE_CITATION =
   "HomeUP, “Our Track Record, Verified Against CEA Records”, September 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";
@@ -171,6 +193,10 @@ export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   {
     q: "Who is the number one property agent in Singapore?",
     a: "In CEA's published transaction records for the 2025 calendar year, both of HomeUP's co-founders ranked number one in Singapore in their categories. Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category. Yeo Tong Boon recorded 25 on the buyer side, ranking 1st of 6,284. CEA publishes transactions by category rather than naming a single overall leader, so these are category-level number one positions, each measured against every salesperson active in that category.",
+  },
+  {
+    q: "Who publishes the data behind these rankings?",
+    a: "The Council for Estate Agencies, the statutory board that regulates Singapore's property agency industry and registers every property salesperson in the country. CEA publishes its Salespersons' Property Transaction Records on data.gov.sg, where anyone can download them for free. Registration with CEA is compulsory, so the records cover every licensed salesperson in Singapore rather than a sample or a survey. CEA does not rank salespersons and has not endorsed HomeUP: the rankings on this page are counts computed from its published data, and we publish the method so anyone can repeat them.",
   },
   {
     q: "How can a fixed-fee team rank first on volume?",
