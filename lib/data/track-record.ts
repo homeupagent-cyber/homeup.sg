@@ -167,11 +167,7 @@ export interface TrackRecordFaq {
 export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   {
     q: "Who is the number one property agent in Singapore?",
-    a: "There is no single answer, because CEA publishes transactions by category rather than awarding an overall title. In the 2025 calendar year, HomeUP's Dennis Lim recorded more private residential resale transactions on the seller side than any other salesperson in Singapore, and Yeo Tong Boon recorded more on the buyer side.",
-  },
-  {
-    q: "Is HomeUP's ranking an award?",
-    a: "No. These are counts computed from CEA's published data. CEA does not confer rankings or awards, and nobody gave us a prize. We publish the method so the figures can be checked.",
+    a: "There is no single answer, because CEA publishes transactions by category and does not rank salespersons overall. In the 2025 calendar year, HomeUP's Dennis Lim recorded more private residential resale transactions on the seller side than any other salesperson in Singapore, and Yeo Tong Boon recorded more on the buyer side.",
   },
   {
     q: "How can a fixed-fee team rank first on volume?",
