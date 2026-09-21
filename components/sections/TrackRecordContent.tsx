@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { TeamRecordSection } from "@/components/sections/TeamRecordSection";
 import {
   CATEGORY_FIELDS,
   DENNIS_PRIOR_YEAR,
@@ -276,6 +277,14 @@ export function TrackRecordContent() {
             </p>
           </div>
         </div>
+      </section>
+
+      <section
+        id="team-record"
+        aria-label="How many homes the HomeUP team has sold"
+        className={`section-padding bg-neutral-50 ${SECTION_RULE}`}
+      >
+        <TeamRecordSection />
       </section>
 
       <section
