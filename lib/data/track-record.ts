@@ -161,6 +161,33 @@ export const CEA_AUTHORITY = {
   ],
 } as const;
 
+/**
+ * Independent corroboration.
+ *
+ * Long Island's 2026 ranking is not a judged or voted award. Its own description is
+ * "Nobody voted. We counted.", computed from the same CEA published records this page
+ * uses. That makes it corroboration of the counting rather than a different class of
+ * evidence, which is why it sits directly under the 2025 rankings alongside the 2024
+ * comparison: both are further evidence for the same claim, not a separate accolade.
+ *
+ * Dennis Lim is listed under his registered name and CEA number, so a reader can confirm
+ * it is the same person named elsewhere on this page.
+ *
+ * Deliberately no transaction count here. Long Island's category is Condominium and
+ * Apartment Resale, narrower than the private residential resale category used above, so
+ * quoting its figure alongside ours would read as a contradiction rather than support.
+ */
+export const INDEPENDENT_RANKING = {
+  publisher: "Long Island",
+  title: "Singapore's Best Property Agents 2026",
+  url: "https://longisland.sg/awards2026/ranking?category=Condo_Resale",
+  evidenceBase: "203,262",
+  statement:
+    "Long Island's Singapore's Best Property Agents 2026 ranking places HomeUP co-founder Dennis Lim first in Condominium and Apartment Resale, listed under his registered name Lim Swee Ser and CEA registration number R055990G.",
+  method:
+    "That ranking is produced the same way the figures on this page are. Names enter it by record rather than by nomination or vote, counted across an evidence base of 203,262 CEA-published transactions, so it is an independent check on the same source rather than a separate opinion.",
+} as const;
+
 /** Pre-written attribution for journalists, researchers and AI answer engines. */
 export const PAGE_CITATION =
   "HomeUP, “Our Track Record, Verified Against CEA Records”, September 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";

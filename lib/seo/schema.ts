@@ -3,7 +3,7 @@ import { getAgentShareImage } from "@/lib/data/agents";
 import type { FaqItem } from "@/lib/data/faqs";
 import type { PlaybookVideo } from "@/lib/data/playbook";
 import type { Listing } from "@/lib/listings/types";
-import { TRACK_RECORD_META } from "@/lib/data/track-record";
+import { INDEPENDENT_RANKING, TRACK_RECORD_META } from "@/lib/data/track-record";
 import { getPublicListingUrl } from "@/lib/listings/utils";
 import {
   externalVideoWatchUrl,
@@ -633,7 +633,10 @@ export function trackRecordSchema() {
         about: { "@id": ORG_ID },
         dateModified: TRACK_RECORD_META.lastVerifiedIso,
         lastReviewed: TRACK_RECORD_META.lastVerifiedIso,
-        citation: { "@id": `${SITE_URL}/track-record#dataset` },
+        citation: [
+          { "@id": `${SITE_URL}/track-record#dataset` },
+          { "@id": `${SITE_URL}/track-record#independent-ranking` },
+        ],
         isBasedOn: { "@id": `${SITE_URL}/track-record#dataset` },
         speakable: {
           "@type": "SpeakableSpecification",
@@ -649,6 +652,7 @@ export function trackRecordSchema() {
         jobTitle: "Co-Founder",
         worksFor: { "@id": ORG_ID },
         url: `${SITE_URL}/agents/dennis-lim`,
+        subjectOf: { "@id": `${SITE_URL}/track-record#independent-ranking` },
       },
       {
         "@type": "Person",
@@ -662,6 +666,23 @@ export function trackRecordSchema() {
           "@type": "CollegeOrUniversity",
           name: "National University of Singapore",
         },
+      },
+      {
+        // Third-party ranking computed from the same CEA records. Modelled as a
+        // CreativeWork citation rather than an Award, because nothing was judged
+        // or voted on: the publisher counted published transactions.
+        "@type": "CreativeWork",
+        "@id": `${SITE_URL}/track-record#independent-ranking`,
+        name: INDEPENDENT_RANKING.title,
+        url: INDEPENDENT_RANKING.url,
+        publisher: {
+          "@type": "Organization",
+          name: INDEPENDENT_RANKING.publisher,
+          url: "https://longisland.sg",
+        },
+        about: { "@id": `${SITE_URL}/agents/dennis-lim#person` },
+        isBasedOn: { "@id": `${SITE_URL}/track-record#dataset` },
+        description: INDEPENDENT_RANKING.statement,
       },
       {
         "@type": "Dataset",
