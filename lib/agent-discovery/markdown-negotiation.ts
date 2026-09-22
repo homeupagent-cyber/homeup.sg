@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import { getListingBySlugServer, getActiveListingsServer } from "@/lib/listings/server-queries";
 import { formatListingPrice } from "@/lib/listings/public-utils";
+import {
+  ADVANTAGES,
+  COMPARISON_ROWS,
+  WHY_HOMEUP_INTRO,
+  WHY_HOMEUP_META,
+  WHY_HOMEUP_PROOF_LINE,
+} from "@/lib/data/why-homeup";
 import { SITE_URL, CEA_LICENSE, LEGAL_NAME } from "@/lib/seo/constants";
 
 /** Rough token estimate for x-markdown-tokens (chars / 4). */
@@ -86,6 +93,33 @@ Buyer representation for Singapore property purchases.
 - [Buy Condo / Landed](${SITE_URL}/buy-condo-landed)
 - [Buy New Launch](${SITE_URL}/buy-new-launch)
 `,
+
+  "/why-homeup": () => {
+    const advantages = ADVANTAGES.map(
+      (advantage) => `### ${advantage.number}. ${advantage.title}\n\n${advantage.body}`,
+    );
+    const rows = COMPARISON_ROWS.map(
+      (row) => `| ${row.label} | ${row.traditional} | ${row.homeup} |`,
+    );
+    return `# HomeUP vs Other Agents
+
+${WHY_HOMEUP_INTRO} Last updated ${WHY_HOMEUP_META.lastUpdated}.
+
+## Our 4 unique advantages
+
+${advantages.join("\n\n")}
+
+## Side-by-side comparison
+
+| Area | Traditional agent | HomeUP |
+| --- | --- | --- |
+${rows.join("\n")}
+
+${WHY_HOMEUP_PROOF_LINE} Method and figures: ${SITE_URL}/track-record
+
+[Why HomeUP](${SITE_URL}/why-homeup) · [Sell with HomeUP](${SITE_URL}/sell) · [Track record](${SITE_URL}/track-record) · [About](${SITE_URL}/about)
+`;
+  },
 
   "/listings": () => "", // filled dynamically
 };
