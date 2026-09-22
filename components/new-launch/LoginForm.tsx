@@ -46,7 +46,7 @@ export function LoginForm() {
           required
           value={mobileNumber}
           onChange={(e) => setMobileNumber(e.target.value)}
-          className="w-full rounded-md border px-3 py-3 text-base"
+          className="w-full rounded-md border px-3 py-3 text-base outline-none transition-shadow duration-150 focus:border-[#009A44] focus:ring-2 focus:ring-[#009A44]/20"
           style={{ borderColor: "#e8e3db", minHeight: 44 }}
           autoComplete="tel"
         />
@@ -65,7 +65,7 @@ export function LoginForm() {
           required
           value={accessCode}
           onChange={(e) => setAccessCode(e.target.value)}
-          className="w-full rounded-md border px-3 py-3 text-base"
+          className="w-full rounded-md border px-3 py-3 text-base outline-none transition-shadow duration-150 focus:border-[#009A44] focus:ring-2 focus:ring-[#009A44]/20"
           style={{ borderColor: "#e8e3db", minHeight: 44 }}
           autoComplete="off"
         />
@@ -80,7 +80,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-md px-4 py-3 text-base font-medium text-white disabled:opacity-60"
+        className="w-full rounded-md px-4 py-3 text-base font-medium text-white shadow-sm transition-colors duration-150 hover:bg-[#007a36] disabled:opacity-60"
         style={{ backgroundColor: "#009A44", minHeight: 44 }}
       >
         {submitting ? "Checking…" : "Continue"}

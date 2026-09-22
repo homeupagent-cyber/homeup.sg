@@ -17,12 +17,15 @@ export default function NewLaunchLoginPage() {
     <div className="grid min-h-screen md:grid-cols-2">
       <div
         className="flex flex-col justify-center gap-8 px-8 py-16 md:px-14"
-        style={{ backgroundColor: "#005c28", color: "#FFFFFF" }}
+        style={{
+          background: "linear-gradient(160deg, #002410 0%, #003818 55%, #003014 100%)",
+          color: "#FFFFFF",
+        }}
       >
         <div className="max-w-md space-y-6">
           <div>
-            <p className="text-sm tracking-wide" style={{ color: "#cfe0d5" }}>HomeUP</p>
-            <p className="text-sm" style={{ color: "#cfe0d5" }}>New Launch Desk</p>
+            <p className="text-sm tracking-wide" style={{ color: "#8fb8a3" }}>HomeUP</p>
+            <p className="text-sm" style={{ color: "#8fb8a3" }}>New Launch Desk</p>
           </div>
           <h1
             className="text-3xl leading-tight md:text-4xl"
@@ -30,22 +33,22 @@ export default function NewLaunchLoginPage() {
           >
             Should you buy this new launch, or a resale unit instead?
           </h1>
-          <p className="text-base" style={{ color: "#cfe0d5" }}>
+          <p className="text-base" style={{ color: "#a9c9b8" }}>
             Your HomeUP advisor uses this page to walk through the market, the project, and how it
             stacks up against a resale unit at the same budget.
           </p>
-          <ol className="space-y-4 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.18)" }}>
+          <ol className="space-y-4 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.12)" }}>
             {NUMBERED_ITEMS.map((item) => (
               <li key={item.n} className="flex gap-3">
                 <span
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs"
-                  style={{ backgroundColor: "rgba(255,255,255,0.18)", color: "#FFFFFF" }}
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-medium"
+                  style={{ backgroundColor: "#0fbe61", color: "#002410" }}
                 >
                   {item.n}
                 </span>
                 <div>
                   <p className="font-medium">{item.title}</p>
-                  <p className="text-sm" style={{ color: "#cfe0d5" }}>{item.body}</p>
+                  <p className="text-sm" style={{ color: "#a9c9b8" }}>{item.body}</p>
                 </div>
               </li>
             ))}
