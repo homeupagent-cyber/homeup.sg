@@ -5,10 +5,10 @@ import { NlCard } from "./NlCard";
 export function DistrictTrendChart() {
   return (
     <NlCard>
-      <p className="mb-2 font-medium" style={{ color: "#16181B" }}>District price trend</p>
+      <p className="mb-2 font-medium" style={{ color: "#1e1812" }}>District price trend</p>
       <div
         className="flex h-40 items-center justify-center rounded-lg border border-dashed text-sm"
-        style={{ borderColor: "#DEDAD1", color: "#585C63" }}
+        style={{ borderColor: "#e8e3db", color: "#6b5f52" }}
         role="img"
         aria-label="District price trend chart, not yet available"
       >

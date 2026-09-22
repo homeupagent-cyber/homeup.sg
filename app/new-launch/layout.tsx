@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Newsreader, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 
 // Password-gated, per-client content — never statically generated, never cached shared,
 // never indexed. next.config.mjs already sends Cache-Control: private, no-store on every
@@ -12,32 +12,31 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
 };
 
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-nl-heading",
-  display: "swap",
-});
-
-const plexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-nl-body",
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
+// Numbers in monospace, same choice and same font the admin area already uses
+// (see app/(admin)/admin/layout.tsx) for data-heavy screens.
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-nl-mono",
   display: "swap",
+  preload: false,
 });
 
 export default function NewLaunchLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${newsreader.variable} ${plexSans.variable} ${plexMono.variable}`}
-      style={{ fontFamily: "var(--font-nl-body), system-ui, sans-serif" }}
+      className={jetbrainsMono.variable}
+      style={
+        {
+          fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+          // Headings/body reuse the site's own Plus Jakarta Sans (already loaded and set
+          // as --font-jakarta on <html> by the root layout) rather than loading separate
+          // heading/body fonts — components still reference --font-nl-heading/-body, so
+          // alias them here instead of touching every component that uses those names.
+          "--font-nl-heading": "var(--font-jakarta)",
+          "--font-nl-body": "var(--font-jakarta)",
+        } as React.CSSProperties
+      }
     >
       {children}
     </div>

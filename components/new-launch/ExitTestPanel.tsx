@@ -12,16 +12,16 @@ export function ExitTestPanel({ exitTest }: { exitTest: ExitTest }) {
 
   return (
     <NlCard>
-      <p className="mb-4 font-medium" style={{ color: "#16181B" }}>Exit test</p>
+      <p className="mb-4 font-medium" style={{ color: "#1e1812" }}>Exit test</p>
       <dl className="grid grid-cols-1 gap-x-4 gap-y-3 text-sm sm:grid-cols-2">
         {rows.map(([label, value]) => (
           <div key={label}>
-            <dt style={{ color: "#585C63" }}>{label}</dt>
-            <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#16181B" }}>{value}</dd>
+            <dt style={{ color: "#6b5f52" }}>{label}</dt>
+            <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#1e1812" }}>{value}</dd>
           </div>
         ))}
       </dl>
-      <p className="mt-4 text-xs" style={{ color: "#585C63" }}>
+      <p className="mt-4 text-xs" style={{ color: "#6b5f52" }}>
         This checks whether there is likely to be a buyer for this unit, at a fair price, when you
         want to exit — not just whether the project is a good buy today.
       </p>

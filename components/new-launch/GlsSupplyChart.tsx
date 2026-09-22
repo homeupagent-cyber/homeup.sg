@@ -16,8 +16,8 @@ export function GlsSupplyChart({ data, average }: { data: GlsSupplyBar[]; averag
 
   return (
     <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`GLS Confirmed List supply: ${label}`} className="h-auto w-full">
-      <line x1={paddingX} y1={avgY} x2={width - paddingX} y2={avgY} stroke="#1F3A5F" strokeDasharray="4 3" />
-      <text x={width - paddingX} y={avgY - 6} textAnchor="end" fontSize="10" fill="#1F3A5F">
+      <line x1={paddingX} y1={avgY} x2={width - paddingX} y2={avgY} stroke="#2563eb" strokeDasharray="4 3" />
+      <text x={width - paddingX} y={avgY - 6} textAnchor="end" fontSize="10" fill="#2563eb">
         10-yr avg {average.toLocaleString()}
       </text>
       {data.map((d, i) => {
@@ -27,18 +27,18 @@ export function GlsSupplyChart({ data, average }: { data: GlsSupplyBar[]; averag
         const h = paddingTop + chartHeight - y;
         return (
           <g key={d.label}>
-            <rect x={x} y={y} width={w} height={h} fill="#1F3A5F" rx={2} />
+            <rect x={x} y={y} width={w} height={h} fill="#2563eb" rx={2} />
             <text
               x={x + w / 2}
               y={y - 6}
               textAnchor="middle"
               fontSize="11"
-              fill="#16181B"
+              fill="#1e1812"
               fontFamily="var(--font-nl-mono)"
             >
               {d.units.toLocaleString()}
             </text>
-            <text x={x + w / 2} y={height - 8} textAnchor="middle" fontSize="10" fill="#585C63">
+            <text x={x + w / 2} y={height - 8} textAnchor="middle" fontSize="10" fill="#6b5f52">
               {d.label}
             </text>
           </g>

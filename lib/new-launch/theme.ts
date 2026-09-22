@@ -1,30 +1,33 @@
-// New Launch Desk look and feel — deliberately not the main site theme. Colors are used
-// as Tailwind arbitrary values (bg-[#F5F3EE]) throughout components/new-launch, not wired
-// into tailwind.config.ts, so this stays isolated from the rest of the site.
+// New Launch Desk look and feel — reuses the main site's own design tokens (see
+// tailwind.config.ts `primary`/`accent`/`neutral` scales and app/globals.css `--bg-page`)
+// so this section reads as HomeUP rather than a bespoke sub-brand. Colors are used as
+// literal hex in inline styles and SVG fill/stroke (not Tailwind classes) because a lot of
+// this UI is hand-built SVG charts where Tailwind classes don't reach — the hex values below
+// are copied from the site's real tokens, not invented.
 export const NL_COLORS = {
-  background: "#F5F3EE",
+  background: "#faf9f5", // site body background (app/globals.css)
   surface: "#FFFFFF",
-  ink: "#16181B",
-  secondaryText: "#3E4248",
-  muted: "#585C63",
-  hairline: "#DEDAD1",
+  ink: "#1e1812", // neutral-900
+  secondaryText: "#4e4439", // neutral-700
+  muted: "#6b5f52", // neutral-600
+  hairline: "#e8e3db", // neutral-200 / --border-subtle
 
-  darkPanel: "#16181B",
-  darkText: "#F5F3EE",
-  darkHairline: "#45494F",
-  darkMuted: "#BFC3C9",
+  darkPanel: "#005c28", // primary-800 — HomeUP green, not a generic near-black panel
+  darkText: "#FFFFFF",
+  darkHairline: "rgba(255,255,255,0.18)",
+  darkMuted: "#cfe0d5",
 
-  green: "#1E5B45",
-  amber: "#B7791F",
-  red: "#9B3426",
-  navy: "#1F3A5F",
+  green: "#009A44", // primary-600, the actual HomeUP brand green
+  amber: "#b47d04", // accent-600
+  red: "#b91c1c",
+  navy: "#2563eb", // matches the blue already used for HDB icons in the main nav
 
-  badgeGreenBg: "#DDEEE6",
-  badgeGreenText: "#143F30",
-  badgeAmberBg: "#F3E6CF",
-  badgeAmberText: "#6B4410",
-  badgeNavyBg: "#E4E9F0",
-  badgeNavyText: "#1F3A5F",
+  badgeGreenBg: "#ddfaec", // primary-100
+  badgeGreenText: "#005c28", // primary-800
+  badgeAmberBg: "#fef3c7", // accent-100
+  badgeAmberText: "#7c5a03",
+  badgeNavyBg: "#dbeafe",
+  badgeNavyText: "#1e40af",
 } as const;
 
 export const SIGNAL_DOT_COLOR: Record<"green" | "amber" | "red" | "grey", string> = {
@@ -41,6 +44,6 @@ export const VERDICT_BADGE: Record<
   BUY: { bg: NL_COLORS.badgeGreenBg, text: NL_COLORS.badgeGreenText, label: "Buy" },
   CONDITIONAL: { bg: NL_COLORS.badgeAmberBg, text: NL_COLORS.badgeAmberText, label: "Conditional" },
   WAIT: { bg: NL_COLORS.badgeAmberBg, text: NL_COLORS.badgeAmberText, label: "Wait" },
-  PASS: { bg: "#F3DAD4", text: NL_COLORS.red, label: "Pass" },
+  PASS: { bg: "#fee2e2", text: NL_COLORS.red, label: "Pass" },
   PENDING: { bg: NL_COLORS.badgeNavyBg, text: NL_COLORS.badgeNavyText, label: "Pending" },
 };

@@ -20,14 +20,14 @@ export function SegmentChangeChart({ data }: { data: SegmentChange[] }) {
       aria-label={`Segment price change, quarter on quarter: ${label}`}
       className="h-auto w-full"
     >
-      <line x1={paddingX} y1={baselineY} x2={width - paddingX} y2={baselineY} stroke="#DEDAD1" />
+      <line x1={paddingX} y1={baselineY} x2={width - paddingX} y2={baselineY} stroke="#e8e3db" />
       {data.map((d, i) => {
         const barHeight = (Math.abs(d.changePercent) / maxAbs) * barMaxHeight;
         const x = paddingX + i * barWidth + barWidth * 0.2;
         const w = barWidth * 0.6;
         const positive = d.changePercent >= 0;
         const y = positive ? baselineY - barHeight : baselineY;
-        const color = positive ? "#1E5B45" : "#9B3426";
+        const color = positive ? "#009A44" : "#b91c1c";
         return (
           <g key={d.segment}>
             <rect x={x} y={y} width={w} height={Math.max(barHeight, 1)} fill={color} rx={2} />
@@ -36,13 +36,13 @@ export function SegmentChangeChart({ data }: { data: SegmentChange[] }) {
               y={positive ? y - 6 : y + barHeight + 14}
               textAnchor="middle"
               fontSize="11"
-              fill="#16181B"
+              fill="#1e1812"
               fontFamily="var(--font-nl-mono)"
             >
               {positive ? "+" : ""}
               {d.changePercent}%
             </text>
-            <text x={x + w / 2} y={height - 6} textAnchor="middle" fontSize="9" fill="#585C63">
+            <text x={x + w / 2} y={height - 6} textAnchor="middle" fontSize="9" fill="#6b5f52">
               {d.segment}
             </text>
           </g>

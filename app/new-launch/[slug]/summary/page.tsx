@@ -34,23 +34,23 @@ export default function NewLaunchSummaryPage({ params }: { params: { slug: strin
   const moveInRow = versusRow(project.versus.rows, "Rent or stay before TOP");
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F5F3EE" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#faf9f5" }}>
       <div className="mx-auto max-w-sm space-y-5 px-5 py-8">
         <div className="flex items-center justify-between">
           <VerdictBadge verdict={project.verdict} />
-          <span className="text-2xl" style={{ fontFamily: "var(--font-nl-mono)", color: "#16181B" }}>
+          <span className="text-2xl" style={{ fontFamily: "var(--font-nl-mono)", color: "#1e1812" }}>
             {project.score ?? "[--]"}/100
           </span>
         </div>
 
-        <h1 className="text-2xl leading-snug" style={{ fontFamily: "var(--font-nl-heading)", color: "#16181B" }}>
+        <h1 className="text-2xl leading-snug" style={{ fontFamily: "var(--font-nl-heading)", color: "#1e1812" }}>
           {project.name}
         </h1>
-        <p className="text-sm" style={{ color: "#3E4248" }}>{project.thesis}</p>
+        <p className="text-sm" style={{ color: "#4e4439" }}>{project.thesis}</p>
 
         <NlCard>
-          <p className="mb-2 text-sm font-medium" style={{ color: "#1E5B45" }}>Why it works</p>
-          <ul className="space-y-1.5 text-sm" style={{ color: "#3E4248" }}>
+          <p className="mb-2 text-sm font-medium" style={{ color: "#009A44" }}>Why it works</p>
+          <ul className="space-y-1.5 text-sm" style={{ color: "#4e4439" }}>
             {(project.catalysts.length > 0 ? project.catalysts.slice(0, 3) : ["[Pending review]"]).map((c, i) => (
               <li key={i}>{c}</li>
             ))}
@@ -58,8 +58,8 @@ export default function NewLaunchSummaryPage({ params }: { params: { slug: strin
         </NlCard>
 
         <NlCard>
-          <p className="mb-2 text-sm font-medium" style={{ color: "#9B3426" }}>Watch out for</p>
-          <ul className="space-y-1.5 text-sm" style={{ color: "#3E4248" }}>
+          <p className="mb-2 text-sm font-medium" style={{ color: "#b91c1c" }}>Watch out for</p>
+          <ul className="space-y-1.5 text-sm" style={{ color: "#4e4439" }}>
             {(project.risks.length > 0 ? project.risks.slice(0, 3) : ["[Pending review]"]).map((r, i) => (
               <li key={i}>{r}</li>
             ))}
@@ -67,34 +67,34 @@ export default function NewLaunchSummaryPage({ params }: { params: { slug: strin
         </NlCard>
 
         <NlCard>
-          <p className="mb-3 text-sm font-medium" style={{ color: "#16181B" }}>New launch vs resale</p>
+          <p className="mb-3 text-sm font-medium" style={{ color: "#1e1812" }}>New launch vs resale</p>
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between gap-3">
-              <dt style={{ color: "#585C63" }}>Price psf</dt>
-              <dd style={{ color: "#16181B", textAlign: "right" }}>
+              <dt style={{ color: "#6b5f52" }}>Price psf</dt>
+              <dd style={{ color: "#1e1812", textAlign: "right" }}>
                 {formatOrPlaceholder(priceRow.newLaunch)} vs {formatOrPlaceholder(priceRow.resale)}
               </dd>
             </div>
             <div className="flex justify-between gap-3">
-              <dt style={{ color: "#585C63" }}>Size</dt>
-              <dd style={{ color: "#16181B", textAlign: "right" }}>
+              <dt style={{ color: "#6b5f52" }}>Size</dt>
+              <dd style={{ color: "#1e1812", textAlign: "right" }}>
                 {formatOrPlaceholder(sizeRow.newLaunch)} vs {formatOrPlaceholder(sizeRow.resale)}
               </dd>
             </div>
             <div className="flex justify-between gap-3">
-              <dt style={{ color: "#585C63" }}>Move in</dt>
-              <dd style={{ color: "#16181B", textAlign: "right" }}>
+              <dt style={{ color: "#6b5f52" }}>Move in</dt>
+              <dd style={{ color: "#1e1812", textAlign: "right" }}>
                 {formatOrPlaceholder(moveInRow.newLaunch)} vs {formatOrPlaceholder(moveInRow.resale)}
               </dd>
             </div>
             <div className="flex justify-between gap-3">
-              <dt style={{ color: "#585C63" }}>Premium</dt>
-              <dd style={{ color: "#16181B" }}>{formatPercent(premium)}</dd>
+              <dt style={{ color: "#6b5f52" }}>Premium</dt>
+              <dd style={{ color: "#1e1812" }}>{formatPercent(premium)}</dd>
             </div>
           </dl>
         </NlCard>
 
-        <p className="text-xs" style={{ color: "#585C63" }}>
+        <p className="text-xs" style={{ color: "#6b5f52" }}>
           Market backdrop: {MACRO_DATA.houseView} ({MACRO_DATA.houseViewAsOf})
         </p>
 
@@ -103,19 +103,19 @@ export default function NewLaunchSummaryPage({ params }: { params: { slug: strin
           target="_blank"
           rel="noopener noreferrer"
           className="block min-h-[44px] rounded-md px-5 py-3 text-center text-sm font-medium text-white"
-          style={{ backgroundColor: "#1E5B45" }}
+          style={{ backgroundColor: "#009A44" }}
         >
           WhatsApp your advisor
         </a>
         <Link
           href={`/new-launch/${project.slug}`}
           className="block min-h-[44px] rounded-md border px-5 py-3 text-center text-sm font-medium"
-          style={{ borderColor: "#DEDAD1", color: "#16181B" }}
+          style={{ borderColor: "#e8e3db", color: "#1e1812" }}
         >
           View full analysis
         </Link>
 
-        <p className="text-xs" style={{ color: "#585C63" }}>
+        <p className="text-xs" style={{ color: "#6b5f52" }}>
           This page is for discussion with your HomeUP advisor and is not financial advice.
           {" "}
           {LEGAL_NAME}, CEA licence {CEA_LICENSE}.

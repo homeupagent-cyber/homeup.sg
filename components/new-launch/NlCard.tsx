@@ -8,7 +8,7 @@ export function NlCard({
   return (
     <div
       className={`rounded-xl border bg-[#FFFFFF] p-6 ${className}`}
-      style={{ borderColor: "#DEDAD1" }}
+      style={{ borderColor: "#e8e3db" }}
     >
       {children}
     </div>

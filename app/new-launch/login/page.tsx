@@ -17,12 +17,12 @@ export default function NewLaunchLoginPage() {
     <div className="grid min-h-screen md:grid-cols-2">
       <div
         className="flex flex-col justify-center gap-8 px-8 py-16 md:px-14"
-        style={{ backgroundColor: "#16181B", color: "#F5F3EE" }}
+        style={{ backgroundColor: "#005c28", color: "#FFFFFF" }}
       >
         <div className="max-w-md space-y-6">
           <div>
-            <p className="text-sm tracking-wide" style={{ color: "#BFC3C9" }}>HomeUP</p>
-            <p className="text-sm" style={{ color: "#BFC3C9" }}>New Launch Desk</p>
+            <p className="text-sm tracking-wide" style={{ color: "#cfe0d5" }}>HomeUP</p>
+            <p className="text-sm" style={{ color: "#cfe0d5" }}>New Launch Desk</p>
           </div>
           <h1
             className="text-3xl leading-tight md:text-4xl"
@@ -30,22 +30,22 @@ export default function NewLaunchLoginPage() {
           >
             Should you buy this new launch, or a resale unit instead?
           </h1>
-          <p className="text-base" style={{ color: "#BFC3C9" }}>
+          <p className="text-base" style={{ color: "#cfe0d5" }}>
             Your HomeUP advisor uses this page to walk through the market, the project, and how it
             stacks up against a resale unit at the same budget.
           </p>
-          <ol className="space-y-4 border-t pt-6" style={{ borderColor: "#45494F" }}>
+          <ol className="space-y-4 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.18)" }}>
             {NUMBERED_ITEMS.map((item) => (
               <li key={item.n} className="flex gap-3">
                 <span
                   className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs"
-                  style={{ backgroundColor: "#45494F", color: "#F5F3EE" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.18)", color: "#FFFFFF" }}
                 >
                   {item.n}
                 </span>
                 <div>
                   <p className="font-medium">{item.title}</p>
-                  <p className="text-sm" style={{ color: "#BFC3C9" }}>{item.body}</p>
+                  <p className="text-sm" style={{ color: "#cfe0d5" }}>{item.body}</p>
                 </div>
               </li>
             ))}
@@ -53,10 +53,10 @@ export default function NewLaunchLoginPage() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center px-8 py-16 md:px-14" style={{ backgroundColor: "#F5F3EE" }}>
+      <div className="flex flex-col justify-center px-8 py-16 md:px-14" style={{ backgroundColor: "#faf9f5" }}>
         <div className="mx-auto w-full max-w-sm space-y-6">
           <LoginForm />
-          <p className="text-xs" style={{ color: "#585C63" }}>
+          <p className="text-xs" style={{ color: "#6b5f52" }}>
             This page is for discussion with your HomeUP advisor and is not financial advice.
             {" "}
             {LEGAL_NAME}, CEA licence {CEA_LICENSE}.

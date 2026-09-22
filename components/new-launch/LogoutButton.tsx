@@ -4,7 +4,7 @@ export function LogoutButton() {
       <button
         type="submit"
         className="min-h-[44px] rounded-md px-3 text-sm font-medium underline-offset-4 hover:underline"
-        style={{ color: "#3E4248" }}
+        style={{ color: "#4e4439" }}
       >
         Log out
       </button>

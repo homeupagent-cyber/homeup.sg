@@ -7,9 +7,9 @@ export function MacroSignalCard({ signal }: { signal: MacroSignal }) {
     <NlCard>
       <div className="flex items-center gap-2">
         <SignalDot level={signal.level} />
-        <p className="font-medium" style={{ color: "#16181B" }}>{signal.name}</p>
+        <p className="font-medium" style={{ color: "#1e1812" }}>{signal.name}</p>
       </div>
-      <p className="mt-2 text-sm" style={{ color: "#3E4248" }}>{signal.note}</p>
+      <p className="mt-2 text-sm" style={{ color: "#4e4439" }}>{signal.note}</p>
     </NlCard>
   );
 }

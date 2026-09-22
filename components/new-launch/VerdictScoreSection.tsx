@@ -18,21 +18,21 @@ export function VerdictScoreSection({ project }: { project: Project }) {
       <NlCard>
         <div className="flex flex-wrap items-center gap-4">
           <VerdictBadge verdict={project.verdict} />
-          <span className="text-3xl" style={{ fontFamily: "var(--font-nl-mono)", color: "#16181B" }}>
+          <span className="text-3xl" style={{ fontFamily: "var(--font-nl-mono)", color: "#1e1812" }}>
             {weightedScore ?? project.score ?? "[--]"}/100
           </span>
         </div>
-        <p className="mt-3 text-sm" style={{ color: "#585C63" }}>
+        <p className="mt-3 text-sm" style={{ color: "#6b5f52" }}>
           Fundamentals weighted {profile.fundamentalWeight}%, technicals weighted {profile.technicalWeight}%
           for a {profile.label.toLowerCase()}.
         </p>
-        <p className="mt-1 text-xs" style={{ color: "#585C63" }}>
+        <p className="mt-1 text-xs" style={{ color: "#6b5f52" }}>
           Reviewed by {project.reviewedBy ?? "[Advisor name]"} on {project.reviewedOn ?? "[Review date]"}
         </p>
       </NlCard>
 
       <NlCard>
-        <p className="mb-3 font-medium" style={{ color: "#16181B" }}>Who is this for?</p>
+        <p className="mb-3 font-medium" style={{ color: "#1e1812" }}>Who is this for?</p>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Buyer profile">
           {BUYER_PROFILES.map((p) => {
             const active = p.key === profileKey;
@@ -45,8 +45,8 @@ export function VerdictScoreSection({ project }: { project: Project }) {
                 className="min-h-[44px] rounded-full border px-4 py-2 text-sm font-medium transition-colors"
                 style={
                   active
-                    ? { backgroundColor: "#16181B", color: "#F5F3EE", borderColor: "#16181B" }
-                    : { backgroundColor: "#FFFFFF", color: "#16181B", borderColor: "#DEDAD1" }
+                    ? { backgroundColor: "#009A44", color: "#FFFFFF", borderColor: "#009A44" }
+                    : { backgroundColor: "#FFFFFF", color: "#1e1812", borderColor: "#e8e3db" }
                 }
               >
                 {p.label}
@@ -54,7 +54,7 @@ export function VerdictScoreSection({ project }: { project: Project }) {
             );
           })}
         </div>
-        <p className="mt-3 text-sm" style={{ color: "#3E4248" }}>{profile.description}</p>
+        <p className="mt-3 text-sm" style={{ color: "#4e4439" }}>{profile.description}</p>
       </NlCard>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">

@@ -40,7 +40,7 @@ export function PricePositioningChart({ pricing }: { pricing: PricingBars }) {
         const y = i * rowHeight + 6;
         return (
           <g key={row.label}>
-            <text x={0} y={y + barHeight / 2 + 4} fontSize="11" fill="#3E4248">
+            <text x={0} y={y + barHeight / 2 + 4} fontSize="11" fill="#4e4439">
               {row.label}
             </text>
             {row.value == null ? (
@@ -50,7 +50,7 @@ export function PricePositioningChart({ pricing }: { pricing: PricingBars }) {
                 width={chartRight - chartLeft}
                 height={barHeight}
                 fill="none"
-                stroke="#DEDAD1"
+                stroke="#e8e3db"
                 strokeDasharray="4 3"
                 rx={3}
               />
@@ -61,7 +61,7 @@ export function PricePositioningChart({ pricing }: { pricing: PricingBars }) {
                 width={Math.max(scaleX(row.value) - chartLeft, 1)}
                 height={barHeight}
                 fill="none"
-                stroke="#1F3A5F"
+                stroke="#2563eb"
                 strokeDasharray="4 3"
                 rx={3}
               />
@@ -71,7 +71,7 @@ export function PricePositioningChart({ pricing }: { pricing: PricingBars }) {
                 y={y}
                 width={Math.max(scaleX(row.rangeHigh) - scaleX(row.value), 2)}
                 height={barHeight}
-                fill="#1E5B45"
+                fill="#009A44"
                 rx={3}
               />
             ) : (
@@ -80,7 +80,7 @@ export function PricePositioningChart({ pricing }: { pricing: PricingBars }) {
                 y={y}
                 width={Math.max(scaleX(row.value) - chartLeft, 1)}
                 height={barHeight}
-                fill="#1F3A5F"
+                fill="#2563eb"
                 rx={3}
               />
             )}
@@ -89,7 +89,7 @@ export function PricePositioningChart({ pricing }: { pricing: PricingBars }) {
               y={y + barHeight / 2 + 4}
               fontSize="11"
               fontFamily="var(--font-nl-mono)"
-              fill="#16181B"
+              fill="#1e1812"
             >
               {row.value == null
                 ? formatPsf(null)

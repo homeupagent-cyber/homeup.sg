@@ -43,42 +43,42 @@ export default function NewLaunchProjectPage({ params }: { params: { slug: strin
   ];
 
   return (
-    <div style={{ backgroundColor: "#F5F3EE", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#faf9f5", minHeight: "100vh" }}>
       <NlHeader breadcrumb={{ label: "Launch pipeline", href: "/new-launch#pipeline" }} />
 
       <main className="mx-auto max-w-6xl space-y-10 px-6 py-10">
         <section className="space-y-3">
-          <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "var(--font-nl-heading)", color: "#16181B" }}>
+          <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "var(--font-nl-heading)", color: "#1e1812" }}>
             {project.name}
           </h1>
-          <div className="flex flex-wrap gap-2 text-xs" style={{ color: "#585C63" }}>
+          <div className="flex flex-wrap gap-2 text-xs" style={{ color: "#6b5f52" }}>
             {chips.map((chip, i) => (
-              <span key={i} className="rounded-full border px-2.5 py-1" style={{ borderColor: "#DEDAD1" }}>
+              <span key={i} className="rounded-full border px-2.5 py-1" style={{ borderColor: "#e8e3db" }}>
                 {chip}
               </span>
             ))}
           </div>
-          <p className="max-w-3xl text-base" style={{ color: "#3E4248" }}>{project.thesis}</p>
+          <p className="max-w-3xl text-base" style={{ color: "#4e4439" }}>{project.thesis}</p>
         </section>
 
         <VerdictScoreSection project={project} />
 
         <section className="space-y-3">
           <NlCard>
-            <p className="mb-4 font-medium" style={{ color: "#16181B" }}>Price positioning</p>
+            <p className="mb-4 font-medium" style={{ color: "#1e1812" }}>Price positioning</p>
             <PricePositioningChart pricing={project.pricing} />
-            <dl className="mt-4 grid grid-cols-1 gap-3 border-t pt-4 text-sm sm:grid-cols-3" style={{ borderColor: "#DEDAD1" }}>
+            <dl className="mt-4 grid grid-cols-1 gap-3 border-t pt-4 text-sm sm:grid-cols-3" style={{ borderColor: "#e8e3db" }}>
               <div>
-                <dt style={{ color: "#585C63" }}>Premium vs 5–10yr resale</dt>
-                <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#16181B" }}>{formatPercent(premiumVsResale)}</dd>
+                <dt style={{ color: "#6b5f52" }}>Premium vs 5–10yr resale</dt>
+                <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#1e1812" }}>{formatPercent(premiumVsResale)}</dd>
               </div>
               <div>
-                <dt style={{ color: "#585C63" }}>Premium vs recent launches</dt>
-                <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#16181B" }}>{formatPercent(premiumVsRecentLaunches)}</dd>
+                <dt style={{ color: "#6b5f52" }}>Premium vs recent launches</dt>
+                <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#1e1812" }}>{formatPercent(premiumVsRecentLaunches)}</dd>
               </div>
               <div>
-                <dt style={{ color: "#585C63" }}>Implied developer margin</dt>
-                <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#16181B" }}>{formatPercent(impliedMargin)}</dd>
+                <dt style={{ color: "#6b5f52" }}>Implied developer margin</dt>
+                <dd style={{ fontFamily: "var(--font-nl-mono)", color: "#1e1812" }}>{formatPercent(impliedMargin)}</dd>
               </div>
             </dl>
           </NlCard>
@@ -101,14 +101,14 @@ export default function NewLaunchProjectPage({ params }: { params: { slug: strin
             target="_blank"
             rel="noopener noreferrer"
             className="min-h-[44px] rounded-md px-5 py-3 text-sm font-medium text-white"
-            style={{ backgroundColor: "#1E5B45" }}
+            style={{ backgroundColor: "#009A44" }}
           >
             WhatsApp your advisor
           </a>
           <Link
             href={`/new-launch/${project.slug}/summary`}
             className="flex min-h-[44px] items-center rounded-md border px-5 py-3 text-sm font-medium"
-            style={{ borderColor: "#DEDAD1", color: "#16181B" }}
+            style={{ borderColor: "#e8e3db", color: "#1e1812" }}
           >
             View client summary
           </Link>
