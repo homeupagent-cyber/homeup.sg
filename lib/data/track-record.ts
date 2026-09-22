@@ -167,7 +167,8 @@ export const CEA_AUTHORITY = {
  * Long Island's 2026 ranking is not a judged or voted award. Its own description is
  * "Nobody voted. We counted.", computed from the same CEA published records this page
  * uses. That makes it corroboration of the counting rather than a different class of
- * evidence, which is why it sits in the verification section.
+ * evidence, which is why it sits directly under the 2025 rankings alongside the 2024
+ * comparison: both are further evidence for the same claim, not a separate accolade.
  *
  * Dennis Lim is listed under his registered name and CEA number, so a reader can confirm
  * it is the same person named elsewhere on this page.

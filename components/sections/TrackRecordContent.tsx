@@ -135,6 +135,24 @@ export function TrackRecordContent() {
               </p>
             </div>
 
+            <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-neutral-900">
+                Someone else counted the same records
+              </h3>
+              <p className={`speakable-ranking mt-3 ${PROSE}`}>
+                {INDEPENDENT_RANKING.statement}
+              </p>
+              <p className={`mt-3 ${PROSE}`}>{INDEPENDENT_RANKING.method}</p>
+              <a
+                href={INDEPENDENT_RANKING.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex text-sm font-semibold text-primary-600 transition-colors hover:text-primary-700"
+              >
+                View the {INDEPENDENT_RANKING.publisher} ranking
+              </a>
+            </div>
+
             <p className={`mt-6 ${PROSE}`}>
               Full figures, field sizes and the method behind every number are{" "}
               <Link
@@ -465,24 +483,6 @@ export function TrackRecordContent() {
                 </a>
               </li>
             </ul>
-            <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6">
-              <h3 className="text-sm font-semibold text-neutral-900">
-                Someone else counted the same records
-              </h3>
-              <p className={`speakable-ranking mt-3 ${PROSE}`}>
-                {INDEPENDENT_RANKING.statement}
-              </p>
-              <p className={`mt-3 ${PROSE}`}>{INDEPENDENT_RANKING.method}</p>
-              <a
-                href={INDEPENDENT_RANKING.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex text-sm font-semibold text-primary-600 transition-colors hover:text-primary-700"
-              >
-                View the {INDEPENDENT_RANKING.publisher} ranking
-              </a>
-            </div>
-
             <p className={`mt-6 ${PROSE}`}>
               If you reproduce these figures and get a different answer, tell us and we will
               either correct the page or show you our working.
