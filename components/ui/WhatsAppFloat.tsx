@@ -9,7 +9,7 @@ const WA = whatsAppUrlFor("float");
 export function WhatsAppFloat() {
   const pathname = usePathname();
 
-  if (pathname?.startsWith("/roadshow")) return null;
+  if (pathname?.startsWith("/roadshow") || pathname?.startsWith("/new-launch")) return null;
 
   return (
     <a
