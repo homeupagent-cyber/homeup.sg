@@ -60,6 +60,8 @@ export const WHATSAPP_MESSAGES = {
     "Hi, I'm comparing selling options and would like to talk to HomeUP.",
   press:
     "Hi, I'm a journalist and would like to reach HomeUP for comment or an interview.",
+  whyHomeup:
+    "Hi, I've seen how HomeUP compares to other agents and would like to talk about selling.",
 } as const;
 
 export type WhatsAppMessageKey = keyof typeof WHATSAPP_MESSAGES;

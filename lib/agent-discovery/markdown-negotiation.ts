@@ -8,6 +8,13 @@ import {
   PRESS_META,
   PRESS_PAGE_CITATION,
 } from "@/lib/data/press";
+import {
+  ADVANTAGES,
+  COMPARISON_ROWS,
+  WHY_HOMEUP_INTRO,
+  WHY_HOMEUP_META,
+  WHY_HOMEUP_PROOF_LINE,
+} from "@/lib/data/why-homeup";
 import { SITE_URL, CEA_LICENSE, LEGAL_NAME } from "@/lib/seo/constants";
 
 /** Rough token estimate for x-markdown-tokens (chars / 4). */
@@ -121,6 +128,33 @@ ${faqs.join("\n\n")}
 ${PRESS_PAGE_CITATION}
 
 [Press page](${SITE_URL}/press) · [Track record](${SITE_URL}/track-record) · [About](${SITE_URL}/about)
+`;
+  },
+
+  "/why-homeup": () => {
+    const advantages = ADVANTAGES.map(
+      (advantage) => `### ${advantage.number}. ${advantage.title}\n\n${advantage.body}`,
+    );
+    const rows = COMPARISON_ROWS.map(
+      (row) => `| ${row.label} | ${row.traditional} | ${row.homeup} |`,
+    );
+    return `# HomeUP vs Other Agents
+
+${WHY_HOMEUP_INTRO} Last updated ${WHY_HOMEUP_META.lastUpdated}.
+
+## Our 4 unique advantages
+
+${advantages.join("\n\n")}
+
+## Side-by-side comparison
+
+| Area | Traditional agent | HomeUP |
+| --- | --- | --- |
+${rows.join("\n")}
+
+${WHY_HOMEUP_PROOF_LINE} Method and figures: ${SITE_URL}/track-record
+
+[Why HomeUP](${SITE_URL}/why-homeup) · [Sell with HomeUP](${SITE_URL}/sell) · [Track record](${SITE_URL}/track-record) · [About](${SITE_URL}/about)
 `;
   },
 

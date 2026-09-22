@@ -17,6 +17,7 @@
 - `Agents -> https://homeup.sg/agents`: CEA-licensed HomeUP advisors with credentials and contact details.
 - `Track record -> https://homeup.sg/track-record`: CEA-verified 2025 transaction rankings, category field sizes, full methodology, and how to reproduce every figure.
 - `Press -> https://homeup.sg/press`: Media coverage timeline (including co-founder Yeo Tong Boon on CNA938's Open House), press releases, spokespeople, boilerplate, brand assets and the media enquiries line.
+- `Why HomeUP -> https://homeup.sg/why-homeup`: HomeUP vs other agents for sellers: 24/7 live seller portal, 8-platform video-first exposure, data-backed pricing, under-5-minute enquiry response, and a side-by-side comparison with a traditional agent.
 
 ## APIs and authentication
 - `API catalog -> https://homeup.sg/.well-known/api-catalog`: Machine-readable index of public JSON APIs.

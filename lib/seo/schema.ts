@@ -5,6 +5,7 @@ import type { PlaybookVideo } from "@/lib/data/playbook";
 import type { Listing } from "@/lib/listings/types";
 import { getPublishedPressEntries, PRESS_META, type PressEntry } from "@/lib/data/press";
 import { TRACK_RECORD_META } from "@/lib/data/track-record";
+import { ADVANTAGES, stripEmphasis, WHY_HOMEUP_META } from "@/lib/data/why-homeup";
 import { getPublicListingUrl } from "@/lib/listings/utils";
 import {
   externalVideoWatchUrl,
@@ -812,6 +813,45 @@ export function pressPageSchema() {
         })),
       },
       ...people,
+    ],
+  };
+}
+
+export function whyHomeUpSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/why-homeup#webpage`,
+        url: `${SITE_URL}/why-homeup`,
+        name: "HomeUP vs Other Agents | Why Sellers Choose HomeUP",
+        description:
+          "What changes when you list with HomeUP instead of a traditional agent: a 24/7 live seller portal, 8-platform video-first exposure, data-backed pricing, under-5-minute enquiry response and a fixed fee from $1,999.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": ORG_ID },
+        datePublished: WHY_HOMEUP_META.publishedIso,
+        dateModified: WHY_HOMEUP_META.lastUpdatedIso,
+        inLanguage: "en-SG",
+        mainEntity: { "@id": `${SITE_URL}/why-homeup#advantages` },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: [".speakable-advantage", ".speakable-proof"],
+        },
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${SITE_URL}/why-homeup#advantages`,
+        name: "What HomeUP sellers get that a traditional listing does not",
+        numberOfItems: ADVANTAGES.length,
+        itemListElement: ADVANTAGES.map((advantage, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: `${SITE_URL}/why-homeup#${advantage.slug}`,
+          name: advantage.title,
+          description: stripEmphasis(advantage.body),
+        })),
+      },
     ],
   };
 }
