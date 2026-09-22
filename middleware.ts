@@ -6,6 +6,7 @@ import {
   wantsMarkdown,
 } from "@/lib/agent-discovery/markdown-negotiation";
 import { updateSession } from "@/lib/supabase/middleware";
+import { NEW_LAUNCH_COOKIE_NAME, verifyAccessCookieValue } from "@/lib/new-launch/cookie";
 
 function shouldSkipMarkdown(pathname: string): boolean {
   if (pathname.startsWith("/api")) return true;
@@ -75,6 +76,30 @@ export async function middleware(request: NextRequest) {
       const url = request.nextUrl.clone();
       url.pathname = "/list";
       return NextResponse.redirect(url);
+    }
+    return NextResponse.next();
+  }
+
+  // New Launch Desk gate — placed before the markdown-for-agents step below so an AI
+  // agent can never get a markdown copy of any /new-launch page without the cookie.
+  if (pathname.startsWith("/api/new-launch")) {
+    if (pathname === "/api/new-launch/login" || pathname === "/api/new-launch/logout") {
+      return NextResponse.next();
+    }
+    const hasAccess = await verifyAccessCookieValue(request.cookies.get(NEW_LAUNCH_COOKIE_NAME)?.value);
+    if (!hasAccess) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/new-launch")) {
+    if (pathname.startsWith("/new-launch/login")) {
+      return NextResponse.next();
+    }
+    const hasAccess = await verifyAccessCookieValue(request.cookies.get(NEW_LAUNCH_COOKIE_NAME)?.value);
+    if (!hasAccess) {
+      return NextResponse.redirect(new URL("/new-launch/login", request.url));
     }
     return NextResponse.next();
   }
