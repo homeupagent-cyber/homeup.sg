@@ -5,12 +5,22 @@
  *
  *   npm run pg:automation           # sheet refresh + sync
  *   npm run pg:automation -- --dry-run
+ *   npm run pg:automation -- --no-browser   # never open Chrome (unattended runs)
  *   npm run pg:watch                # repeat every 6h (PG_SYNC_INTERVAL_HOURS)
+ *
+ * When PropertyGuru answers the plain fetch with a Cloudflare challenge — which it
+ * does whenever the source IP has middling reputation, e.g. travelling or on mobile
+ * data — the import retries through a real Chrome, which clears the challenge.
+ * Pass --no-browser on a headless box where nobody can solve one by hand.
  */
 import { createClient } from "@supabase/supabase-js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { fetchListingPage } from "../lib/listings/import/fetch-listing-page";
+import {
+  createBrowserListingFetcher,
+  type BrowserListingFetcher,
+} from "../lib/listings/import/fetch-listing-page-browser";
 import { getPgSyncPreview } from "../lib/listings/pg-sync-preview";
 import { purgeExpiredArchivedListings } from "../lib/listings/purge-archived-listings";
 import { loadProjectEnv } from "../lib/scripts/load-env";
@@ -25,6 +35,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
 const dryRun = process.argv.includes("--dry-run");
+const noBrowser = process.argv.includes("--no-browser");
 
 function log(msg: string) {
   console.log(`[${new Date().toISOString()}] ${msg}`);
@@ -79,33 +90,49 @@ export async function runPgAutomation(): Promise<number> {
   log("Step 4/5 — Import new listings (auto-publish)…");
   const added: string[] = [];
   const failed: Array<{ url: string; error: string }> = [];
+  let browser: BrowserListingFetcher | null = null;
 
-  for (let i = 0; i < preview.to_import.length; i++) {
-    const item = preview.to_import[i];
-    log(`  [${i + 1}/${preview.to_import.length}] ${item.pg_url}`);
+  try {
+    for (let i = 0; i < preview.to_import.length; i++) {
+      const item = preview.to_import[i];
+      log(`  [${i + 1}/${preview.to_import.length}] ${item.pg_url}`);
 
-    let html: string | undefined;
-    const fetched = await fetchListingPage(item.pg_url);
-    if (fetched.ok) {
-      html = fetched.html;
-    } else {
-      log(`    PG fetch: ${fetched.error} — trying server fetch anyway`);
+      let html: string | undefined;
+      const fetched = await fetchListingPage(item.pg_url);
+
+      if (fetched.ok) {
+        html = fetched.html;
+      } else if (fetched.error === "FETCH_BLOCKED" && !noBrowser) {
+        log("    PG fetch blocked (Cloudflare challenge) — retrying through Chrome…");
+        if (!browser) browser = createBrowserListingFetcher();
+        const viaBrowser = await browser.fetch(item.pg_url);
+        if (viaBrowser.ok) {
+          html = viaBrowser.html;
+          log("    Chrome fetch OK");
+        } else {
+          log(`    Chrome fetch failed: ${viaBrowser.error}`);
+        }
+      } else {
+        log(`    PG fetch: ${fetched.error}`);
+      }
+
+      const outcome = await importOnePgListing(supabase, item.pg_url, item.pg_listing_id, {
+        html,
+        publish: true,
+      });
+
+      if (outcome.ok) {
+        added.push(`${outcome.title} (${outcome.slug})`);
+        log(`    OK → published: ${outcome.title}`);
+      } else if (outcome.error === "Already imported") {
+        log("    skipped (already imported)");
+      } else {
+        failed.push({ url: item.pg_url, error: outcome.error });
+        log(`    FAILED: ${outcome.error}`);
+      }
     }
-
-    const outcome = await importOnePgListing(supabase, item.pg_url, item.pg_listing_id, {
-      html,
-      publish: true,
-    });
-
-    if (outcome.ok) {
-      added.push(`${outcome.title} (${outcome.slug})`);
-      log(`    OK → published: ${outcome.title}`);
-    } else if (outcome.error === "Already imported") {
-      log("    skipped (already imported)");
-    } else {
-      failed.push({ url: item.pg_url, error: outcome.error });
-      log(`    FAILED: ${outcome.error}`);
-    }
+  } finally {
+    await browser?.close();
   }
 
   log("Step 5/5 — Publish any remaining drafts…");
