@@ -35,8 +35,11 @@ type ListingLeafletMapProps = {
   denseMarkers?: boolean;
 };
 
-const CARTO_VOYAGER =
-  "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+const ONEMAP_DEFAULT =
+  "https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png";
+
+const MIN_ZOOM = 11;
+const MAX_ZOOM = 19;
 
 const BASE_ZOOM = 15;
 const PROPERTY_PIN_SIZE = 30;
@@ -216,6 +219,8 @@ export function ListingLeafletMap({
       <MapContainer
         center={[property.lat, property.lng]}
         zoom={BASE_ZOOM}
+        minZoom={MIN_ZOOM}
+        maxZoom={MAX_ZOOM}
         className="listing-nearby-map h-full w-full rounded-2xl"
         style={{ height: "100%", width: "100%" }}
         zoomControl={false}
@@ -224,8 +229,10 @@ export function ListingLeafletMap({
         dragging
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url={CARTO_VOYAGER}
+          attribution='&copy; <a href="https://www.onemap.gov.sg/">OneMap</a> &copy; <a href="https://www.sla.gov.sg/">Singapore Land Authority</a>'
+          url={ONEMAP_DEFAULT}
+          minZoom={MIN_ZOOM}
+          maxZoom={MAX_ZOOM}
         />
         <ZoomControl position="bottomright" />
         <MapWheelHandler />
