@@ -40,6 +40,7 @@ const footerSections: FooterSection[] = [
     label: "Company",
     links: [
       { title: "About", href: "/about" },
+      { title: "Why HomeUP", href: "/why-homeup" },
       { title: "Track record", href: "/track-record" },
       { title: "Our team", href: "/agents" },
       { title: "Listings", href: "/listings" },
