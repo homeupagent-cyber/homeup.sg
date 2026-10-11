@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { LaunchReviewsStrip } from "@/components/launch-review/LaunchReviewsStrip";
 import { LandingPageJsonLd } from "@/components/seo/LandingPageJsonLd";
 import { BuyLandingContent } from "@/components/sections/BuyLandingContent";
 import { BUY_PAGE_NEW_LAUNCH } from "@/lib/data/buy-pages";
@@ -46,7 +47,7 @@ export default function BuyNewLaunchPage() {
       />
       <Navbar />
       <main className="bg-white">
-        <BuyLandingContent config={config} />
+        <BuyLandingContent config={config} afterHero={<LaunchReviewsStrip />} />
       </main>
       <Footer />
     </>

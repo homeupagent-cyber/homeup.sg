@@ -8,6 +8,7 @@
  *   node scripts/submit-indexnow.mjs --listings          # /listings + all active slugs
  *   node scripts/submit-indexnow.mjs --playbook          # /playbook + all article slugs
  *   node scripts/submit-indexnow.mjs --all               # listings + playbook
+ *   node scripts/submit-indexnow.mjs --launches          # /new-launch URLs from the live sitemap
  *   node scripts/submit-indexnow.mjs https://homeup.sg/foo
  */
 
@@ -95,11 +96,25 @@ async function fetchPlaybookArticleUrls(env) {
   return [`${SITE_URL}/playbook`, ...slugs.map((slug) => `${SITE_URL}/playbook/${slug}`)];
 }
 
+/** Launch reviews as listed in the live sitemap, which only includes published (non-draft) reviews. */
+async function fetchLaunchReviewUrls() {
+  const res = await fetch(`${SITE_URL}/sitemap.xml`);
+  if (!res.ok) throw new Error(`sitemap fetch failed: ${res.status}`);
+  const xml = await res.text();
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map((match) => match[1].trim())
+    .filter((url) => url === `${SITE_URL}/new-launch` || url.startsWith(`${SITE_URL}/new-launch/`));
+  if (urls.length === 0) console.warn("No /new-launch URLs in the live sitemap yet.");
+  return urls;
+}
+
 async function resolveUrls(argv) {
   const flags = new Set(argv.filter((arg) => arg.startsWith("--")));
   const explicit = argv.filter((arg) => !arg.startsWith("--"));
 
   if (explicit.length > 0) return explicit;
+
+  if (flags.has("--launches")) return fetchLaunchReviewUrls();
 
   if (flags.has("--all") || flags.has("--listings") || flags.has("--playbook")) {
     const env = loadEnv();
