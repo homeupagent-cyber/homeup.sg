@@ -1,0 +1,128 @@
+{
+  "slug": "solano-grand",
+  "generatedAt": "2026-10-11",
+  "centre": {
+    "lat": 1.389235,
+    "lng": 103.762425
+  },
+  "boundary": {
+    "areaSqm": 10475,
+    "statedAreaSqm": 10159.2,
+    "landUse": "RESIDENTIAL",
+    "grossPlotRatio": "3.0"
+  },
+  "rail": [
+    {
+      "name": "Jelapang LRT (BP12)",
+      "straightM": 370,
+      "walkM": 660,
+      "walkMin": 8
+    },
+    {
+      "name": "Senja LRT (BP13)",
+      "straightM": 730,
+      "walkM": 1040,
+      "walkMin": 13
+    },
+    {
+      "name": "Segar LRT (BP11)",
+      "straightM": 810,
+      "walkM": 1290,
+      "walkMin": 16
+    }
+  ],
+  "expressways": [
+    {
+      "name": "Kranji Expressway (KJE)",
+      "straightM": 110
+    },
+    {
+      "name": "Bukit Timah Expressway (BKE)",
+      "straightM": 1330
+    }
+  ],
+  "schoolsWithin1km": [
+    {
+      "name": "West Spring Primary School",
+      "straightM": 420
+    },
+    {
+      "name": "West View Primary School",
+      "straightM": 660
+    },
+    {
+      "name": "Greenridge Primary School",
+      "straightM": 700
+    }
+  ],
+  "schools1to2km": [
+    {
+      "name": "Teck Whye Primary School",
+      "straightM": 1190
+    },
+    {
+      "name": "Zhenghua Primary School",
+      "straightM": 1320
+    },
+    {
+      "name": "Beacon Primary School",
+      "straightM": 1380
+    },
+    {
+      "name": "Yew Tee Primary School",
+      "straightM": 1520
+    },
+    {
+      "name": "Kranji Primary School",
+      "straightM": 1740
+    },
+    {
+      "name": "Bukit Panjang Primary School",
+      "straightM": 1900
+    },
+    {
+      "name": "South View Primary School",
+      "straightM": 1980
+    }
+  ],
+  "malls": [
+    {
+      "name": "Greenridge Shopping Centre",
+      "straightM": 610,
+      "walkM": 880,
+      "walkMin": 11
+    },
+    {
+      "name": "Bukit Panjang Plaza",
+      "straightM": 1040,
+      "walkM": 1330,
+      "walkMin": 17
+    },
+    {
+      "name": "Junction 10",
+      "straightM": 1040,
+      "walkM": 1460,
+      "walkMin": 18
+    }
+  ],
+  "comparisonNearestRail": {
+    "solano": {
+      "name": "Jelapang LRT (BP12)",
+      "straightM": 360
+    },
+    "blossom": {
+      "name": "Segar LRT (BP11)",
+      "straightM": 200
+    },
+    "hillion": {
+      "name": "Bukit Panjang LRT (BP6)",
+      "straightM": 70
+    }
+  },
+  "buildings": {
+    "total": 32,
+    "hdbMatched": 17,
+    "osmHeight": 4,
+    "estimated": 11
+  }
+}

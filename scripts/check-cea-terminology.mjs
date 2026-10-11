@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Guardrail: consumer-facing copy must not call HomeUP an agency.
+ * Guardrail: consumer-facing copy must not call HomeUP an agency, must not use the word
+ * "specialist", and must not use developer sales language. Launch review files are also
+ * checked for wording that presents a page, model or data as official or the developer's.
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -74,6 +76,51 @@ const FORBIDDEN = [
   },
 ];
 
+/** Checked across every scanned site file. */
+const SITE_WIDE_FORBIDDEN = [
+  { pattern: /\bspecialists?\b/i, label: 'the word "specialist"' },
+  { pattern: /\bregister(?:ing)?\s+(?:your\s+)?interest\b/i, label: 'sales phrase "register interest"' },
+  { pattern: /\bVVIP\b/i, label: 'sales phrase "VVIP"' },
+  { pattern: /\bdirect developer prices?\b/i, label: 'sales phrase "direct developer price"' },
+  { pattern: /\bbook(?:ing)?\s+(?:a\s+|the\s+|your\s+)?show ?flat\b/i, label: 'sales phrase "book showflat"' },
+  { pattern: /\bpriority booking\b/i, label: 'sales phrase "priority booking"' },
+  { pattern: /\blimited units\b/i, label: 'sales phrase "limited units"' },
+  { pattern: /\bbest price guaranteed?\b/i, label: 'sales phrase "best price guaranteed"' },
+];
+
+/** Launch review files: the public /new-launch pages, their components and data. */
+const LAUNCH_SCAN_DIRS = ["app/(public)/new-launch", "components/launch-review", "lib/data/launches"];
+
+/** Exact sentences on launch pages that may use an otherwise banned word. */
+const LAUNCH_ALLOWED_SUBSTRINGS = [
+  "You pay the same developer price as buying at the showflat",
+  "Not a developer model. Layout and heights subject to the developer's final plans.",
+];
+
+const LAUNCH_FORBIDDEN = [
+  { pattern: /\bofficial\b/i, label: 'launch pages must not use "official"' },
+  { pattern: /\bshow ?flat\b/i, label: 'launch pages must not use "showflat" (except the disclosure)' },
+  { pattern: /\blaunch page\b/i, label: 'launch pages must not be called a "launch page"' },
+  {
+    pattern:
+      /\bdeveloper'?s\s+(?:own\s+)?(?:page|site|website|model|render(?:ing)?s?|brochure|floor ?plans?|price ?list)\b/i,
+    label: "launch pages must not present content as the developer's",
+  },
+];
+
+function scanLines(relPath, text, rules, allowed = []) {
+  const issues = [];
+  const lines = text.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (allowed.some((token) => line.includes(token))) continue;
+    for (const { pattern, label } of rules) {
+      if (pattern.test(line)) issues.push(`${relPath}:${i + 1} - ${label}: ${line.trim().slice(0, 120)}`);
+    }
+  }
+  return issues;
+}
+
 function walk(dir, out = []) {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
@@ -134,7 +181,7 @@ for (const dir of SITE_SCAN_DIRS) {
     const rel = relative(ROOT, full);
     if (rel.endsWith("playbook-final-10-articles.json")) continue;
     const text = readFileSync(full, "utf8");
-    const issues = scanFile(rel, text);
+    const issues = [...scanFile(rel, text), ...scanLines(rel, text, SITE_WIDE_FORBIDDEN, ALLOW_SUBSTRINGS)];
     if (issues.length) {
       allIssues.push(...issues);
       failed = true;
@@ -154,6 +201,23 @@ for (const rel of SITE_SCAN_FILES) {
   } catch (err) {
     if (err && typeof err === "object" && "code" in err && err.code === "ENOENT") continue;
     throw err;
+  }
+}
+
+for (const dir of LAUNCH_SCAN_DIRS) {
+  const abs = join(ROOT, dir);
+  try {
+    statSync(abs);
+  } catch {
+    continue;
+  }
+  for (const full of walk(abs)) {
+    const rel = relative(ROOT, full);
+    const issues = scanLines(rel, readFileSync(full, "utf8"), LAUNCH_FORBIDDEN, LAUNCH_ALLOWED_SUBSTRINGS);
+    if (issues.length) {
+      allIssues.push(...issues);
+      failed = true;
+    }
   }
 }
 

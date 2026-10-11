@@ -33,3 +33,17 @@ export function trackArticleView(slug: string, title?: string) {
 export function trackButtonClick(label: string) {
   trackEvent("button_click", { button_label: label });
 }
+
+export type LaunchEventName =
+  | "launch_viewer_open"
+  | "launch_sun_preset"
+  | "launch_time_slider"
+  | "launch_lead_submit";
+
+export function trackLaunchEvent(
+  name: LaunchEventName,
+  projectSlug: string,
+  params?: Record<string, unknown>,
+) {
+  trackEvent(name, { project_slug: projectSlug, ...params });
+}

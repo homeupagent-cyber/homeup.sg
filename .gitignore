@@ -52,3 +52,6 @@ tmp-listings-sync-kit/
 
 # TypeScript incremental build cache — machine-local, regenerated on every build
 tsconfig.tsbuildinfo
+
+# Launch review data downloads (Master Plan layer, HDB and MOE datasets)
+.cache/

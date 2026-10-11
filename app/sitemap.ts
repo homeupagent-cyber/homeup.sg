@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllAgentSlugs } from "@/lib/data/agents";
+import { getPublishedLaunches, launchPath } from "@/lib/data/launches";
 import { PLAYBOOK_TOPICS } from "@/lib/data/playbook";
 import { getAllListingSlugsServer } from "@/lib/listings/server-queries";
 import { getPlaybookArticleSitemapEntries } from "@/lib/playbook/sitemap-entries";
@@ -8,6 +9,16 @@ import { SITE_URL } from "@/lib/seo/constants";
 
 /** Refresh listing URLs hourly so new inventory appears without a full redeploy. */
 export const revalidate = 3600;
+
+/** Publishable launch reviews only; drafts never reach the sitemap. */
+function launchReviewEntries(): MetadataRoute.Sitemap {
+  return getPublishedLaunches().map(({ review }) => ({
+    url: `${SITE_URL}${launchPath(review.slug)}`,
+    lastModified: new Date(review.dateModified),
+    changeFrequency: "weekly" as const,
+    priority: 0.75,
+  }));
+}
 
 function coreSitemapEntries(now: Date): MetadataRoute.Sitemap {
   const agentPages = getAllAgentSlugs().map((slug) => ({
@@ -27,6 +38,8 @@ function coreSitemapEntries(now: Date): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/buy-hdb`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/buy-condo-landed`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/buy-new-launch`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/new-launch`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    ...launchReviewEntries(),
     { url: `${SITE_URL}/listings`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/agents`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     ...agentPages,
