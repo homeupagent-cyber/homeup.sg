@@ -104,6 +104,7 @@ via a password manager.
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | GA4 tag (`G-FYWLSSTYJ6`) | public | New owner property (or transfer) |
 | `GA_PROPERTY_ID` | GA4 Data API (admin dashboard) | config | New owner property ID |
 | `GA_SERVICE_ACCOUNT_JSON` | GA4 Data API auth | **secret** | New owner service account |
+| `LISTINGS_SHEET_SERVICE_ACCOUNT_B64` | Reads the private listings Google Sheet (base64 JSON key, Viewer on the sheet only) | **secret** | New owner service account; reshare the sheet with it |
 | `GSC_SERVICE_ACCOUNT_JSON` | Search Console API | **secret** | New owner service account |
 | `GSC_SITE_URL` | GSC property | config | `sc-domain:homeup.sg` (unchanged) |
 | `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | Maps JS | public (restrict by referrer) | New owner key |

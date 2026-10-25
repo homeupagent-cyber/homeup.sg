@@ -141,9 +141,10 @@ NEXT_PUBLIC_SUPABASE_URL=https://ixhikkbytusikgjiuvqa.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon key>
 SUPABASE_SERVICE_ROLE_KEY=<service role key>
 ANTHROPIC_API_KEY=<anthropic key>
+LISTINGS_SHEET_SERVICE_ACCOUNT_B64=<base64 of the sheet service account JSON key, one line>
 ```
 
-Automation uses **service role** for Supabase writes. `ANTHROPIC_API_KEY` is required for PG import extraction.
+Automation uses **service role** for Supabase writes. `ANTHROPIC_API_KEY` is required for PG import extraction. The listings sheet is private: `LISTINGS_SHEET_SERVICE_ACCOUNT_B64` is the Viewer-only service account used to read it (`npm run pg:sheet:check` tests it without touching the database).
 
 ### 5. Test manually
 

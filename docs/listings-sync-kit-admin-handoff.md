@@ -134,7 +134,10 @@ NEXT_PUBLIC_SUPABASE_URL=https://ixhikkbytusikgjiuvqa.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<Supabase → Settings → API → anon public>
 SUPABASE_SERVICE_ROLE_KEY=<Supabase → Settings → API → service_role>
 ANTHROPIC_API_KEY=<console.anthropic.com → API keys>
+LISTINGS_SHEET_SERVICE_ACCOUNT_B64=<base64 of the sheet service account JSON key, one line>
 ```
+
+The listings sheet is private. `LISTINGS_SHEET_SERVICE_ACCOUNT_B64` logs in as a Google service account that has Viewer access to the sheet only. Check it with `npm run pg:sheet:check` (read-only, no database writes).
 
 Send via **1Password** or **Bitwarden** — not plain email.
 

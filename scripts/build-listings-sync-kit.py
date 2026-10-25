@@ -15,6 +15,7 @@ COPY_PATHS = [
     "lib/data/agents.ts",
     "lib/scripts/load-env.ts",
     "lib/seo/constants.ts",
+    "scripts/check-sheet-access.ts",
     "scripts/pg-fetch-agent/server.ts",
     "scripts/run-pg-automation.ts",
     "scripts/run-pg-sheet-sync.ts",
@@ -29,6 +30,7 @@ KIT_PACKAGE_JSON = {
         "pg:agent": "npx tsx scripts/pg-fetch-agent/server.ts",
         "pg:automation": "npx tsx scripts/run-pg-automation.ts",
         "pg:sheet": "npx tsx scripts/run-pg-sheet-sync.ts",
+        "pg:sheet:check": "npx tsx scripts/check-sheet-access.ts",
     },
     "dependencies": {
         "@anthropic-ai/sdk": "^0.104.1",
@@ -62,6 +64,8 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 ANTHROPIC_API_KEY=
+# Google login for the private listings sheet (one long line, ask team lead)
+LISTINGS_SHEET_SERVICE_ACCOUNT_B64=
 """
 
 KIT_SUPABASE_CLIENT = """import { createClient as createSupabaseClient } from "@supabase/supabase-js";
@@ -308,6 +312,7 @@ TROUBLESHOOTING
 ---------------
 - "Missing .env.local" → ask team lead; never put keys in email or chat
 - "PropertyGuru blocked" → start-agent must be running for Workflow A
+- "Google Sheet fetch failed" → .env.local needs LISTINGS_SHEET_SERVICE_ACCOUNT_B64; test with npm run pg:sheet:check
 - Agent offline on admin page → run start-agent before syncing
 - Windows Smart App Control → open index.html only; use manual npm commands (see index.html)
 - Mac "cannot be opened" → right-click the .command file → Open
@@ -483,6 +488,7 @@ npm run pg:install</code>
         <li><strong>Missing .env.local</strong> — ask team lead; copy the file into this folder.</li>
         <li><strong>Imports need the local agent</strong> — run <span class="file">start-agent</span> before Workflow A.</li>
         <li><strong>PropertyGuru blocked</strong> — agent not running, or run Workflow B from this PC instead.</li>
+        <li><strong>Google Sheet fetch failed</strong>: your <span class="file">.env.local</span> needs the <span class="file">LISTINGS_SHEET_SERVICE_ACCOUNT_B64</span> line. Check with <code>npm run pg:sheet:check</code> (read-only).</li>
         <li><strong>npm install failed</strong> — check internet; re-run setup commands.</li>
         <li><strong>Antivirus blocked .bat</strong> — open <span class="file">index.html</span> and use manual commands (Option B) in each section.</li>
       </ul>
