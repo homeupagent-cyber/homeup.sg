@@ -38,10 +38,17 @@ const SOCIAL_PLATFORMS = [
   },
 ] as const;
 
-export function ListingPlatformIcons() {
+interface ListingPlatformIconsProps {
+  /** Replaces the default wrapper layout, e.g. to lay the icons out as a 4×2 grid. */
+  className?: string;
+}
+
+export function ListingPlatformIcons({
+  className = "ml-1.5 inline-flex flex-wrap items-center gap-1",
+}: ListingPlatformIconsProps = {}) {
   return (
     <span
-      className="ml-1.5 inline-flex flex-wrap items-center gap-1"
+      className={className}
       role="img"
       aria-label="PropertyGuru, SRX, 99.co, HOMEUP, Instagram, TikTok, Facebook, and YouTube"
     >

@@ -31,6 +31,7 @@ function coreSitemapEntries(now: Date): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/agents`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     ...agentPages,
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${SITE_URL}/why-homeup`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     {
       url: `${SITE_URL}/track-record`,
       lastModified: now,
