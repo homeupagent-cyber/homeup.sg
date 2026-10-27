@@ -202,7 +202,8 @@ export function TrackRecordContent() {
               Experience on one side, momentum on the other. {HDB_DIVISION.partner} has seen how
               HDB pricing behaves across cycles most advisors have never worked through.{" "}
               {HDB_DIVISION.leadAdvisor} brings a live buyer pipeline and current top 1%
-              seller-side volume. Selling a flat with HomeUP gets you both, at a fixed fee.
+              seller-side volume. Selling a flat with HomeUP gets you an agent backed by both, at a
+              fixed fee.
             </p>
             <p className={`mt-4 ${PROSE}`}>
               That is deliberate. A fixed fee should buy better advice, not a thinner version of
