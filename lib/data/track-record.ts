@@ -226,10 +226,19 @@ export const HDB_DIVISION = {
   partnerCea: "R023385H",
   partnerTenure: "three decades",
   partnerSince: "1997",
-  partnerTransactions: "797",
-  /** Of the 797, this many predate CEA’s public register. */
-  partnerPre2017: "717",
+  partnerTransactions: "796",
+  /** Of the 796, this many predate CEA’s public register. */
+  partnerPre2017: "716",
 } as const;
+
+/** Public log of corrections to this page's figures, newest first. */
+export const PAGE_CHANGES: { date: string; change: string }[] = [
+  {
+    date: "27 October 2026",
+    change:
+      "Recounted Edmund Lee's pre-2017 office records by transaction number and side represented (now 716).",
+  },
+];
 
 /** CEA number for the one advisor on this page not named in the rankings or HDB division. */
 export const KENJI_CEA = "R070948I";

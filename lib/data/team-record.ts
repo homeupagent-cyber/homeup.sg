@@ -11,8 +11,8 @@
  */
 
 export const TEAM_RECORD_META = {
-  totalSales: "1,218",
-  hdbSales: "898",
+  totalSales: "1,217",
+  hdbSales: "897",
   hdbShare: "74%",
   privateSales: "320",
   privateShare: "26%",
@@ -48,8 +48,8 @@ export const TEAM_RECORD_ADVISORS: TeamRecordAdvisor[] = [
     slug: "edmund-lee",
     cea: "R023385H",
     photo: "/images/agent-edmund.png",
-    total: 809,
-    hdb: 797,
+    total: 808,
+    hdb: 796,
     private: 12,
     sellerSide: 65,
     buyerSide: 27,
@@ -57,7 +57,7 @@ export const TEAM_RECORD_ADVISORS: TeamRecordAdvisor[] = [
     spanLabel: "Record span",
     span: "January 1997 to August 2026",
     detail:
-      "In CEA’s public register, 2017 to August 2026: 80 HDB and 12 private. Office records provided by C & H Properties, 1997 to 2016: 717 HDB.",
+      "In CEA’s public register, 2017 to August 2026: 80 HDB and 12 private. Office records provided by C & H Properties, 1997 to 2016: 716 HDB.",
   },
   {
     name: "Dennis Lim",
@@ -110,5 +110,5 @@ export const TEAM_RECORD_METHOD: string[] = [
   "Counts cover sale and resale transactions only, across HDB resale, private resale and new sale. Rental and lease transactions are excluded.",
   "The CEA public register begins January 2017. Where an advisor's career predates it, earlier transactions are not in the register and are shown separately.",
   "2026 figures run to August 2026, the last month in the source file, not a full calendar year.",
-  "Edmund Lee's HDB total blends two sources: 80 sales from CEA's public register for 2017 to August 2026, plus 717 from office records provided by C & H Properties for 1997 to 2016, split at 1 January 2017 so nothing is counted twice. The pre-2017 portion is not in CEA's public register, which begins in January 2017, so it cannot be checked against that register.",
+  "Edmund Lee's HDB total blends two sources: 80 sales from CEA's public register for 2017 to August 2026, plus 716 from office records provided by C & H Properties for 1997 to 2016, split at 1 January 2017 so nothing is counted twice. The pre-2017 portion is not in CEA's public register, which begins in January 2017, so it cannot be checked against that register.",
 ];

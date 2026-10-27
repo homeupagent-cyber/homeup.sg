@@ -11,6 +11,7 @@ import {
   HEADLINE_RANKINGS,
   INDEPENDENT_RANKING,
   KENJI_CEA,
+  PAGE_CHANGES,
   PAGE_CITATION,
   TRACK_RECORD_FAQS,
   TRACK_RECORD_META,
@@ -498,6 +499,17 @@ export function TrackRecordContent() {
               If you reproduce these figures and get a different answer, tell us and we will
               either correct the page or show you our working.
             </p>
+
+            <div id="changes" className="mt-8">
+              <h3 className="text-lg font-semibold text-neutral-900">Changes to this page</h3>
+              <ul className="mt-3 flex flex-col gap-2">
+                {PAGE_CHANGES.map((c) => (
+                  <li key={c.date + c.change} className="text-sm leading-relaxed text-neutral-600">
+                    <span className="font-semibold text-neutral-900">{c.date}:</span> {c.change}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div
               id="cite"
