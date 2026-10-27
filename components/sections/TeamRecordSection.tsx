@@ -153,8 +153,9 @@ export function TeamRecordSection() {
         <p className="mt-6 text-sm leading-relaxed text-neutral-500">
           Last updated {TEAM_RECORD_META.lastUpdated} from the CEA Salespersons&apos; Property
           Transaction Records on data.gov.sg (resource{" "}
-          <code className="text-neutral-700">{TEAM_RECORD_META.ceaResourceId}</code>), plus
-          office records provided by {TEAM_RECORD_META.officeRecordSource} for the period before{" "}
+          <code className="text-neutral-700">{TEAM_RECORD_META.ceaResourceId}</code>), covering{" "}
+          {TEAM_RECORD_META.registerStart} to {TEAM_RECORD_META.registerEnd}, plus office records
+          provided by {TEAM_RECORD_META.officeRecordSource} for the period before{" "}
           {TEAM_RECORD_META.registerStart}.
         </p>
       </div>

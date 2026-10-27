@@ -11,13 +11,19 @@
 
 export const TRACK_RECORD_META = {
   /** Full span of the source dataset, not the span reported on the page. */
-  datasetCoverage: "January 2017 to June 2026",
+  datasetCoverage: "January 2017 to August 2026",
   /** The window every ranking on the page is computed over. */
   reportingPeriod:
-    "2025 rankings, with 2024 shown for comparison. Lifetime totals from each advisor’s first recorded transaction.",
+    "2025 rankings, with 2024 shown for comparison. Lifetime totals from each advisor’s first recorded transaction to August 2026.",
   source:
     "CEA Salespersons' Property Transaction Records (Residential), data.gov.sg. Pre-2017 office records for Edmund Lee, provided by C & H Properties.",
   lastUpdated: "October 2026",
+  /**
+   * The specific download these figures come from. CEA backfills recent months, so the
+   * two most recent months in any download are provisional. Disclosed on the page.
+   */
+  dataAsOf:
+    "Data as published on data.gov.sg on 27 October 2026. CEA continues to add records for recent months, so figures for July and August 2026 may rise.",
   /** ISO form for schema.org dateModified. */
   lastVerifiedIso: "2026-09-16",
 } as const;
@@ -50,9 +56,9 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     photo: "/images/agent-dennis.png",
     category: "Private residential resale, seller representation",
     transactions: 96,
-    rank: "1st of 7,725",
+    rank: "1st of 7,727",
     statement:
-      "In the 2025 calendar year, Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category in Singapore, in the Council for Estate Agencies' published transaction records.",
+      "In the 2025 calendar year, Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,727 salespersons active in that category in Singapore, in the Council for Estate Agencies' published transaction records.",
   },
   {
     advisor: "Yeo Tong Boon",
@@ -62,9 +68,9 @@ export const HEADLINE_RANKINGS: HeadlineRanking[] = [
     photo: "/images/agent-tong-boon.png",
     category: "Private residential resale, buyer representation",
     transactions: 25,
-    rank: "1st of 6,284",
+    rank: "1st of 6,286",
     statement:
-      "In the 2025 calendar year, Yeo Tong Boon recorded 25 private residential resale transactions on the buyer side, ranking 1st of 6,284 salespersons active in that category in Singapore, in the Council for Estate Agencies' published transaction records.",
+      "In the 2025 calendar year, Yeo Tong Boon recorded 25 private residential resale transactions on the buyer side, ranking 1st of 6,286 salespersons active in that category in Singapore, in the Council for Estate Agencies' published transaction records.",
   },
 ];
 
@@ -96,8 +102,8 @@ export interface CategoryField {
 export const CATEGORY_FIELDS: CategoryField[] = [
   {
     heading: "Private residential resale, buyer representation",
-    fieldSize: "6,284",
-    categoryTransactions: "11,239",
+    fieldSize: "6,286",
+    categoryTransactions: "11,249",
     median: "one",
     thresholds: [
       "Twenty-nine salespersons nationally reached ten or more.",
@@ -108,8 +114,8 @@ export const CATEGORY_FIELDS: CategoryField[] = [
   },
   {
     heading: "Private residential resale, seller representation",
-    fieldSize: "7,725",
-    categoryTransactions: "16,659",
+    fieldSize: "7,727",
+    categoryTransactions: "16,670",
     median: "one",
     thresholds: [
       "Nine salespersons nationally reached twenty.",
@@ -225,7 +231,7 @@ export interface TrackRecordFaq {
 export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   {
     q: "Which categories did HomeUP's co-founders rank first in for 2025?",
-    a: "Based on our count of CEA's published transaction records for the 2025 calendar year, both of HomeUP's co-founders ranked number one in Singapore in their categories. Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category. Yeo Tong Boon recorded 25 on the buyer side, ranking 1st of 6,284. CEA publishes transactions by category rather than naming a single overall leader, so these are category-level number one positions, each measured against every salesperson active in that category.",
+    a: "Based on our count of CEA's published transaction records for the 2025 calendar year, both of HomeUP's co-founders ranked number one in Singapore in their categories. Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,727 salespersons active in that category. Yeo Tong Boon recorded 25 on the buyer side, ranking 1st of 6,286. CEA publishes transactions by category rather than naming a single overall leader, so these are category-level number one positions, each measured against every salesperson active in that category.",
   },
   {
     q: "Who publishes the data behind these rankings?",

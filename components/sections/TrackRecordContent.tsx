@@ -64,6 +64,7 @@ export function TrackRecordContent() {
               <SourceLine label="Dataset spans:" value={TRACK_RECORD_META.datasetCoverage} />
               <SourceLine label="Source:" value={TRACK_RECORD_META.source} />
               <SourceLine label="Last updated:" value={TRACK_RECORD_META.lastUpdated} />
+              <SourceLine label="Data as of:" value={TRACK_RECORD_META.dataAsOf} />
             </dl>
           </div>
         </div>
@@ -405,8 +406,10 @@ export function TrackRecordContent() {
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">Reporting lag.</strong> CEA
                 publishes with a delay and recent months are revised upward as records are
-                submitted. We therefore report a closed calendar year rather than a partial
-                current one, so that no figure here can be revised after publication.
+                submitted. Every ranking on this page is therefore a closed calendar year rather
+                than a partial current one, so no ranking here can be revised after publication.
+                Lifetime totals run to August 2026 and may rise as CEA adds records for recent
+                months.
               </li>
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">Category</strong> means a
