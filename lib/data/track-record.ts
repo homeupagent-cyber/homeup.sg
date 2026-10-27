@@ -7,6 +7,11 @@
  *
  * Every figure below was checked against the source dataset before publication.
  * Do not edit a number here without re-running it against the CEA file first.
+ *
+ * Re-verified 27 October 2026 against the data.gov.sg file published that day. The 2025
+ * private resale field sizes moved by two salespersons in each category and were updated.
+ * HDB_RESULT and DENNIS_PRIOR_YEAR were re-checked against the same file and are
+ * unchanged. The earlier download the page previously cited has been retained.
  */
 
 export const TRACK_RECORD_META = {
@@ -126,7 +131,13 @@ export const CATEGORY_FIELDS: CategoryField[] = [
   },
 ];
 
-/** HDB is a separate market with a separate field, so it is measured separately. */
+/**
+ * HDB is a separate market with a separate field, so it is measured separately.
+ *
+ * Re-checked against the 27 October 2026 file: count, rank, field size, category total,
+ * median, the 82 who reached twenty, the top 1% threshold and the seven-way tie are all
+ * unchanged from the earlier download.
+ */
 export const HDB_RESULT = {
   advisor: "Yeo Tong Boon",
   transactions: 22,
