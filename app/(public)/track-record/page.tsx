@@ -7,9 +7,9 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqSchema, trackRecordSchema } from "@/lib/seo/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Our Track Record | HomeUP, Verified Against CEA Records",
+  title: "Our Track Record and How We Count It | HomeUP",
   description:
-    "Two HomeUP advisors rank #1 in Singapore for private residential resale, with a top 1% HDB result, in CEA's published transaction records. Full figures and methodology.",
+    "Two HomeUP advisors ranked first in Singapore in their 2025 categories, based on our count of CEA's published transaction records, with a top 1% HDB result. Full figures and method.",
   path: "/track-record",
   ogImageAlt: "The HomeUP advisory team, Singapore",
 });

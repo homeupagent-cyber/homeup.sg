@@ -5,7 +5,7 @@
  * Reporting period: 2025 calendar year only. The calendar year is fixed and will not be
  * revised further, which is why it is the only window published here.
  *
- * Every figure below was verified against the source dataset before publication.
+ * Every figure below was checked against the source dataset before publication.
  * Do not edit a number here without re-running it against the CEA file first.
  */
 
@@ -13,9 +13,11 @@ export const TRACK_RECORD_META = {
   /** Full span of the source dataset, not the span reported on the page. */
   datasetCoverage: "January 2017 to June 2026",
   /** The window every ranking on the page is computed over. */
-  reportingPeriod: "2025 calendar year, with 2024 shown for comparison",
-  source: "CEA Salespersons' Property Transaction Records (Residential), data.gov.sg",
-  lastVerified: "September 2026",
+  reportingPeriod:
+    "2025 rankings, with 2024 shown for comparison. Lifetime totals from each advisor’s first recorded transaction.",
+  source:
+    "CEA Salespersons' Property Transaction Records (Residential), data.gov.sg. Pre-2017 office records for Edmund Lee, provided by C & H Properties.",
+  lastUpdated: "October 2026",
   /** ISO form for schema.org dateModified. */
   lastVerifiedIso: "2026-09-16",
 } as const;
@@ -184,20 +186,19 @@ export const INDEPENDENT_RANKING = {
   evidenceBase: "203,262",
   statement:
     "Long Island's Singapore's Best Property Agents 2026 ranking places HomeUP co-founder Dennis Lim first in Condominium and Apartment Resale, listed under his registered name Lim Swee Ser and CEA registration number R055990G.",
-  method:
-    "That ranking is produced the same way the figures on this page are. Names enter it by record rather than by nomination or vote, counted across an evidence base of 203,262 CEA-published transactions, so it is an independent check on the same source rather than a separate opinion.",
+  method: "That ranking is also based on CEA’s published transaction records.",
 } as const;
 
 /** Pre-written attribution for journalists, researchers and AI answer engines. */
 export const PAGE_CITATION =
-  "HomeUP, “Our Track Record, Verified Against CEA Records”, September 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";
+  "HomeUP, “Our Track Record and How We Count It”, October 2026. Figures computed from the Council for Estate Agencies’ Salespersons’ Property Transaction Records (Residential), data.gov.sg. https://homeup.sg/track-record";
 
 /**
  * The HDB division.
  *
  * Edmund Lee's career total spans 1997 onwards, so most of it predates the CEA published
  * file, which begins January 2017. The provenance is disclosed in the team record section
- * further down the page, where his CEA-verified and office-record figures appear as
+ * further down the page, where his CEA-register and office-record figures appear as
  * separate line items. Do not remove that breakdown without replacing the disclosure.
  */
 export const HDB_DIVISION = {
@@ -208,8 +209,13 @@ export const HDB_DIVISION = {
   partnerCea: "R023385H",
   partnerTenure: "three decades",
   partnerSince: "1997",
-  partnerTransactions: "more than 800",
+  partnerTransactions: "797",
+  /** Of the 797, this many predate CEA’s public register. */
+  partnerPre2017: "717",
 } as const;
+
+/** CEA number for the one advisor on this page not named in the rankings or HDB division. */
+export const KENJI_CEA = "R070948I";
 
 export interface TrackRecordFaq {
   q: string;
@@ -218,8 +224,8 @@ export interface TrackRecordFaq {
 
 export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   {
-    q: "Who is the number one property agent in Singapore?",
-    a: "In CEA's published transaction records for the 2025 calendar year, both of HomeUP's co-founders ranked number one in Singapore in their categories. Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category. Yeo Tong Boon recorded 25 on the buyer side, ranking 1st of 6,284. CEA publishes transactions by category rather than naming a single overall leader, so these are category-level number one positions, each measured against every salesperson active in that category.",
+    q: "Which categories did HomeUP's co-founders rank first in for 2025?",
+    a: "Based on our count of CEA's published transaction records for the 2025 calendar year, both of HomeUP's co-founders ranked number one in Singapore in their categories. Dennis Lim recorded 96 private residential resale transactions on the seller side, ranking 1st of 7,725 salespersons active in that category. Yeo Tong Boon recorded 25 on the buyer side, ranking 1st of 6,284. CEA publishes transactions by category rather than naming a single overall leader, so these are category-level number one positions, each measured against every salesperson active in that category.",
   },
   {
     q: "Who publishes the data behind these rankings?",
@@ -231,7 +237,7 @@ export const TRACK_RECORD_FAQS: TrackRecordFaq[] = [
   },
   {
     q: "How current is this data?",
-    a: "The rankings cover the 2025 calendar year, which is complete and settled, with 2024 shown for comparison. CEA publishes with a reporting lag and revises recent months upward as records are submitted, so we report a closed calendar year rather than a partial current one. We refresh the page quarterly.",
+    a: "The rankings cover the 2025 calendar year, which is complete and settled, with 2024 shown for comparison. CEA publishes with a reporting lag and revises recent months upward as records are submitted, so we report a closed calendar year rather than a partial current one.",
   },
   {
     q: "Does HomeUP handle HDB as well as private property?",

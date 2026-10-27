@@ -10,6 +10,7 @@ import {
   HDB_RESULT,
   HEADLINE_RANKINGS,
   INDEPENDENT_RANKING,
+  KENJI_CEA,
   PAGE_CITATION,
   TRACK_RECORD_FAQS,
   TRACK_RECORD_META,
@@ -45,21 +46,24 @@ export function TrackRecordContent() {
       <section aria-label="Track record introduction" className="section-padding bg-white">
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
-            <Eyebrow>Verified against CEA records</Eyebrow>
+            <Eyebrow>Computed from CEA&apos;s published data</Eyebrow>
             <h1 className="section-title !text-left">
-              Our Track Record, Verified Against CEA Records
+              Our Track Record and How We Count It
             </h1>
             <p className={`speakable-ranking mt-6 ${PROSE}`}>
-              Every figure on this page comes from the published transaction records of the
-              Council for Estate Agencies, Singapore&apos;s property industry regulator. Full
-              method, field sizes and sources are set out further down.
+              The 2025 rankings, and all figures from 2017 onwards, are computed by HomeUP
+              from the published transaction records of the Council for Estate Agencies (CEA),
+              Singapore&apos;s property industry regulator. One advisor&apos;s lifetime total
+              also includes transactions from before 2017, which come from office records and
+              are labelled separately. CEA does not rank salespersons and has not endorsed
+              HomeUP. Full method, field sizes and sources are set out further down.
             </p>
 
             <dl className="mt-8 flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
               <SourceLine label="Figures cover:" value={TRACK_RECORD_META.reportingPeriod} />
               <SourceLine label="Dataset spans:" value={TRACK_RECORD_META.datasetCoverage} />
               <SourceLine label="Source:" value={TRACK_RECORD_META.source} />
-              <SourceLine label="Last verified:" value={TRACK_RECORD_META.lastVerified} />
+              <SourceLine label="Last updated:" value={TRACK_RECORD_META.lastUpdated} />
             </dl>
           </div>
         </div>
@@ -74,12 +78,12 @@ export function TrackRecordContent() {
           <div className="mx-auto max-w-3xl">
             <h2 className="section-title !text-left">Who ranked first in Singapore in 2025</h2>
             <p className={`mt-4 ${PROSE}`}>
-              Both of HomeUP&apos;s co-founders hold the{" "}
+              Both of HomeUP&apos;s co-founders{" "}
               <strong className="font-semibold text-neutral-900">
-                number one position in Singapore
+                ranked first in Singapore
               </strong>{" "}
-              in their categories. The rankings below cover the 2025 calendar year, which is
-              complete and will not be revised further.
+              in their categories in 2025. The rankings below cover the 2025 calendar year,
+              which is complete and will not be revised further.
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -189,8 +193,9 @@ export function TrackRecordContent() {
             </p>
             <p className={`speakable-ranking mt-4 ${PROSE}`}>
               {HDB_DIVISION.partner} has been transacting HDB flats since{" "}
-              {HDB_DIVISION.partnerSince} and has {HDB_DIVISION.partnerTransactions} HDB
-              transactions to his name.
+              {HDB_DIVISION.partnerSince} and has {HDB_DIVISION.partnerTransactions} HDB sale
+              and resale transactions on record, {HDB_DIVISION.partnerPre2017} of them from
+              before 2017.
             </p>
             <p className={`speakable-ranking mt-4 ${PROSE}`}>{HDB_RESULT.statement}</p>
             <p className={`mt-4 ${PROSE}`}>
@@ -205,8 +210,9 @@ export function TrackRecordContent() {
             </p>
             <p className={`mt-4 ${PROSE}`}>
               The pairing also covers the upgrade. If you are selling an HDB flat in order to buy
-              private, your purchase is handled by the salesperson who represented more private
-              residential resale buyers in 2025 than anyone else in Singapore.
+              private, your purchase is handled by a HomeUP agent trained and guided by Yeo Tong
+              Boon, who represented more private residential resale buyers in 2025 than anyone
+              else in Singapore.
             </p>
           </div>
         </div>
@@ -407,9 +413,9 @@ export function TrackRecordContent() {
                 example private residential resale on the buyer side.
               </li>
               <li className={PROSE}>
-                <strong className="font-semibold text-neutral-900">Resale only.</strong> New sales
-                are excluded from every private residential figure on this page. Resale and new
-                sale are different categories and we do not combine them.
+                <strong className="font-semibold text-neutral-900">Resale only in rankings.</strong>{" "}
+                New sales are excluded from every ranking on this page. The lifetime totals in
+                the team section include new sales.
               </li>
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">Rank</strong> is by transaction
@@ -461,7 +467,8 @@ export function TrackRecordContent() {
                   eservices.cea.gov.sg/aceas/public-register
                 </a>
                 . Dennis Lim is {HEADLINE_RANKINGS[0].cea}, registered name Lim Swee Ser. Yeo Tong
-                Boon is {HEADLINE_RANKINGS[1].cea}.
+                Boon is {HEADLINE_RANKINGS[1].cea}. Edmund Lee is {HDB_DIVISION.partnerCea}. Kenji
+                Ching is {KENJI_CEA}.
               </li>
               <li className={PROSE}>
                 <strong className="font-semibold text-neutral-900">

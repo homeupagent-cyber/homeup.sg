@@ -73,7 +73,7 @@ export const HOMEUP_NAV_MENU: MenuItem[] = [
       },
       {
         title: "Track Record",
-        description: "CEA-verified 2025 rankings",
+        description: "2025 rankings from CEA data",
         icon: <BarChart3 className="size-5 shrink-0 text-primary-600" />,
         url: "/track-record",
       },
