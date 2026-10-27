@@ -4,6 +4,7 @@ import {
   TEAM_RECORD_ADVISORS,
   TEAM_RECORD_META,
   TEAM_RECORD_METHOD,
+  TEAM_RECORD_SHARED_NOTE,
   type TeamRecordAdvisor,
 } from "@/lib/data/team-record";
 
@@ -100,13 +101,14 @@ export function TeamRecordSection() {
           How many homes the HomeUP team has sold
         </h2>
         <p className={`mt-4 ${PROSE}`}>
-          Across its four most active advisors, HomeUP has closed{" "}
+          Across their careers, HomeUP&apos;s four most active advisors have closed{" "}
           <strong className="font-semibold text-neutral-900">
-            {TEAM_RECORD_META.totalSales} property sales
+            {TEAM_RECORD_META.totalSales} sale and resale transactions
           </strong>
           . The figures below are lifetime totals for each advisor, not the 2025 rankings
           above, and they cover HDB and private sale and resale transactions.
         </p>
+        <p className={`mt-4 ${PROSE}`}>{TEAM_RECORD_SHARED_NOTE}</p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <HeadlineStat
@@ -128,7 +130,8 @@ export function TeamRecordSection() {
 
         <h3 className="mt-12 text-lg font-semibold text-neutral-900">By advisor</h3>
         <p className={`mt-2 ${PROSE}`}>
-          Sale and resale transactions, CEA-verified where the public register covers them.
+          Sale and resale transactions. Figures from 2017 onwards are matched to CEA&apos;s
+          public register.
         </p>
 
         <div className="mt-6 flex flex-col gap-4">
@@ -138,7 +141,7 @@ export function TeamRecordSection() {
         </div>
 
         <h3 className="mt-12 text-lg font-semibold text-neutral-900">
-          How these totals are verified
+          How these totals are counted
         </h3>
         <ul className="mt-4 flex list-disc flex-col gap-3 pl-5">
           {TEAM_RECORD_METHOD.map((item) => (
@@ -148,10 +151,12 @@ export function TeamRecordSection() {
           ))}
         </ul>
         <p className="mt-6 text-sm leading-relaxed text-neutral-500">
-          Compiled {TEAM_RECORD_META.compiled} from the CEA Salespersons&apos; Property
+          Last updated {TEAM_RECORD_META.lastUpdated} from the CEA Salespersons&apos; Property
           Transaction Records on data.gov.sg (resource{" "}
-          <code className="text-neutral-700">{TEAM_RECORD_META.ceaResourceId}</code>), plus
-          HomeUP office records for the period before {TEAM_RECORD_META.registerStart}.
+          <code className="text-neutral-700">{TEAM_RECORD_META.ceaResourceId}</code>), covering{" "}
+          {TEAM_RECORD_META.registerStart} to {TEAM_RECORD_META.registerEnd}, plus office records
+          provided by {TEAM_RECORD_META.officeRecordSource} for the period before{" "}
+          {TEAM_RECORD_META.registerStart}.
         </p>
       </div>
     </div>

@@ -11,14 +11,18 @@
  */
 
 export const TEAM_RECORD_META = {
-  totalSales: "1,221",
-  hdbSales: "902",
+  totalSales: "1,218",
+  hdbSales: "898",
   hdbShare: "74%",
-  privateSales: "319",
+  privateSales: "320",
   privateShare: "26%",
-  compiled: "21 September 2026",
+  lastUpdated: "October 2026",
   registerStart: "January 2017",
+  /** Last month present in the source download. */
+  registerEnd: "August 2026",
   ceaResourceId: "d_ee7e46d3c57f7865790704632b0aef71",
+  /** Provenance for the pre-2017 portion of Edmund Lee's total. */
+  officeRecordSource: "C & H Properties",
 } as const;
 
 export interface TeamRecordAdvisor {
@@ -53,7 +57,7 @@ export const TEAM_RECORD_ADVISORS: TeamRecordAdvisor[] = [
     spanLabel: "Record span",
     span: "January 1997 to August 2026",
     detail:
-      "CEA-verified 2017 to 2026: 80 HDB and 12 private. Office record 1997 to 2016: 717 HDB.",
+      "In CEA’s public register, 2017 to August 2026: 80 HDB and 12 private. Office records provided by C & H Properties, 1997 to 2016: 717 HDB.",
   },
   {
     name: "Dennis Lim",
@@ -74,13 +78,13 @@ export const TEAM_RECORD_ADVISORS: TeamRecordAdvisor[] = [
     slug: "yeo-tong-boon",
     cea: "R069651E",
     photo: "/images/agent-tong-boon.png",
-    total: 104,
-    hdb: 53,
-    private: 51,
-    sellerSide: 37,
-    buyerSide: 67,
+    total: 101,
+    hdb: 49,
+    private: 52,
+    sellerSide: 35,
+    buyerSide: 66,
     spanLabel: "CEA record",
-    span: "May 2024 to September 2026",
+    span: "May 2024 to August 2026",
   },
   {
     name: "Kenji Ching",
@@ -97,10 +101,14 @@ export const TEAM_RECORD_ADVISORS: TeamRecordAdvisor[] = [
   },
 ];
 
+/** Shown directly under the team total, per the CEA accuracy review. */
+export const TEAM_RECORD_SHARED_NOTE =
+  "Where two of our advisors acted in the same transaction, it is counted once for each advisor.";
+
 export const TEAM_RECORD_METHOD: string[] = [
-  "Figures are matched to each advisor by CEA registration number rather than self-reported.",
+  "Figures from 2017 onwards are matched to each advisor by CEA registration number.",
   "Counts cover sale and resale transactions only, across HDB resale, private resale and new sale. Rental and lease transactions are excluded.",
   "The CEA public register begins January 2017. Where an advisor's career predates it, earlier transactions are not in the register and are shown separately.",
-  "2026 figures are year to date through the register's last update, not a full calendar year.",
-  "Edmund Lee's HDB total blends two sources: 80 sales from the CEA register for 2017 to 2026, plus 717 from HomeUP's office record for 1997 to 2016, split at 1 January 2017 so nothing is counted twice. The pre-2017 portion comes from an internal ledger and cannot be independently verified the way the 2017 onwards figures can.",
+  "2026 figures run to August 2026, the last month in the source file, not a full calendar year.",
+  "Edmund Lee's HDB total blends two sources: 80 sales from CEA's public register for 2017 to August 2026, plus 717 from office records provided by C & H Properties for 1997 to 2016, split at 1 January 2017 so nothing is counted twice. The pre-2017 portion is not in CEA's public register, which begins in January 2017, so it cannot be checked against that register.",
 ];

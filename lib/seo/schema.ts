@@ -626,9 +626,9 @@ export function trackRecordSchema() {
         "@type": "WebPage",
         "@id": `${SITE_URL}/track-record#webpage`,
         url: `${SITE_URL}/track-record`,
-        name: "Our Track Record | HomeUP, Verified Against CEA Records",
+        name: "Our Track Record and How We Count It | HomeUP",
         description:
-          "Two HomeUP advisors rank #1 in Singapore for private residential resale, with a top 1% HDB seller-side result, in CEA's published transaction records.",
+          "Two HomeUP advisors ranked first in Singapore in their 2025 categories, based on HomeUP's count of CEA's published transaction records, with a top 1% HDB seller-side result.",
         isPartOf: { "@id": `${SITE_URL}/#website` },
         about: { "@id": ORG_ID },
         dateModified: TRACK_RECORD_META.lastVerifiedIso,
