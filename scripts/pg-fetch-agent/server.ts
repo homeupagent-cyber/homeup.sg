@@ -17,9 +17,17 @@ import { createClient } from "@supabase/supabase-js";
 import { fetchAndSaveEnabledAgentPgListings } from "../../lib/listings/fetch-agent-pg-sources";
 import { fetchListingPage } from "../../lib/listings/import/fetch-listing-page";
 import {
+  createBrowserListingFetcher,
+  type BrowserFetchResult,
+  type BrowserListingFetcher,
+} from "../../lib/listings/import/fetch-listing-page-browser";
+import {
   PG_FETCH_AGENT_ORIGINS,
   PG_FETCH_AGENT_PORT,
 } from "../../lib/listings/pg-fetch-agent-constants";
+
+/** Opened on the first challenged listing, then reused for the rest of the session. */
+let listingBrowser: BrowserListingFetcher | null = null;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "../..");
@@ -123,7 +131,14 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
     }
 
     console.log("[pg-agent] Fetch listing HTML:", listingUrl);
-    const result = await fetchListingPage(listingUrl);
+    let result: BrowserFetchResult = await fetchListingPage(listingUrl);
+
+    if (!result.ok && result.error === "FETCH_BLOCKED") {
+      console.log("[pg-agent] Cloudflare challenge — retrying through Chrome");
+      if (!listingBrowser) listingBrowser = createBrowserListingFetcher();
+      result = await listingBrowser.fetch(listingUrl);
+    }
+
     if (!result.ok) {
       json(res, 422, { success: false, error: result.error });
       return;
@@ -166,3 +181,9 @@ createServer(handleRequest).listen(port, "127.0.0.1", () => {
   console.log("  Keep this window open while importing on the live admin site.");
   console.log("");
 });
+
+for (const signal of ["SIGINT", "SIGTERM"] as const) {
+  process.on(signal, () => {
+    void listingBrowser?.close().finally(() => process.exit(0));
+  });
+}

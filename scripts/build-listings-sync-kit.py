@@ -313,6 +313,9 @@ TROUBLESHOOTING
 - "Missing .env.local" → ask team lead; never put keys in email or chat
 - "PropertyGuru blocked" → start-agent must be running for Workflow A
 - "Google Sheet fetch failed" → .env.local needs LISTINGS_SHEET_SERVICE_ACCOUNT_B64; test with npm run pg:sheet:check
+- A Chrome window opens during sync → normal outside Singapore or on mobile data. PropertyGuru
+  asked for a check, so the sync retries in real Chrome. Leave the window alone; the check usually
+  clears by itself. If a "verify you are human" box stays, solve it once. Chrome closes when done.
 - Agent offline on admin page → run start-agent before syncing
 - Windows Smart App Control → open index.html only; use manual npm commands (see index.html)
 - Mac "cannot be opened" → right-click the .command file → Open
@@ -489,6 +492,7 @@ npm run pg:install</code>
         <li><strong>Imports need the local agent</strong> — run <span class="file">start-agent</span> before Workflow A.</li>
         <li><strong>PropertyGuru blocked</strong> — agent not running, or run Workflow B from this PC instead.</li>
         <li><strong>Google Sheet fetch failed</strong>: your <span class="file">.env.local</span> needs the <span class="file">LISTINGS_SHEET_SERVICE_ACCOUNT_B64</span> line. Check with <code>npm run pg:sheet:check</code> (read-only).</li>
+        <li><strong>A Chrome window opens during sync</strong>: normal outside Singapore or on mobile data. PropertyGuru asked for a check, so the sync retries in real Chrome. Leave the window alone; the check usually clears by itself. If a “verify you are human” box stays, solve it once. Chrome closes when the sync is done.</li>
         <li><strong>npm install failed</strong> — check internet; re-run setup commands.</li>
         <li><strong>Antivirus blocked .bat</strong> — open <span class="file">index.html</span> and use manual commands (Option B) in each section.</li>
       </ul>
