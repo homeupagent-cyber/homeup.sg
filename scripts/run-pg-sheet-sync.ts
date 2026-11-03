@@ -3,27 +3,17 @@
  * Run: npm run pg:sheet
  */
 import { createClient } from "@supabase/supabase-js";
-import { readFileSync, existsSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { loadProjectEnv } from "../lib/scripts/load-env";
 import { refreshPgSourcesFromGoogleSheet } from "../lib/listings/sync-sheet-sources";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
-function loadEnv() {
-  const envPath = path.join(root, ".env.local");
-  if (!existsSync(envPath)) throw new Error("Missing .env.local");
-  const env: Record<string, string> = {};
-  for (const line of readFileSync(envPath, "utf8").split(/\r?\n/)) {
-    const m = line.match(/^([^#=]+)=(.*)$/);
-    if (m) env[m[1].trim()] = m[2].trim();
-  }
-  return env;
-}
-
 async function main() {
-  const env = loadEnv();
+  // Also copies values into process.env so the sheet login (LISTINGS_SHEET_SERVICE_ACCOUNT_B64) sees them.
+  const env = loadProjectEnv(root);
   const url = env.NEXT_PUBLIC_SUPABASE_URL;
   const key = env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {

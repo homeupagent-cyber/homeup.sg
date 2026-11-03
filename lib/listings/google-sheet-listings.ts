@@ -1,4 +1,9 @@
 import { AGENTS } from "@/lib/data/agents";
+import {
+  getListingsSheetAccessToken,
+  LISTINGS_SHEET_CREDENTIAL_ENV,
+  listingsSheetServiceAccountEmail,
+} from "@/lib/listings/google-sheet-auth";
 import { listingsSheetCsvUrl } from "@/lib/listings/google-sheet-constants";
 import { parseCsv } from "@/lib/listings/parse-csv";
 import { parsePgListingUrl } from "@/lib/listings/pg-url";
@@ -272,14 +277,45 @@ export function parseListingsSheetCsv(csvText: string): FetchSheetListingsResult
 export async function fetchListingsFromGoogleSheet(
   csvUrl: string = listingsSheetCsvUrl(),
 ): Promise<FetchSheetListingsResult> {
+  return parseListingsSheetCsv(await fetchListingsSheetCsv(csvUrl));
+}
+
+/** Raw sheet CSV. Logs in as the service account when its credential is set, else fetches anonymously. */
+export async function fetchListingsSheetCsv(
+  csvUrl: string = listingsSheetCsvUrl(),
+): Promise<string> {
+  const token = await getListingsSheetAccessToken();
+  const headers: Record<string, string> = { Accept: "text/csv" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const res = await fetch(csvUrl, {
-    headers: { Accept: "text/csv" },
+    headers,
     next: { revalidate: 0 },
   });
 
+  // A private sheet answers an unauthorised request with 401/403 (or a login page, checked below).
+  const denied = res.status === 401 || res.status === 403 || res.status === 404;
+  if (denied && token) {
+    throw new Error(
+      `Google Sheet fetch failed (${res.status}). Share the sheet as Viewer with ${listingsSheetServiceAccountEmail()}.`,
+    );
+  }
+  if (denied) {
+    throw new Error(
+      `Google Sheet fetch failed (${res.status}). The sheet is private: set ${LISTINGS_SHEET_CREDENTIAL_ENV} in .env.local (or Vercel).`,
+    );
+  }
   if (!res.ok) {
-    throw new Error(`Google Sheet fetch failed (${res.status}). Is the sheet shared publicly?`);
+    throw new Error(`Google Sheet fetch failed (${res.status}).`);
   }
 
-  return parseListingsSheetCsv(await res.text());
+  const text = await res.text();
+  if (/accounts\.google\.com/i.test(res.url) || /^\s*<(!doctype|html)/i.test(text)) {
+    throw new Error(
+      token
+        ? `Google Sheet returned a login page. Share the sheet as Viewer with ${listingsSheetServiceAccountEmail()}.`
+        : `Google Sheet returned a login page. The sheet is private: set ${LISTINGS_SHEET_CREDENTIAL_ENV}.`,
+    );
+  }
+  return text;
 }
