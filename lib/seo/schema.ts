@@ -720,3 +720,56 @@ export function trackRecordSchema() {
     ],
   };
 }
+
+/** Article schema for an independent launch review at /new-launch/[slug]. */
+export function launchReviewArticleSchema({
+  slug,
+  headline,
+  description,
+  image,
+  datePublished,
+  dateModified,
+  authorAgentSlug,
+  aboutName,
+}: {
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  datePublished: string;
+  dateModified: string;
+  authorAgentSlug: string;
+  aboutName: string;
+}) {
+  const url = `${SITE_URL}/new-launch/${slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    image,
+    datePublished,
+    dateModified,
+    inLanguage: "en-SG",
+    author: { "@id": `${SITE_URL}/agents/${authorAgentSlug}#person` },
+    publisher: { "@id": ORG_ID },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
+    about: { "@type": "Residence", name: aboutName },
+  };
+}
+
+/** ItemList for the /new-launch hub cards. */
+export function launchReviewItemListSchema(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "New launch and EC reviews by HomeUP",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${SITE_URL}${item.path}`,
+    })),
+  };
+}

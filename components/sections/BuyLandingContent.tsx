@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import type { BuyPageConfig } from "@/lib/data/buy-pages";
 import type { WhatsAppMessageKey } from "@/lib/whatsapp";
 import {
@@ -55,9 +56,11 @@ const GENERAL_FAQ = {
 interface BuyLandingContentProps {
   config: BuyPageConfig;
   showAwardsStrip?: boolean;
+  /** Rendered directly under the hero on sub-buy pages (e.g. launch reviews on /buy-new-launch). */
+  afterHero?: ReactNode;
 }
 
-export function BuyLandingContent({ config, showAwardsStrip = false }: BuyLandingContentProps) {
+export function BuyLandingContent({ config, showAwardsStrip = false, afterHero }: BuyLandingContentProps) {
   const isGeneral = config.filterType === null;
   const faqConfig = config.filterType ? FAQ_BY_TYPE[config.filterType] : GENERAL_FAQ;
   const faqWhatsAppContext: WhatsAppMessageKey = config.filterType
@@ -95,6 +98,7 @@ export function BuyLandingContent({ config, showAwardsStrip = false }: BuyLandin
   return (
     <>
       <BuySubPageHero content={config.hero} filterType={config.filterType!} />
+      {afterHero}
       <BuyProcess propertyType={config.filterType} />
       <FAQSection
         items={faqConfig.items}

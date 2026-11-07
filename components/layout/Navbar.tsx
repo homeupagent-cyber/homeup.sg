@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, Building2, Home, Info, Sparkles, Trees } from "lucide-react";
+import { BarChart3, Building2, ClipboardCheck, Home, Info, Sparkles, Trees } from "lucide-react";
 import { Navbar1, type MenuItem } from "@/components/ui/shadcnblocks-com-navbar1";
 import { HomeUpLogo } from "@/components/ui/HomeUpLogo";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
@@ -56,6 +56,12 @@ export const HOMEUP_NAV_MENU: MenuItem[] = [
         description: "Buyers pay no commission",
         icon: <Sparkles className="size-5 shrink-0 text-amber-600" />,
         url: "/buy-new-launch",
+      },
+      {
+        title: "New Launch Reviews",
+        description: "Independent EC and condo reviews",
+        icon: <ClipboardCheck className="size-5 shrink-0 text-primary-600" />,
+        url: "/new-launch",
       },
     ],
   },

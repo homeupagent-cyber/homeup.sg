@@ -4,6 +4,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ArticleBody } from "@/components/sections/ArticleBody";
 import { PlaybookFaqSection } from "@/components/playbook/PlaybookFaqSection";
+import { CurrentLaunchReviews } from "@/components/launch-review/CurrentLaunchReviews";
+import { getLaunchesForGuide } from "@/lib/data/launches";
 import { resolvePlaybookArticleFaq } from "@/lib/playbook/article-faq";
 import { parsePlaybookArticleBlocks } from "@/lib/playbook/article-format";
 import { articleSectionsToBlocks } from "@/lib/playbook/article-sections";
@@ -117,6 +119,8 @@ export default async function PlaybookArticlePage({ params }: ArticlePageProps) 
             </div>
 
             {faqItems.length > 0 && <PlaybookFaqSection items={faqItems} className="mt-14" />}
+
+            <CurrentLaunchReviews entries={getLaunchesForGuide(video.slug)} className="mt-14" />
 
             <footer className="mt-14 border-t border-neutral-200 pt-8">
               <p className="text-sm font-medium text-neutral-500">
