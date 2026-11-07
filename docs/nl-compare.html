@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HomeUP New Launch Desk: close now or wait</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F5F3EE; --surface:#FFFFFF; --ink:#16181B; --text2:#3E4248; --muted:#5B5F66; --line:#DEDAD1; --field:#FBFAF7;
+  --dark:#16181B; --darktext:#F5F3EE; --darkmuted:#BFC3C9; --darkline:#45494F;
+  --green:#1E5B45; --greenbg:#DDEEE6; --greenink:#143F30;
+  --amber:#B7791F; --amberbg:#F3E6CF; --amberink:#6B4410;
+  --red:#9B3426; --redbg:#F4DEDA; --redink:#7A2A1E;
+  --navy:#1F3A5F; --navybg:#E4E9F0;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131517; --surface:#1C1F22; --ink:#ECEAE4; --text2:#C9CCD0; --muted:#A3A8AE; --line:#34383D; --field:#23272B;
+    --dark:#0E1012; --darktext:#ECEAE4; --darkmuted:#A3A8AE; --darkline:#34383D;
+    --green:#5FB08E; --greenbg:#1D3A2F; --greenink:#BFE6D4;
+    --amber:#D9A24A; --amberbg:#3D301B; --amberink:#F1D9AE;
+    --red:#D9725F; --redbg:#402420; --redink:#F3C4BA;
+    --navy:#8FB0D6; --navybg:#1F2A38;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131517; --surface:#1C1F22; --ink:#ECEAE4; --text2:#C9CCD0; --muted:#A3A8AE; --line:#34383D; --field:#23272B;
+  --dark:#0E1012; --darktext:#ECEAE4; --darkmuted:#A3A8AE; --darkline:#34383D;
+  --green:#5FB08E; --greenbg:#1D3A2F; --greenink:#BFE6D4;
+  --amber:#D9A24A; --amberbg:#3D301B; --amberink:#F1D9AE;
+  --red:#D9725F; --redbg:#402420; --redink:#F3C4BA;
+  --navy:#8FB0D6; --navybg:#1F2A38;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:Newsreader,Georgia,"Times New Roman",serif;font-weight:400;margin:0;line-height:1.1}
+a{color:var(--green)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.top{background:var(--dark);color:var(--darktext)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-family:Newsreader,Georgia,serif;font-size:22px;font-weight:600}
+.brand span{color:var(--darkmuted);font-size:14px}
+.nav{display:flex;gap:4px;flex-wrap:wrap}
+.nav button{background:transparent;border:0;color:var(--darkmuted);min-height:44px;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:15px}
+.nav button[aria-selected="true"]{background:var(--darkline);color:var(--darktext)}
+.view[hidden]{display:none}
+.picker{margin-top:28px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.pick{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.pick h3{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.pick select,.pick input{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--field);margin-top:8px}
+.pick .meta{font-size:13px;color:var(--muted);margin-top:8px}
+.hero{padding:28px 0 8px}
+.hero .for{color:var(--muted);font-size:15px;margin:0 0 10px}
+.hero h1{font-size:clamp(32px,4.6vw,54px);max-width:920px}
+.hero .sub{font-size:18px;color:var(--text2);max-width:780px;margin:14px 0 0}
+.ruler{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 20px 12px}
+.ruler svg{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:14px;color:var(--text2);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.warnbar{margin-top:14px;padding:12px 16px;border-radius:10px;background:var(--amberbg);color:var(--amberink);font-size:14px}
+.warnbar:empty{display:none}
+section{margin-top:28px}
+.decision{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:16px}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.opt h2{font-size:24px}
+.opt .big{font-size:34px;font-weight:500;margin:12px 0 4px}
+.opt p{margin:0;color:var(--text2);font-size:14px}
+.verdict{background:var(--dark);color:var(--darktext);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.verdict h2{font-size:30px}
+.verdict p{margin:0;color:var(--darkmuted);font-size:15px}
+.verdict .odds{font-size:15px;color:var(--darktext);border-top:1px solid var(--darkline);padding-top:10px}
+.panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.panel h2{font-size:24px;margin-bottom:4px}
+.panel .hint{color:var(--muted);font-size:14px;margin:0 0 14px}
+.row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.row label{font-size:15px}
+.row small{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+.row input,.row select,.row textarea{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--field);text-align:right}
+.row select,.row textarea,.row input[type="text"]{text-align:left}
+.flag{display:inline-block;margin-left:6px;font-size:12px;padding:1px 7px;border-radius:4px;background:var(--amberbg);color:var(--amberink);font-weight:600;vertical-align:1px}
+.scen{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,0.8fr);gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.scen input{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--field);text-align:right}
+.scen .h{font-size:13px;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:15px}
+th,td{text-align:right;padding:12px 14px;border-top:1px solid var(--line);white-space:nowrap}
+th{font-weight:600;font-size:13px;color:var(--muted);border-top:0;background:var(--field)}
+th:first-child,td:first-child,th:last-child,td:last-child{text-align:left}
+tr.mark td{background:var(--navybg)}
+.pill{display:inline-block;padding:3px 10px;border-radius:4px;font-size:13px;font-weight:600}
+.pill.g{background:var(--greenbg);color:var(--greenink)}
+.pill.a{background:var(--amberbg);color:var(--amberink)}
+.pill.r{background:var(--redbg);color:var(--redink)}
+.pill.n{background:var(--navybg);color:var(--navy)}
+.sectionhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.sectionhead h2{font-size:32px}
+.sectionhead p{margin:6px 0 0;color:var(--text2);max-width:720px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{min-height:44px;padding:8px 16px;border-radius:22px;border:1px solid var(--line);background:var(--surface);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.edit input,.edit select{width:100%;min-height:40px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--field)}
+.edit td{padding:8px 10px}
+.edit td input.num{text-align:right}
+.leasesum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.stat span{display:block;color:var(--muted);font-size:14px}
+.stat b{display:block;font-size:26px;font-weight:500;margin-top:4px}
+.btn{min-height:48px;padding:10px 18px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.small{min-height:40px;padding:6px 12px;font-weight:500;font-size:14px}
+.btn.danger{background:transparent;color:var(--red);border-color:var(--red)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+summary{cursor:pointer;font-weight:600;min-height:28px}
+details p,details li{color:var(--text2);font-size:15px;max-width:780px}
+textarea.big{width:100%;min-height:200px;margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--field);font-size:14px}
+.lib{display:grid;grid-template-columns:320px 1fr;gap:16px;margin-top:28px;align-items:start}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.list button.item{display:block;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid var(--line);padding:14px 16px;cursor:pointer;min-height:56px}
+.list button.item:first-child{border-top:0}
+.list button.item[aria-current="true"]{background:var(--navybg)}
+.list .item b{display:block;font-weight:600}
+.list .item span{font-size:13px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.report{background:#fff;color:#16181B;border:1px solid var(--line);border-radius:14px;padding:40px;margin-top:28px;max-width:900px}
+.report h1{font-size:40px;margin:6px 0 10px}
+.report h2{font-size:24px;margin:28px 0 10px}
+.report p,.report li{font-size:15px;color:#3E4248}
+.report .rhead{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #DEDAD1;padding-bottom:14px;font-size:14px;color:#5B5F66}
+.report .rhead b{font-family:Newsreader,Georgia,serif;font-size:22px;color:#16181B;font-weight:600}
+.report table{min-width:0;font-size:14px}
+.report th{background:#F5F3EE;color:#5B5F66}
+.report td,.report th{border-top:1px solid #DEDAD1;padding:8px 10px}
+.report .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.report .keys div{border:1px solid #DEDAD1;border-radius:10px;padding:14px}
+.report .keys span{display:block;font-size:13px;color:#5B5F66}
+.report .keys b{display:block;font-size:22px;font-weight:500}
+.report .callout{background:#16181B;color:#F5F3EE;border-radius:10px;padding:18px;margin-top:16px}
+.report .callout b{font-family:Newsreader,Georgia,serif;font-size:26px;font-weight:400;display:block}
+.report .fine{font-size:12px;color:#5B5F66;margin-top:24px;border-top:1px solid #DEDAD1;padding-top:12px}
+.report svg text{fill:#16181B}
+footer{margin:36px 0 40px;color:var(--muted);font-size:13px;max-width:820px}
+@media (max-width:900px){
+  .decision,.panels,.leasesum,.picker,.lib,.two{grid-template-columns:1fr}
+  .report{padding:22px}
+  .report .keys{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff}
+  .top,.noprint,footer{display:none!important}
+  .view{display:none!important}
+  #vReport{display:block!important}
+  .report{border:0;padding:0;margin:0;max-width:none}
+  .report h2{break-after:avoid}
+  .report table,.report .keys,.report svg{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <div class="brand"><b>HomeUP</b><span>New Launch Desk</span></div>
+    <div class="nav" role="tablist" aria-label="Sections">
+      <button role="tab" data-view="vCompare" aria-selected="true">Compare</button>
+      <button role="tab" data-view="vResale" aria-selected="false">Resale vs new launch</button>
+      <button role="tab" data-view="vReport" aria-selected="false">Report</button>
+      <button role="tab" data-view="vProjects" aria-selected="false">Projects</button>
+      <button role="tab" data-view="vCases" aria-selected="false">Client cases</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- COMPARE -->
+<div class="view" id="vCompare">
+  <div class="picker">
+    <div class="pick">
+      <h3>Client case</h3>
+      <input type="text" data-b="case.client" aria-label="Client name" placeholder="Client name">
+      <input type="text" data-b="case.advisor" aria-label="Advisor name" placeholder="Advisor name">
+      <div class="meta" id="caseMeta"></div>
+    </div>
+    <div class="pick">
+      <h3>Close now</h3>
+      <select data-sel="aId" aria-label="Project to close now"></select>
+      <select data-sel="aUnit" aria-label="Unit type"></select>
+      <div class="meta" id="aMeta"></div>
+    </div>
+    <div class="pick">
+      <h3>Or wait for</h3>
+      <select data-sel="bId" aria-label="Alternative project"></select>
+      <select data-sel="bUnit" aria-label="Unit type"></select>
+      <div class="meta" id="bMeta"></div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <p class="for" id="forline"></p>
+    <h1 id="headline">Working it out</h1>
+    <p class="sub" id="subline"></p>
+    <div class="ruler" aria-live="polite">
+      <div id="rulerBox"></div>
+      <div class="legend">
+        <span><i style="background:var(--green)"></i><span id="lgG">Beats closing now</span></span>
+        <span><i style="background:var(--amber)"></i><span id="lgA">Still works, but closing now is better</span></span>
+        <span><i style="background:var(--red)"></i>Walk away</span>
+      </div>
+    </div>
+    <div class="warnbar" id="warn"></div>
+  </div>
+
+  <section class="decision" aria-label="Close now or wait">
+    <div class="opt"><h2 id="closeTitle">Close now</h2><div class="big" id="closeVal">S$0</div><p id="closeNote"></p></div>
+    <div class="opt"><h2 id="waitTitle">Wait</h2><div class="big" id="waitVal">S$0</div><p id="waitNote"></p></div>
+    <div class="verdict"><h2 id="verdict">Verdict</h2><p id="verdictWhy"></p><div class="odds" id="odds"></div></div>
+  </section>
+
+  <section class="panels" aria-label="Inputs">
+    <div class="panel">
+      <h2 id="aTitle">Close now</h2>
+      <p class="hint">Edits here update this project in your library.</p>
+      <div class="row"><label>Price psf</label><input data-b="au.psf" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Unit size (sqft)</label><input data-b="au.size" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Proven exit psf nearby <span class="flag">Check</span><small>Highest psf a comparable unit nearby has actually sold at, from URA</small></label><input data-b="a.ceil" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Next buyer's max budget (S$)<small>Optional, in today's dollars</small></label><input data-b="a.bud" type="number" inputmode="numeric" placeholder="Leave blank to skip"></div>
+    </div>
+    <div class="panel">
+      <h2 id="bTitle">Wait for</h2>
+      <p class="hint" id="bHint">Three launch price scenarios and how likely each is.</p>
+      <div id="bScenBox">
+        <div class="scen"><span class="h">Scenario</span><span class="h">Launch psf</span><span class="h">Chance %</span></div>
+        <div class="scen"><label>Low</label><input data-b="b.scen.0.p" type="number" inputmode="numeric" aria-label="Low scenario psf"><input data-b="b.scen.0.w" type="number" inputmode="numeric" aria-label="Low scenario chance"></div>
+        <div class="scen"><label>Base</label><input data-b="b.scen.1.p" type="number" inputmode="numeric" aria-label="Base scenario psf"><input data-b="b.scen.1.w" type="number" inputmode="numeric" aria-label="Base scenario chance"></div>
+        <div class="scen"><label>High</label><input data-b="b.scen.2.p" type="number" inputmode="numeric" aria-label="High scenario psf"><input data-b="b.scen.2.w" type="number" inputmode="numeric" aria-label="High scenario chance"></div>
+      </div>
+      <div class="row" id="bPsfRow"><label>Price psf</label><input data-b="bu.psf" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Unit size (sqft)</label><input data-b="bu.size" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Proven exit psf nearby <span class="flag">Check</span><small>Highest psf a comparable unit nearby has actually sold at, from URA</small></label><input data-b="b.ceil" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Next buyer's max budget (S$)<small>Optional, in today's dollars</small></label><input data-b="b.bud" type="number" inputmode="numeric" placeholder="Leave blank to skip"></div>
+    </div>
+    <div class="panel">
+      <h2>The waiting bet</h2>
+      <p class="hint">What can go wrong if the client waits instead of closing now. Saved with this client case.</p>
+      <div class="row"><label>Chance of a good unit in the alternative (%)<small>Ballot queue good enough to get a stack he wants</small></label><input data-b="c.q" type="number" inputmode="numeric"></div>
+      <div class="row"><label id="gLabel">Price rise on the close-now project by then (%)</label><input data-b="c.g" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Chance his chosen unit is sold (%)</label><input data-b="c.u" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Extra paid for next best unit (%)</label><input data-b="c.pen" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Own-stay preference for the alternative (S$)<small>What living there is worth to him. Negative if he prefers the close-now project.</small></label><input data-b="c.life" type="number" inputmode="numeric" step="10000"></div>
+    </div>
+    <div class="panel">
+      <h2>Buyer and exit</h2>
+      <p class="hint">Same for both projects so the comparison is fair. Saved with this client case.</p>
+      <div class="row"><label>Buyer profile (ABSD)</label>
+        <select data-b="c.absd">
+          <option value="0">Singapore Citizen, 1st property (0%)</option>
+          <option value="20">Singapore Citizen, 2nd property (20%)</option>
+          <option value="30">Singapore Citizen, 3rd property (30%)</option>
+          <option value="5">PR, 1st property (5%)</option>
+          <option value="30.1">PR, 2nd property (30%)</option>
+          <option value="60">Foreigner (60%)</option>
+        </select></div>
+      <div class="row"><label>Holding period (years)<small>Under 4 years adds Seller's Stamp Duty, not modelled</small></label><input data-b="c.hold" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Target return per year (%)<small>Set 0 to see pure breakeven</small></label><input data-b="c.r" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Area price growth per year (%)<small>Grows both proven exit prices to the exit year</small></label><input data-b="c.grow" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Selling costs (%)</label><input data-b="c.fee" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Max premium over lease-adjusted resale (%)<small>Used when a project has resale comparables</small></label><input data-b="c.lim" type="number" inputmode="numeric"></div>
+    </div>
+  </section>
+
+  <section aria-label="Scenario table">
+    <div class="sectionhead"><div><h2 id="tableTitle">At every price</h2><p>Buyer's Stamp Duty calculated exactly on each quantum. Your scenarios are highlighted.</p></div></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Launch psf</th><th>Price</th><th>Entry cost incl. duties</th><th>Must sell at (psf)</th><th>Cushion at exit</th><th>vs closing now</th><th>Lease-adj. premium</th><th>Read</th></tr></thead>
+      <tbody id="scenBody"></tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <p class="hint" style="color:var(--muted)">Resale comparables and the lease reset test live in the <button type="button" class="btn ghost small" data-goto="vResale">Resale vs new launch</button> tab. Comparables you enter there also cap the walk-away price here.</p>
+  </section>
+
+  <section>
+    <details>
+      <summary>How the numbers work</summary>
+      <ul>
+        <li><strong>Must sell at.</strong> Price plus Buyer's Stamp Duty plus ABSD, grown at the target return for the holding period, grossed up for selling costs, divided by size.</li>
+        <li><strong>Cushion at exit.</strong> The proven exit psf (capped by the next buyer's budget if entered), grown at the area growth rate to the exit year, minus the must-sell-at psf, times size.</li>
+        <li><strong>Walk-away price.</strong> The highest psf where the cushion is still zero or better, also capped by the lease-adjusted resale premium limit when comparables exist.</li>
+        <li><strong>Beats closing now below.</strong> The psf where the alternative's cushion, plus the client's own-stay preference, equals the close-now cushion.</li>
+        <li><strong>The waiting bet.</strong> For each scenario: if he gets a good unit, and the alternative is below walk-away and better than coming back, he takes it. Otherwise he returns to the close-now project at a higher price and possibly a worse unit. Each path is weighted by your chances.</li>
+        <li><strong>Lease reset.</strong> SLA leasehold table, freehold at 100%. Years not in the published extract are interpolated, accurate to about half a point.</li>
+        <li><strong>Not modelled.</strong> Mortgage interest, progressive payment timing, rental income, SSD, and differences in stack, view or facing within each project.</li>
+      </ul>
+    </details>
+  </section>
+</div>
+
+<!-- RESALE VS NEW LAUNCH -->
+<div class="view" id="vResale" hidden>
+  <div class="picker">
+    <div class="pick">
+      <h3>New launch to test</h3>
+      <select data-rsel="pid" aria-label="New launch project"></select>
+      <select data-rsel="unit" aria-label="Unit type"></select>
+      <div class="meta" id="rvMeta"></div>
+    </div>
+    <div class="pick">
+      <h3>Launch psf used</h3>
+      <input type="number" inputmode="numeric" data-b="rv.psf" aria-label="Launch psf override" placeholder="Auto">
+      <div class="meta" id="rvPsfMeta"></div>
+    </div>
+    <div class="pick">
+      <h3>Same budget</h3>
+      <div style="font-size:30px;font-weight:500;margin-top:6px" id="rvBudget">S$0</div>
+      <div class="meta">Every option below is bought with this budget, so resale gets more space.</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <p class="for" id="rvFor"></p>
+    <h1 id="rvHead">Add resale comparables to start</h1>
+    <p class="sub" id="rvSub"></p>
+  </div>
+
+  <section aria-label="Lease reset">
+    <div class="sectionhead"><div><h2>Lease reset</h2><p>Each nearby resale project converted to the new launch's remaining lease with the SLA leasehold table. What is left is the true newness premium. Changes apply when you leave a field.</p></div></div>
+    <div class="tablewrap"><table class="edit" style="min-width:980px">
+      <thead><tr><th>Resale project nearby</th><th>Tenure</th><th>Lease start</th><th>TOP year</th><th>Avg psf</th><th>Lease left</th><th>Value vs freehold</th><th>Freehold-equiv. psf</th><th>At new launch lease</th><th>New launch premium</th><th></th></tr></thead>
+      <tbody id="compBody"></tbody>
+    </table></div>
+    <div class="actions"><button class="btn ghost" id="addComp" type="button">Add resale project</button></div>
+    <div class="leasesum">
+      <div class="stat"><span id="ltLabel">New launch</span><b id="ltPsf">S$0 psf</b><span id="ltSub"></span></div>
+      <div class="stat"><span>Average resale, lease-adjusted</span><b id="lcAvg">Add comparables</b><span id="lcSub"></span></div>
+      <div class="stat"><span>Max psf at your premium limit</span><b id="lcMax">Not set</b><span id="lcMaxSub"></span></div>
+    </div>
+  </section>
+
+  <section aria-label="Head to head">
+    <div class="sectionhead"><div><h2>Same budget, held to exit</h2><p id="rvTableSub">Projected to the exit year with lease decay, interest, rent and the newness premium fading as the new launch ages.</p></div></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Option</th><th>Size for budget</th><th>Lease left at exit</th><th>Age at exit</th><th>Interest paid</th><th>Rent earned or saved</th><th>Exit psf</th><th>Net gain</th><th>Per year</th><th>Read</th></tr></thead>
+      <tbody id="rvBody"></tbody>
+    </table></div>
+    <div class="leasesum">
+      <div class="stat"><span>New launch still beats resale up to</span><b id="rvBreak">n/a</b><span id="rvBreakSub"></span></div>
+      <div class="stat"><span>Newness premium today</span><b id="rvPrem">n/a</b><span id="rvPremSub"></span></div>
+      <div class="stat"><span>Best resale option</span><b id="rvBest">n/a</b><span id="rvBestSub"></span></div>
+    </div>
+  </section>
+
+  <section class="panels" aria-label="Resale assumptions">
+    <div class="panel">
+      <h2>Financing and rent</h2>
+      <p class="hint">Saved with this client case.</p>
+      <div class="row"><label>Loan (% of price)</label><input data-b="rv.ltv" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Mortgage rate (% a year)<small>Set to the current bank package</small></label><input data-b="rv.rate" type="number" inputmode="decimal" step="0.1"></div>
+      <div class="row"><label>Loan drawn during construction (%)<small>Average share of the loan drawn before TOP under progressive payments</small></label><input data-b="rv.draw" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Rent earned or saved, resale (% of price a year)<small>Net rent if letting out, or rent saved if living in</small></label><input data-b="rv.rentRS" type="number" inputmode="decimal" step="0.1"></div>
+      <div class="row"><label>Rent earned or saved, new launch after TOP (%)</label><input data-b="rv.rentNL" type="number" inputmode="decimal" step="0.1"></div>
+    </div>
+    <div class="panel">
+      <h2>Exit</h2>
+      <p class="hint">Holding period, growth, costs and ABSD are shared with the Compare tab.</p>
+      <div class="row"><label>Holding period (years)</label><input data-b="c.hold" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Area price growth per year (%)</label><input data-b="c.grow" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Selling costs (%)</label><input data-b="c.fee" type="number" inputmode="decimal" step="0.5"></div>
+      <div class="row"><label>Newness premium fades over (years after TOP) <span class="flag">Key</span><small>How long until the new launch trades like its older neighbours, lease adjusted. 0 means immediately at TOP.</small></label><input data-b="rv.fade" type="number" inputmode="numeric"></div>
+      <div class="row"><label>Max premium over lease-adjusted resale (%)</label><input data-b="c.lim" type="number" inputmode="numeric"></div>
+    </div>
+  </section>
+
+  <section>
+    <details>
+      <summary>How this tab works</summary>
+      <ul>
+        <li><strong>Same budget.</strong> The new launch unit's price. Each resale option buys as many sqft as that budget allows at its average psf, so stamp duty and loan size are identical.</li>
+        <li><strong>Lease decay to exit.</strong> Each option's exit psf is today's psf grown at the area rate, scaled by the SLA table from its lease left today to its lease left at exit. Freehold does not decay.</li>
+        <li><strong>Newness premium.</strong> The new launch's premium over the lease-adjusted resale average. It holds until TOP, then fades in a straight line to zero over the years you set.</li>
+        <li><strong>Interest.</strong> Resale pays interest on the full loan from day one. The new launch pays on your drawn share until TOP, then the full loan.</li>
+        <li><strong>Rent.</strong> Resale earns or saves rent from day one. The new launch only after TOP.</li>
+        <li><strong>Net gain.</strong> Exit value after selling costs, minus price and duties, minus interest, plus rent. Per year is net gain divided by total cost and years held.</li>
+        <li><strong>Not modelled.</strong> Maintenance fees, property tax, renovation, vacancy, and differences in layout, facing or facilities.</li>
+      </ul>
+    </details>
+  </section>
+</div>
+
+<!-- REPORT -->
+<div class="view" id="vReport" hidden>
+  <div class="actions noprint">
+    <button class="btn" id="printBtn" type="button">Print or save as PDF</button>
+    <button class="btn ghost" id="copyBtn" type="button">Copy WhatsApp summary</button>
+  </div>
+  <div class="report" id="reportBody"></div>
+  <textarea class="big noprint" id="summary" aria-label="WhatsApp summary text"></textarea>
+</div>
+
+<!-- PROJECTS -->
+<div class="view" id="vProjects" hidden>
+  <div class="lib">
+    <div>
+      <div class="list" id="projList"></div>
+      <div class="actions"><button class="btn" id="newProj" type="button">Add project</button></div>
+    </div>
+    <div class="panel" id="projEditor"></div>
+  </div>
+</div>
+
+<!-- CASES -->
+<div class="view" id="vCases" hidden>
+  <section>
+    <div class="sectionhead"><div><h2>Client cases</h2><p>Each case keeps its own client, the two projects compared and the assumptions. Projects are shared across cases.</p></div>
+      <div class="actions" style="margin-top:0"><button class="btn" id="newCase" type="button">New case</button></div></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Client</th><th>Close now</th><th>Or wait for</th><th>Read</th><th>Updated</th><th></th></tr></thead>
+      <tbody id="caseBody"></tbody>
+    </table></div>
+  </section>
+  <section>
+    <details>
+      <summary>Back up or move your data</summary>
+      <p>Everything is saved in this browser only. Copy the backup text to keep it safe or move it to another device or to the live site, then paste it into the box and load it there.</p>
+      <div class="actions"><button class="btn ghost small" id="exportBtn" type="button">Show backup text</button><button class="btn ghost small" id="importBtn" type="button">Load from pasted text</button></div>
+      <textarea class="big" id="backup" aria-label="Backup text"></textarea>
+      <p id="backupMsg" role="status"></p>
+    </details>
+  </section>
+</div>
+
+<footer>Indicative scenario analysis for discussion with your HomeUP advisor. Not financial advice. Prices and chances are inputs and judgements, not forecasts. HomeUP operates under C &amp; H Properties Pte Ltd, CEA Licence L3007139C.</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+var STORE="homeup-nl-compare-v2", YEAR=new Date().getFullYear();
+function uid(){ return Math.random().toString(36).slice(2,9); }
+function today(){ return new Date().toISOString().slice(0,10); }
+
+var SEED={
+  projects:[
+    {id:"usr",name:"Union Square Residences",status:"launched",district:"D01, Havelock Road",ten:"99",leaseStart:2024,top:"2028",ceil:3500,bud:"",asOf:"2026-09-22",
+     notes:"Price list shared by the developer team in chat. Confirm the lease start year on the title. Proven exit: Canninghill Piers has done S$3k to S$5k psf.",
+     units:[{label:"2BR, lowest",psf:2601,size:700},{label:"2BR, highest",psf:3011,size:710},{label:"2BR + Study, lowest",psf:2713,size:743},{label:"2BR + Study, highest",psf:3163,size:743},{label:"4BR Premium, lowest",psf:2739,size:1518},{label:"4BR Premium, highest",psf:3086,size:1518}],
+     scen:[{p:"",w:25},{p:"",w:50},{p:"",w:25}],
+     comps:[{name:"Canninghill Piers",ten:"99",start:2020,psf:""}]},
+    {id:"tr",name:"Thomson Reserve",status:"upcoming",district:"D20, Bright Hill Drive",ten:"99",leaseStart:2026,top:"2030 (est.)",ceil:3000,bud:"",asOf:"2026-09-22",
+     notes:"Launch 17 Oct 2026 (est.), preview 3 Oct. 1,268 units, six towers. UOL, SingLand, CapitaLand. Proven exit psf is a placeholder: replace with URA data.",
+     units:[{label:"2BR + Study",psf:"",size:732},{label:"3BR",psf:"",size:1055},{label:"4BR",psf:"",size:1367},{label:"5BR",psf:"",size:1808}],
+     scen:[{p:2500,w:25},{p:2800,w:50},{p:3050,w:25}],
+     comps:[{name:"Nearby freehold resale",ten:"FH",start:"",psf:""},{name:"Nearby 99-year resale",ten:"99",start:"",psf:""}]}
+  ],
+  cases:[{id:"c1",client:"",advisor:"",aId:"usr",aUnit:2,bId:"tr",bUnit:0,updated:"2026-09-22",read:"",
+    as:{q:50,g:3,u:30,pen:2,life:0,absd:"0",hold:5,r:3,grow:2,fee:2,lim:15},
+    rv:{pid:"tr",unit:0,psf:"",ltv:75,rate:2.5,draw:40,rentRS:2.5,rentNL:2.5,fade:10}}],
+  active:"c1"
+};
+var DEFAULT_AS={q:50,g:3,u:30,pen:2,life:0,absd:"0",hold:5,r:3,grow:2,fee:2,lim:15};
+var DEFAULT_RV={pid:"",unit:0,psf:"",ltv:75,rate:2.5,draw:40,rentRS:2.5,rentNL:2.5,fade:10};
+
+var D;
+try{ var raw=localStorage.getItem(STORE); D=raw?JSON.parse(raw):null; }catch(e){ D=null; }
+if(!D||!D.projects||!D.cases) D=JSON.parse(JSON.stringify(SEED));
+var editId=null, view="vCompare";
+function migrate(){
+  D.cases.forEach(function(c){ if(!c.rv){ c.rv=JSON.parse(JSON.stringify(DEFAULT_RV)); c.rv.pid=c.bId; c.rv.unit=c.bUnit||0; } });
+  D.projects.forEach(function(p){ (p.comps||(p.comps=[])).forEach(function(k){ if(k.top===undefined) k.top=""; }); });
+}
+migrate();
+
+function save(){ try{ localStorage.setItem(STORE,JSON.stringify(D)); }catch(e){} }
+function num(v){ var n=parseFloat(v); return isFinite(n)?n:0; }
+function sgd(n){ return (n<0?"-S$":"S$")+Math.round(Math.abs(n)).toLocaleString("en-SG"); }
+function psf(n){ return "S$"+Math.round(n).toLocaleString("en-SG"); }
+function pct(n){ return (n>0?"+":"")+n.toFixed(1)+"%"; }
+function esc(s){ return String(s===undefined||s===null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function proj(id){ for(var i=0;i<D.projects.length;i++) if(D.projects[i].id===id) return D.projects[i]; return D.projects[0]; }
+function kase(){ for(var i=0;i<D.cases.length;i++) if(D.cases[i].id===D.active) return D.cases[i]; D.active=D.cases[0].id; return D.cases[0]; }
+function unitOf(p,i){ if(!p.units.length) p.units.push({label:"Unit",psf:"",size:""}); return p.units[Math.min(i,p.units.length-1)]||p.units[0]; }
+
+// SLA leasehold table extract, % of freehold; gaps interpolated
+var ANCH={1:3.8,2:7.5,3:10.9,4:14.1,5:17.1,6:19.9,7:22.7,8:25.2,9:27.7,10:30.0,11:32.2,12:34.3,13:36.3,14:38.2,15:40.0,16:41.8,17:43.4,18:45.0,19:46.6,20:48.0,30:60.0,37:66.2,38:67.0,39:67.7,40:68.5,41:69.2,42:69.8,43:70.5,44:71.2,45:71.8,46:72.4,47:73.0,48:73.6,49:74.1,50:74.7,51:75.2,52:75.7,53:76.2,54:76.7,55:77.3,56:77.9,60:80.0,73:87.5,74:88.0,75:88.5,76:89.0,77:89.5,78:90.0,79:90.5,80:91.0,81:91.4,82:91.8,83:92.2,84:92.6,85:92.9,86:93.3,87:93.6,88:94.0,89:94.3,90:94.6,91:94.8,92:95.0,99:96.0};
+var ANK=Object.keys(ANCH).map(Number).sort(function(a,b){return a-b;});
+function bala(n){
+  if(n==="FH") return 100; if(n>=99) return 96; if(n<=1) return 3.8; if(ANCH[n]!==undefined) return ANCH[n];
+  var lo=1,hi=99; for(var i=0;i<ANK.length;i++){ if(ANK[i]<n) lo=ANK[i]; if(ANK[i]>n){hi=ANK[i];break;} }
+  return ANCH[lo]+(ANCH[hi]-ANCH[lo])*(n-lo)/(hi-lo);
+}
+function leaseLeft(ten,start){ if(ten==="FH") return "FH"; var s=num(start); if(!s) return null; return Math.max(1,Math.min(99,99-(YEAR-s))); }
+
+function bsd(p){ var t=[[180000,.01],[180000,.02],[640000,.03],[500000,.04],[1500000,.05],[Infinity,.06]],x=0,l=p; for(var i=0;i<t.length&&l>0;i++){var s=Math.min(l,t[i][0]); x+=s*t[i][1]; l-=s;} return x; }
+
+function model(c){
+  var A=proj(c.aId), B=proj(c.bId), au=unitOf(A,c.aUnit), bu=unitOf(B,c.bUnit), as=c.as;
+  var absd=Math.floor(num(as.absd)), hold=num(as.hold), r=num(as.r)/100, fee=num(as.fee)/100, grow=num(as.grow)/100;
+  function entry(P,size){ var q=P*size; return q+bsd(q)+q*absd/100; }
+  function must(P,size){ return size>0? entry(P,size)*Math.pow(1+r,hold)/(1-fee)/size : 0; }
+  function ceil(p,size){ var cc=num(p.ceil), b=num(p.bud); if(b>0&&size>0) cc=Math.min(cc,b/size); return cc*Math.pow(1+grow,hold); }
+  function cush(P,size,p){ return (ceil(p,size)-must(P,size))*size; }
+  function solve(f){ var lo=100,hi=30000; if(f(lo)<0) return -Infinity; if(f(hi)>0) return Infinity; for(var i=0;i<70;i++){var m=(lo+hi)/2; if(f(m)>0) lo=m; else hi=m;} return (lo+hi)/2; }
+  var sA=num(au.size), sB=num(bu.size), pA=num(au.psf);
+  var upcoming=(B.status==="upcoming");
+  var sc = upcoming ? B.scen.map(function(x,i){return {n:["Low","Base","High"][i],p:num(x.p),w:num(x.w)};}).filter(function(x){return x.p>0;})
+                    : [{n:"List",p:num(bu.psf),w:100}];
+  if(!sc.length) sc=[{n:"Base",p:0,w:100}];
+  var wsum=sc.reduce(function(s,x){return s+x.w;},0)||1;
+  var baseP = upcoming ? (sc[Math.min(1,sc.length-1)].p) : num(bu.psf);
+  function lease(p,target){
+    var tl=leaseLeft(p.ten,p.leaseStart), tb=tl?bala(tl):96, lim=num(as.lim);
+    var rows=p.comps.map(function(k){ var l=leaseLeft(k.ten,k.start), v=num(k.psf); if(!v||l===null) return {k:k,ok:false,l:l};
+      var bv=bala(l), adj=v*tb/bv; return {k:k,ok:true,l:l,bv:bv,fhe:v/(bv/100),adj:adj,prem:(target/adj-1)*100}; });
+    var ok=rows.filter(function(x){return x.ok;}), avg=ok.length?ok.reduce(function(s,x){return s+x.adj;},0)/ok.length:null;
+    return {tl:tl,tb:tb,target:target,rows:rows,avg:avg,max:avg?avg*(1+lim/100):null};
+  }
+  var LA=lease(A,pA), LB=lease(B,baseP);
+  var hA=cush(pA,sA,A);
+  var waExit=solve(function(P){return cush(P,sB,B);});
+  var waB=LB.max?Math.min(waExit,LB.max):waExit;
+  var waAx=solve(function(P){return cush(P,sA,A);}), waA=LA.max?Math.min(waAx,LA.max):waAx;
+  var life=num(as.life);
+  var indiff=solve(function(P){return cush(P,sB,B)+life-hA;});
+  var beats=Math.min(indiff,waB);
+  var pFb=pA*(1+num(as.g)/100)*(1+num(as.u)/100*num(as.pen)/100), hFb=cush(pFb,sA,A);
+  var q=num(as.q)/100, eWait=0, gain=0, pBetter=0;
+  sc.forEach(function(x){ var pi=x.w/wsum, hB=cush(x.p,sB,B)+life, take=(x.p<=waB&&hB>hFb), v=take?hB:hFb;
+    eWait+=pi*(q*v+(1-q)*hFb); gain+=pi*(v-hFb); if(take&&v>hA) pBetter+=pi*q; });
+  var qStar=gain>0?(hA-hFb)/gain:Infinity;
+  var diff=eWait-hA, band=Math.max(20000,pA*sA*0.01), read, why;
+  if(diff< -band){ read="Close "+A.name+" now"; why="Waiting is worth "+sgd(-diff)+" less on average. The downside of coming back later outweighs the chance of a better price at "+B.name+"."; }
+  else if(diff>band){ read="Waiting is worth the risk"; why="Waiting is worth "+sgd(diff)+" more on average, even after the chance of a bad queue number and a higher price at "+A.name+"."; }
+  else { read="Too close to call"; why="The two paths are within "+sgd(band)+" of each other. Let the client's own-stay preference decide."; }
+  return {A:A,B:B,au:au,bu:bu,as:as,sA:sA,sB:sB,pA:pA,upcoming:upcoming,sc:sc,wsum:wsum,baseP:baseP,LA:LA,LB:LB,hA:hA,waB:waB,waA:waA,beats:beats,pFb:pFb,hFb:hFb,
+    eWait:eWait,qStar:qStar,pBetter:pBetter,read:read,why:why,life:life,entry:entry,must:must,ceil:ceil,cush:cush};
+}
+function readOf(P,R){ if(P<=R.beats) return ["Beats closing now","g"]; if(P<=R.waB) return ["Works, closing now better","a"]; return ["Walk away","r"]; }
+
+function rulerSvg(R){
+  var pts=R.sc.map(function(s){return s.p;}); if(isFinite(R.waB)) pts.push(R.waB); if(isFinite(R.beats)) pts.push(R.beats);
+  var lo=Math.max(500,Math.floor((Math.min.apply(null,pts)-300)/100)*100), hi=Math.ceil((Math.max.apply(null,pts)+300)/100)*100;
+  if(hi<=lo) hi=lo+1000;
+  var X0=30,X1=970; function x(v){ return X0+(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(X1-X0); }
+  var g=isFinite(R.beats)?R.beats:(R.beats===Infinity?hi:lo), w=isFinite(R.waB)?R.waB:(R.waB===Infinity?hi:lo);
+  var F=' font-family="IBM Plex Sans, sans-serif"', h='';
+  h+='<rect x="'+X0+'" y="64" width="'+Math.max(0,x(g)-X0)+'" height="22" fill="var(--green,#1E5B45)"/>';
+  if(w>g) h+='<rect x="'+x(g)+'" y="64" width="'+(x(w)-x(g))+'" height="22" fill="var(--amber,#B7791F)"/>';
+  h+='<rect x="'+x(Math.max(w,g))+'" y="64" width="'+Math.max(0,X1-x(Math.max(w,g)))+'" height="22" fill="var(--red,#9B3426)"/>';
+  var step=(hi-lo)>2400?500:((hi-lo)>1200?200:100);
+  for(var t=lo;t<=hi;t+=100){ var major=t%step===0;
+    h+='<line x1="'+x(t)+'" y1="86" x2="'+x(t)+'" y2="'+(major?98:92)+'" stroke="#8A8F96" stroke-width="1"/>';
+    if(major) h+='<text x="'+x(t)+'" y="114" text-anchor="middle" font-size="13" fill="var(--muted,#5B5F66)"'+F+'>'+t.toLocaleString("en-SG")+'</text>'; }
+  R.sc.forEach(function(s,i){ var xx=x(s.p), y=i%2===0?28:46;
+    h+='<line x1="'+xx+'" y1="'+(y+6)+'" x2="'+xx+'" y2="90" stroke="var(--ink,#16181B)" stroke-width="2"/>';
+    h+='<circle cx="'+xx+'" cy="75" r="5" fill="var(--surface,#fff)" stroke="var(--ink,#16181B)" stroke-width="2"/>';
+    h+='<text x="'+xx+'" y="'+y+'" text-anchor="middle" font-size="14" fill="var(--ink,#16181B)"'+F+'>'+s.n+' '+psf(s.p)+(R.sc.length>1?' ('+Math.round(s.w/R.wsum*100)+'%)':'')+'</text>'; });
+  if(isFinite(R.beats)&&R.beats>=lo&&R.beats<=hi) h+='<text x="'+x(R.beats)+'" y="142" text-anchor="middle" font-size="14" font-weight="600" fill="var(--green,#1E5B45)"'+F+'>Beats closing now below '+psf(R.beats)+'</text>';
+  if(isFinite(R.waB)&&R.waB>=lo&&R.waB<=hi){ var yy=(isFinite(R.beats)&&Math.abs(x(R.waB)-x(R.beats))<230)?162:142;
+    h+='<text x="'+x(R.waB)+'" y="'+yy+'" text-anchor="middle" font-size="14" font-weight="600" fill="var(--red,#9B3426)"'+F+'>Walk away above '+psf(R.waB)+'</text>'; }
+  return '<svg viewBox="0 0 1000 170" role="img" aria-label="Price ruler for '+esc(R.B.name)+'. Beats closing now below '+(isFinite(R.beats)?psf(R.beats):"no price")+'. Walk away above '+(isFinite(R.waB)?psf(R.waB):"no price")+'.">'+h+'</svg>';
+}
+function headlines(R){
+  var h,s,cl=kase().client||"the client";
+  if(!isFinite(R.waB)){ h=R.waB===-Infinity? R.B.name+" does not work at any price on these inputs" : R.B.name+" works at every price tested"; s="Check the proven exit psf and holding period inputs."; }
+  else { h=R.B.name+" stops making sense above "+psf(R.waB)+" psf";
+    s=(isFinite(R.beats)&&R.beats<R.waB)? "It only beats closing "+R.A.name+" today at "+psf(R.beats)+" psf or below. In between, "+R.B.name+" still works on its own, but "+R.A.name+" is the better buy for "+cl+"." : "On these inputs "+R.B.name+" beats "+R.A.name+" right up to its walk-away price."; }
+  return [h,s];
+}
+function oddsText(R){
+  var o; if(!isFinite(R.qStar)||R.qStar>1) o="Even a 100% chance of a good unit would not make waiting worth it on these prices.";
+  else if(R.qStar<=0) o="Waiting pays even with no chance of a good unit, because the close-now cushion is already thin.";
+  else o="Waiting only pays if the chance of a good unit is above "+Math.round(R.qStar*100)+"%. You have it at "+Math.round(num(R.as.q))+"%.";
+  return o+" Chance waiting ends better than closing now: "+Math.round(R.pBetter*100)+"%.";
+}
+function warnings(R){
+  var w=[]; if(!R.pA||!R.sA) w.push("Set a price psf and size for the close-now unit.");
+  if(!R.sB) w.push("Set a unit size for the alternative.");
+  if(R.pA>R.waA&&isFinite(R.waA)) w.push(R.A.name+" itself fails the exit test at "+psf(R.pA)+" psf. Its own walk-away is "+psf(R.waA)+" psf.");
+  if(R.sc.length>1&&Math.round(R.wsum)!==100) w.push("Scenario chances add up to "+Math.round(R.wsum)+"%, so they have been scaled to 100%.");
+  if(num(R.as.hold)<4) w.push("A holding period under 4 years triggers Seller's Stamp Duty, which this model leaves out.");
+  if(R.A.id===R.B.id) w.push("Both sides are the same project.");
+  return w.join(" ");
+}
+
+/* ---------- COMPARE VIEW ---------- */
+function ref(path){
+  var c=kase(), parts=path.split("."), root=parts.shift(), o;
+  if(root==="case") o=c; else if(root==="c") o=c.as; else if(root==="a") o=proj(c.aId); else if(root==="b") o=proj(c.bId);
+  else if(root==="rv") o=c.rv;
+  else if(root==="au") o=unitOf(proj(c.aId),c.aUnit); else if(root==="bu") o=unitOf(proj(c.bId),c.bUnit);
+  while(parts.length>1) o=o[parts.shift()];
+  return [o,parts[0]];
+}
+function fillCompare(){
+  var c=kase();
+  document.querySelectorAll("[data-b]").forEach(function(el){ var r=ref(el.getAttribute("data-b")); var v=r[0][r[1]]; el.value=(v===undefined||v===null)?"":v; });
+  var opts=D.projects.map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+(p.status==="upcoming"?" (upcoming)":"")+'</option>';}).join("");
+  var sa=document.querySelector('[data-sel="aId"]'), sb=document.querySelector('[data-sel="bId"]');
+  sa.innerHTML=opts; sb.innerHTML=opts; sa.value=c.aId; sb.value=c.bId;
+  function uopts(p,sel){ return p.units.map(function(u,i){return '<option value="'+i+'"'+(i===sel?" selected":"")+'>'+esc(u.label||("Unit "+(i+1)))+(num(u.psf)?", "+psf(u.psf)+" psf":"")+(num(u.size)?", "+Math.round(u.size)+" sqft":"")+'</option>';}).join(""); }
+  document.querySelector('[data-sel="aUnit"]').innerHTML=uopts(proj(c.aId),c.aUnit);
+  document.querySelector('[data-sel="bUnit"]').innerHTML=uopts(proj(c.bId),c.bUnit);
+}
+function renderCompare(){
+  var c=kase(), R=model(c), H=headlines(R);
+  document.getElementById("forline").textContent="Scenario for "+(c.client||"the client")+": "+R.A.name+" ("+(R.au.label||"unit")+") vs "+R.B.name+" ("+(R.bu.label||"unit")+")";
+  document.getElementById("headline").textContent=H[0]; document.getElementById("subline").textContent=H[1];
+  document.getElementById("rulerBox").innerHTML=rulerSvg(R);
+  document.getElementById("lgG").textContent="Beats closing "+R.A.name+" now";
+  document.getElementById("lgA").textContent="Still works, but "+R.A.name+" is the better buy";
+  document.getElementById("warn").textContent=warnings(R);
+  document.getElementById("closeTitle").textContent="Close "+R.A.name+" now";
+  document.getElementById("waitTitle").textContent="Wait for "+R.B.name;
+  document.getElementById("closeVal").textContent=sgd(R.hA);
+  document.getElementById("closeNote").textContent="Cushion at exit, certain. Must sell at "+psf(R.must(R.pA,R.sA))+" psf against about "+psf(R.ceil(R.A,R.sA))+" by exit.";
+  document.getElementById("waitVal").textContent=sgd(R.eWait);
+  document.getElementById("waitNote").textContent="Expected cushion after the odds. If it falls through, "+R.A.name+" costs about "+psf(R.pFb)+" psf.";
+  document.getElementById("verdict").textContent=R.read; document.getElementById("verdictWhy").textContent=R.why; document.getElementById("odds").textContent=oddsText(R);
+  document.getElementById("aTitle").textContent=R.A.name; document.getElementById("bTitle").textContent=R.B.name;
+  document.getElementById("bScenBox").hidden=!R.upcoming; document.getElementById("bPsfRow").hidden=R.upcoming;
+  document.getElementById("bHint").textContent=R.upcoming?"Price unknown. Three launch price scenarios and how likely each is.":"Price known. Uses the listed psf for the chosen unit.";
+  document.getElementById("gLabel").textContent="Price rise at "+R.A.name+" by then (%)";
+  document.getElementById("tableTitle").textContent=R.B.name+" at every price";
+  document.getElementById("aMeta").textContent=[R.A.district,R.A.ten==="FH"?"Freehold":"99-year from "+(R.A.leaseStart||"?"),"TOP "+(R.A.top||"?")].join(", ");
+  document.getElementById("bMeta").textContent=[R.B.district,R.B.ten==="FH"?"Freehold":"99-year from "+(R.B.leaseStart||"?"),"TOP "+(R.B.top||"?")].join(", ");
+  document.getElementById("caseMeta").textContent="Last updated "+(c.updated||today());
+  document.getElementById("scenBody").innerHTML=tableRows(R,false);
+  c.read=R.read; c.updated=today();
+  renderSummary(R); save();
+}
+function tableRows(R,compact){
+  var set={}; R.sc.forEach(function(s){set[Math.round(s.p)]=s.n;});
+  var ps=R.sc.map(function(s){return s.p;}), lo=Math.max(500,Math.floor((Math.min.apply(null,ps)-300)/100)*100), hi=Math.ceil((Math.max.apply(null,ps)+300)/100)*100;
+  var st=compact?200:100, list=[]; for(var p=lo;p<=hi;p+=st) list.push(p);
+  ps.forEach(function(v){ v=Math.round(v); if(list.indexOf(v)<0) list.push(v); }); list.sort(function(a,b){return a-b;});
+  return list.map(function(P){ var cu=R.cush(P,R.sB,R.B), vs=cu+R.life-R.hA, rd=readOf(P,R), lp=R.LB.avg?pct((P/R.LB.avg-1)*100):"n/a";
+    return '<tr'+(set[P]?' class="mark"':'')+'><td>'+psf(P)+(set[P]?' ('+set[P]+')':'')+'</td>'+(compact?'':'<td>'+sgd(P*R.sB)+'</td><td>'+sgd(R.entry(P,R.sB))+'</td>')+'<td>'+psf(R.must(P,R.sB))+'</td><td>'+sgd(cu)+'</td><td>'+(vs>=0?"+":"")+sgd(vs)+'</td>'+(compact?'':'<td>'+lp+'</td>')+'<td><span class="pill '+rd[1]+'">'+rd[0]+'</span></td></tr>'; }).join("");
+}
+/* ---------- RESALE VS NEW LAUNCH ---------- */
+function yrs(n){ return n+(n===1?" yr":" yrs"); }
+function topYear(p){ var m=String(p.top||"").match(/\d{4}/); return m?parseInt(m[0],10):YEAR+4; }
+function rvModel(c){
+  var rv=c.rv, as=c.as, p=proj(rv.pid||c.bId), u=unitOf(p,rv.unit);
+  var auto = num(u.psf) || (p.status==="upcoming" ? num((p.scen[1]||{}).p) : 0);
+  var P = num(rv.psf) || auto, S=num(u.size), Q=P*S;
+  var absd=Math.floor(num(as.absd))/100, h=num(as.hold), g=num(as.grow)/100, fee=num(as.fee)/100, lim=num(as.lim);
+  var ltv=num(rv.ltv)/100, rate=num(rv.rate)/100, draw=num(rv.draw)/100, fade=num(rv.fade), rRS=num(rv.rentRS)/100, rNL=num(rv.rentNL)/100;
+  var T=topYear(p), exitY=YEAR+h, entry=Q+bsd(Q)+Q*absd, loan=ltv*Q;
+  var Lnl=leaseLeft(p.ten,p.leaseStart); if(Lnl===null) Lnl=99;
+  var bnow=bala(Lnl), bexit=bala(Lnl==="FH"?"FH":Math.max(1,Lnl-h));
+  var rows=p.comps.map(function(k,i){ var l=leaseLeft(k.ten,k.start), v=num(k.psf);
+    if(!v||l===null) return {i:i,k:k,ok:false,l:l};
+    var bv=bala(l), fhe=v/(bv/100), adj=v*bnow/bv; return {i:i,k:k,ok:true,l:l,bv:bv,fhe:fhe,adj:adj,prem:(P/adj-1)*100}; });
+  var ok=rows.filter(function(r){return r.ok;});
+  var avgFHE=ok.length?ok.reduce(function(s,r){return s+r.fhe;},0)/ok.length:null;
+  var avgAdj=ok.length?ok.reduce(function(s,r){return s+r.adj;},0)/ok.length:null;
+  var cYrs=Math.max(0,Math.min(h,T-YEAR)), ageNL=exitY-T;
+  var fadeF = ageNL<=0 ? 1 : (fade>0 ? Math.max(0,1-ageNL/fade) : 0);
+  function nl(Px){
+    if(!avgFHE||!Px) return null;
+    var size=Q/Px, prem0=Px/(avgFHE*bnow/100)-1, rem=prem0*fadeF;
+    var exitPsf=avgFHE*Math.pow(1+g,h)*bexit/100*(1+rem), exitVal=exitPsf*size*(1-fee);
+    var interest=loan*rate*(draw*cYrs+(h-cYrs)), rent=rNL*Q*(h-cYrs);
+    var gain=exitVal-entry-interest+rent;
+    return {size:size,prem0:prem0,rem:rem,exitPsf:exitPsf,exitVal:exitVal,interest:interest,rent:rent,gain:gain};
+  }
+  var N=nl(P);
+  var opts=ok.map(function(r){
+    var size=Q/num(r.k.psf), be=bala(r.l==="FH"?"FH":Math.max(1,r.l-h));
+    var exitPsf=num(r.k.psf)*Math.pow(1+g,h)*be/r.bv, exitVal=exitPsf*size*(1-fee);
+    var interest=loan*rate*h, rent=rRS*Q*h, gain=exitVal-entry-interest+rent;
+    var ty=parseInt(r.k.top,10);
+    return {r:r,size:size,lexit:r.l==="FH"?"FH":Math.max(1,r.l-h),age:ty?exitY-ty:null,exitPsf:exitPsf,interest:interest,rent:rent,gain:gain};
+  });
+  var best=null; opts.forEach(function(o){ if(!best||o.gain>best.gain) best=o; });
+  var brk=null;
+  if(N&&best){ var f=function(Px){ return nl(Px).gain-best.gain; }, lo=100, hi=30000;
+    if(fadeF>=1) brk=(N.gain>=best.gain)?Infinity:-Infinity;
+    else if(f(lo)<0) brk=-Infinity; else if(f(hi)>0) brk=Infinity;
+    else { for(var i=0;i<70;i++){ var m=(lo+hi)/2; if(f(m)>0) lo=m; else hi=m; } brk=(lo+hi)/2; } }
+  return {p:p,u:u,P:P,auto:auto,S:S,Q:Q,entry:entry,h:h,T:T,exitY:exitY,Lnl:Lnl,bnow:bnow,rows:rows,avgAdj:avgAdj,avgFHE:avgFHE,
+    max:avgAdj?avgAdj*(1+lim/100):null,lim:lim,N:N,opts:opts,best:best,brk:brk,ageNL:ageNL,fadeF:fadeF,cYrs:cYrs};
+}
+function fillResale(){
+  var c=kase(), pid=c.rv.pid||c.bId, sel=document.querySelector('[data-rsel="pid"]');
+  sel.innerHTML=D.projects.map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+(p.status==="upcoming"?" (upcoming)":"")+'</option>';}).join(""); sel.value=pid;
+  var p=proj(pid); document.querySelector('[data-rsel="unit"]').innerHTML=p.units.map(function(u,i){return '<option value="'+i+'"'+(i===c.rv.unit?" selected":"")+'>'+esc(u.label||("Unit "+(i+1)))+(num(u.size)?", "+Math.round(u.size)+" sqft":"")+'</option>';}).join("");
+  document.querySelectorAll("#vResale [data-b]").forEach(function(el){ var r=ref(el.getAttribute("data-b")), v=r[0][r[1]]; el.value=(v===undefined||v===null)?"":v; });
+}
+function renderResale(){
+  var c=kase(), M=rvModel(c), p=M.p, lim=M.lim;
+  document.getElementById("rvMeta").textContent=[p.district,p.ten==="FH"?"Freehold":"99-year from "+(p.leaseStart||"?"),"TOP "+(p.top||"?")].join(", ");
+  document.getElementById("rvPsfMeta").textContent=M.auto?("Blank uses "+psf(M.auto)+" psf"+(p.status==="upcoming"&&!num(M.u.psf)?", the base scenario":", the unit price")+"."):"Enter the launch psf to test.";
+  document.getElementById("rvBudget").textContent=M.Q?sgd(M.Q):"S$0";
+  document.getElementById("rvFor").textContent="For "+(c.client||"the client")+": "+p.name+" ("+(M.u.label||"unit")+") against resale nearby, held "+M.h+" years to "+M.exitY;
+  var hd=document.getElementById("rvHead"), sb=document.getElementById("rvSub");
+  if(!M.best||!M.N){ hd.textContent="Add resale comparables to start"; sb.textContent="Enter at least one nearby resale project with its tenure, lease start and URA average psf."; }
+  else if(M.N.gain>=M.best.gain){ hd.textContent=p.name+" makes more sense than resale"; sb.textContent="At "+psf(M.P)+" psf it ends "+sgd(M.N.gain-M.best.gain)+" ahead of the best resale option, "+(M.best.r.k.name||"the comparable")+", after lease decay, interest and rent."; }
+  else { hd.textContent="Resale makes more sense than "+p.name; sb.textContent="At "+psf(M.P)+" psf the new launch ends "+sgd(M.best.gain-M.N.gain)+" behind "+(M.best.r.k.name||"the best resale option")+". It needs to launch at or below "+(isFinite(M.brk)&&M.brk>0?psf(M.brk)+" psf":"a much lower price")+" to win."; }
+
+  document.getElementById("compBody").innerHTML=M.rows.map(function(r){ var k=r.k, i=r.i;
+    return '<tr><td><input data-ci="'+i+'" data-cf="name" value="'+esc(k.name)+'" aria-label="Resale project name" placeholder="Project name"></td>'+
+      '<td><select data-ci="'+i+'" data-cf="ten" aria-label="Tenure"><option value="99"'+(k.ten!=="FH"?" selected":"")+'>99-year</option><option value="FH"'+(k.ten==="FH"?" selected":"")+'>Freehold / 999</option></select></td>'+
+      '<td><input class="num" data-ci="'+i+'" data-cf="start" value="'+esc(k.start)+'" inputmode="numeric" aria-label="Lease start year" placeholder="'+(k.ten==="FH"?"n/a":"Year")+'"'+(k.ten==="FH"?" disabled":"")+'></td>'+
+      '<td><input class="num" data-ci="'+i+'" data-cf="top" value="'+esc(k.top)+'" inputmode="numeric" aria-label="TOP year" placeholder="Year"></td>'+
+      '<td><input class="num" data-ci="'+i+'" data-cf="psf" value="'+esc(k.psf)+'" inputmode="numeric" aria-label="Average psf" placeholder="URA avg"></td>'+
+      '<td>'+(r.l==="FH"?"Freehold":(r.l?r.l+" yrs":"n/a"))+'</td><td>'+(r.ok?r.bv.toFixed(1)+"%":"n/a")+'</td><td>'+(r.ok?psf(r.fhe):"n/a")+'</td><td>'+(r.ok?psf(r.adj):"n/a")+'</td>'+
+      '<td>'+(r.ok?'<span class="pill '+(r.prem<=lim?"g":(r.prem<=lim+5?"a":"r"))+'">'+pct(r.prem)+'</span>':"n/a")+'</td>'+
+      '<td><button class="btn danger small" type="button" data-rm="'+i+'" aria-label="Remove resale project">Remove</button></td></tr>'; }).join("");
+  document.getElementById("ltLabel").textContent=p.name+" at "+psf(M.P)+" psf";
+  document.getElementById("ltPsf").textContent=psf(M.P)+" psf";
+  document.getElementById("ltSub").textContent=M.Lnl==="FH"?"Freehold":M.Lnl+" years lease left, "+M.bnow.toFixed(1)+"% of freehold. Freehold-equivalent "+psf(M.P/(M.bnow/100))+" psf";
+  document.getElementById("lcAvg").textContent=M.avgAdj?psf(M.avgAdj)+" psf":"Add comparables";
+  document.getElementById("lcSub").textContent=M.avgAdj?"New launch premium "+pct((M.P/M.avgAdj-1)*100):"Enter URA average psf for recent resale nearby";
+  document.getElementById("lcMax").textContent=M.max?psf(M.max)+" psf":"Not set";
+  document.getElementById("lcMaxSub").textContent=M.max?"At a "+lim+"% premium limit. Also caps the walk-away on Compare.":"Needs at least one comparable";
+
+  var tb="";
+  if(M.N&&M.best){
+    var win=M.N.gain>=M.best.gain;
+    tb+='<tr class="mark"><td><strong>'+esc(p.name)+'</strong> (new launch)</td><td>'+Math.round(M.N.size)+' sqft</td><td>'+(M.Lnl==="FH"?"Freehold":Math.max(1,M.Lnl-M.h)+" yrs")+'</td><td>'+(M.ageNL<0?"Not yet TOP":yrs(M.ageNL))+'</td><td>'+sgd(M.N.interest)+'</td><td>'+sgd(M.N.rent)+'</td><td>'+psf(M.N.exitPsf)+'</td><td>'+sgd(M.N.gain)+'</td><td>'+pct(M.N.gain/M.entry/M.h*100)+'</td><td><span class="pill '+(win?"g":"r")+'">'+(win?"Wins":"Behind by "+sgd(M.best.gain-M.N.gain))+'</span></td></tr>';
+    M.opts.slice().sort(function(a,b){return b.gain-a.gain;}).forEach(function(o){
+      var beat=o.gain>M.N.gain;
+      tb+='<tr><td>'+esc(o.r.k.name||"Resale")+'</td><td>'+Math.round(o.size)+' sqft</td><td>'+(o.lexit==="FH"?"Freehold":o.lexit+" yrs")+'</td><td>'+(o.age!==null?yrs(o.age):"n/a")+'</td><td>'+sgd(o.interest)+'</td><td>'+sgd(o.rent)+'</td><td>'+psf(o.exitPsf)+'</td><td>'+sgd(o.gain)+'</td><td>'+pct(o.gain/M.entry/M.h*100)+'</td><td><span class="pill '+(beat?"n":"a")+'">'+(beat?"Beats new launch":"Behind new launch")+'</span></td></tr>'; });
+  } else tb='<tr><td colspan="10">Add at least one resale project with lease and average psf above.</td></tr>';
+  document.getElementById("rvBody").innerHTML=tb;
+  document.getElementById("rvTableSub").textContent="Projected to "+M.exitY+" with lease decay, interest, rent, and the newness premium "+(M.ageNL<=0?"still intact, because "+p.name+" is not yet at TOP by then.":"at "+Math.round(M.fadeF*100)+"% of today's level, "+yrs(M.ageNL)+" after TOP."+(M.fadeF>0.7?" With most of the premium still intact at exit, rent and interest decide more than the launch price does.":""));
+  var bk=document.getElementById("rvBreak"), bks=document.getElementById("rvBreakSub");
+  if(M.brk===null){ bk.textContent="n/a"; bks.textContent="Needs resale comparables"; }
+  else if(M.brk===Infinity){ bk.textContent="Any price"; bks.textContent="The newness premium is still fully intact at exit, so price does not change the ranking. Shorten the fade or lengthen the hold."; }
+  else if(M.brk===-Infinity){ bk.textContent="No price"; bks.textContent="Resale wins at every launch price on these inputs."; }
+  else { bk.textContent=psf(M.brk)+" psf"; bks.textContent=M.brk>=M.P?"You are "+psf(M.brk-M.P)+" psf inside the line.":"Launch price is "+psf(M.P-M.brk)+" psf too high to beat resale."; }
+  document.getElementById("rvPrem").textContent=M.N?pct(M.N.prem0*100):"n/a";
+  document.getElementById("rvPremSub").textContent=M.N?"Over the lease-adjusted resale average. About "+pct(M.N.rem*100)+" left at exit.":"Needs resale comparables";
+  document.getElementById("rvBest").textContent=M.best?(M.best.r.k.name||"Resale"):"n/a";
+  document.getElementById("rvBestSub").textContent=M.best?Math.round(M.best.size)+" sqft for the same budget, net gain "+sgd(M.best.gain):"";
+  save();
+}
+var vRes=document.getElementById("vResale");
+vRes.addEventListener("input",function(e){ var path=e.target.getAttribute("data-b"); if(!path) return; var r=ref(path); r[0][r[1]]=e.target.value; renderResale(); });
+vRes.addEventListener("change",function(e){
+  var el=e.target, c=kase(), rs=el.getAttribute("data-rsel");
+  if(rs){ if(rs==="pid"){ c.rv.pid=el.value; c.rv.unit=0; c.rv.psf=""; } else c.rv.unit=parseInt(el.value,10)||0; fillResale(); renderResale(); return; }
+  var ci=el.getAttribute("data-ci"); if(ci!==null){ proj(c.rv.pid||c.bId).comps[+ci][el.getAttribute("data-cf")]=el.value; renderResale(); }
+});
+vRes.addEventListener("click",function(e){
+  var rm=e.target.closest("[data-rm]"), c=kase();
+  if(rm){ proj(c.rv.pid||c.bId).comps.splice(+rm.getAttribute("data-rm"),1); renderResale(); }
+  if(e.target.id==="addComp"){ proj(c.rv.pid||c.bId).comps.push({name:"",ten:"99",start:"",top:"",psf:""}); renderResale(); }
+});
+
+/* ---------- REPORT ---------- */
+function renderReport(){
+  var c=kase(), R=model(c), H=headlines(R), d=new Date().toLocaleDateString("en-SG",{day:"numeric",month:"long",year:"numeric"});
+  function leaseTable(p,L){ var ok=L.rows.filter(function(r){return r.ok;}); if(!ok.length) return "";
+    return '<h2>'+esc(p.name)+' vs nearby resale, lease reset</h2><table><thead><tr><th>Comparable</th><th>Lease left</th><th>Avg psf</th><th>At '+esc(p.name)+' lease</th><th>'+esc(p.name)+' premium</th></tr></thead><tbody>'+
+      ok.map(function(r){return '<tr><td>'+esc(r.k.name||"Comparable")+'</td><td>'+(r.l==="FH"?"Freehold":r.l+" yrs")+'</td><td>'+psf(r.k.psf)+'</td><td>'+psf(r.adj)+'</td><td>'+pct(r.prem)+'</td></tr>';}).join("")+'</tbody></table>'; }
+  var as=R.as, absdLbl={"0":"0%","20":"20%","30":"30%","5":"5%","30.1":"30%","60":"60%"}[String(as.absd)]||(as.absd+"%");
+  var h='<div class="rhead"><div><b>HomeUP</b><br>New Launch Desk</div><div style="text-align:right">Prepared for '+esc(c.client||"the client")+'<br>by '+esc(c.advisor||"your HomeUP advisor")+', '+d+'</div></div>';
+  h+='<p style="margin-top:18px">'+esc(R.A.name)+' ('+esc(R.au.label||"unit")+') vs '+esc(R.B.name)+' ('+esc(R.bu.label||"unit")+')</p>';
+  h+='<h1>'+esc(H[0])+'</h1><p>'+esc(H[1])+'</p>';
+  h+=rulerSvg(R);
+  h+='<div class="callout"><b>'+esc(R.read)+'</b><p style="color:#BFC3C9;margin:6px 0 0">'+esc(R.why)+' '+esc(oddsText(R))+'</p></div>';
+  h+='<div class="keys"><div><span>'+esc(R.A.name)+', cushion at exit</span><b>'+sgd(R.hA)+'</b></div><div><span>Waiting for '+esc(R.B.name)+', expected cushion</span><b>'+sgd(R.eWait)+'</b></div><div><span>'+esc(R.B.name)+' walk-away</span><b>'+(isFinite(R.waB)?psf(R.waB)+" psf":"n/a")+'</b></div></div>';
+  h+='<h2>The two options</h2><table><thead><tr><th></th><th>'+esc(R.A.name)+'</th><th>'+esc(R.B.name)+'</th></tr></thead><tbody>'+
+    '<tr><td>Unit</td><td>'+esc(R.au.label)+', '+Math.round(R.sA)+' sqft</td><td>'+esc(R.bu.label)+', '+Math.round(R.sB)+' sqft</td></tr>'+
+    '<tr><td>Price psf</td><td>'+psf(R.pA)+'</td><td>'+(R.upcoming?R.sc.map(function(s){return s.n+" "+psf(s.p);}).join(", "):psf(R.baseP))+'</td></tr>'+
+    '<tr><td>Tenure and TOP</td><td>'+(R.A.ten==="FH"?"Freehold":"99-year from "+esc(R.A.leaseStart))+', TOP '+esc(R.A.top)+'</td><td>'+(R.B.ten==="FH"?"Freehold":"99-year from "+esc(R.B.leaseStart))+', TOP '+esc(R.B.top)+'</td></tr>'+
+    '<tr><td>Must sell at (psf)</td><td>'+psf(R.must(R.pA,R.sA))+'</td><td>'+psf(R.must(R.baseP,R.sB))+(R.upcoming?" at base":"")+'</td></tr>'+
+    '<tr><td>Nearby proof, grown to exit</td><td>'+psf(R.ceil(R.A,R.sA))+'</td><td>'+psf(R.ceil(R.B,R.sB))+'</td></tr></tbody></table>';
+  h+='<h2>'+esc(R.B.name)+' at different launch prices</h2><table><thead><tr><th>Launch psf</th><th>Must sell at</th><th>Cushion at exit</th><th>vs closing now</th><th>Read</th></tr></thead><tbody>'+tableRows(R,true)+'</tbody></table>';
+  var M=rvModel(c);
+  if(M.N&&M.best){
+    h+='<h2>'+esc(M.p.name)+' vs nearby resale, same budget of '+sgd(M.Q)+'</h2>';
+    h+='<p>'+(M.N.gain>=M.best.gain? esc(M.p.name)+' at '+psf(M.P)+' psf ends '+sgd(M.N.gain-M.best.gain)+' ahead of the best resale option after lease decay, interest and rent, held to '+M.exitY+'.' : 'Resale ends ahead. '+esc(M.best.r.k.name||"The best resale option")+' beats '+esc(M.p.name)+' at '+psf(M.P)+' psf by '+sgd(M.best.gain-M.N.gain)+', held to '+M.exitY+'.')+(isFinite(M.brk)&&M.brk>0?' The new launch beats resale at up to '+psf(M.brk)+' psf.':'')+'</p>';
+    h+='<table><thead><tr><th>Option</th><th>Size</th><th>Lease left now</th><th>Lease-adj. psf</th><th>Exit psf</th><th>Net gain</th></tr></thead><tbody>';
+    h+='<tr><td>'+esc(M.p.name)+' (new launch)</td><td>'+Math.round(M.N.size)+' sqft</td><td>'+(M.Lnl==="FH"?"Freehold":M.Lnl+" yrs")+'</td><td>'+psf(M.P)+'</td><td>'+psf(M.N.exitPsf)+'</td><td>'+sgd(M.N.gain)+'</td></tr>';
+    M.opts.forEach(function(o){ h+='<tr><td>'+esc(o.r.k.name||"Resale")+'</td><td>'+Math.round(o.size)+' sqft</td><td>'+(o.r.l==="FH"?"Freehold":o.r.l+" yrs")+'</td><td>'+psf(o.r.adj)+'</td><td>'+psf(o.exitPsf)+'</td><td>'+sgd(o.gain)+'</td></tr>'; });
+    h+='</tbody></table><p style="font-size:13px">Lease-adjusted psf converts each resale price to the new launch\'s remaining lease using the SLA leasehold table. Loan '+num(c.rv.ltv)+'% at '+num(c.rv.rate)+'%, rent '+num(c.rv.rentRS)+'% resale and '+num(c.rv.rentNL)+'% new launch after TOP, newness premium fading over '+num(c.rv.fade)+' years after TOP.</p>';
+  } else { h+=leaseTable(R.A,R.LA)+leaseTable(R.B,R.LB); }
+  h+='<h2>Assumptions</h2><ul><li>Buyer profile ABSD '+absdLbl+', Buyer\'s Stamp Duty at current rates on each price.</li><li>Held '+num(as.hold)+' years, target return '+num(as.r)+'% a year, selling costs '+num(as.fee)+'%.</li><li>Nearby proven prices grown at '+num(as.grow)+'% a year to the exit year.</li><li>Chance of a good unit if waiting: '+num(as.q)+'%. If waiting fails, '+esc(R.A.name)+' price up '+num(as.g)+'%, '+num(as.u)+'% chance the chosen unit is gone.</li>'+(R.life?'<li>Own-stay preference for '+esc(R.B.name)+': '+sgd(R.life)+'.</li>':'')+'</ul>';
+  h+='<p class="fine">Indicative scenario analysis for discussion with your HomeUP advisor. Not financial advice. Prices, growth and chances are inputs and judgements, not forecasts. Mortgage interest, rental income, progressive payment timing and SSD are not modelled. HomeUP operates under C &amp; H Properties Pte Ltd, CEA Licence L3007139C.</p>';
+  document.getElementById("reportBody").innerHTML=h;
+  renderSummary(R);
+}
+function renderSummary(R){
+  var c=kase(), d=new Date().toLocaleDateString("en-SG",{day:"numeric",month:"short",year:"numeric"}), L=[];
+  L.push((c.client||"Hi")+", "+R.A.name+" vs "+R.B.name+" ("+d+")"); L.push("");
+  if(isFinite(R.waB)) L.push(R.B.name+" walk-away price: "+psf(R.waB)+" psf. Above this, the numbers to sell later do not work.");
+  if(isFinite(R.beats)&&R.beats<R.waB) L.push("It only beats "+R.A.name+" at "+psf(R.beats)+" psf or lower.");
+  L.push("");
+  L.push(R.A.name+" at "+psf(R.pA)+" psf ("+(R.au.label||"unit")+") needs about "+psf(R.must(R.pA,R.sA))+" psf to sell after "+num(R.as.hold)+" years at "+num(R.as.r)+"% a year, after stamp duty and selling costs. Nearby prices, grown "+num(R.as.grow)+"% a year, would be about "+psf(R.ceil(R.A,R.sA))+" psf.");
+  L.push(R.B.name+(R.upcoming?" at a launch price around ":" at ")+psf(R.baseP)+" psf would need about "+psf(R.must(R.baseP,R.sB))+" psf on exit, against about "+psf(R.ceil(R.B,R.sB))+" psf nearby at the same growth.");
+  L.push("");
+  if(isFinite(R.qStar)&&R.qStar>0&&R.qStar<=1) L.push("Waiting only makes sense if the chance of a good unit is above "+Math.round(R.qStar*100)+"%. We estimate "+Math.round(num(R.as.q))+"%.");
+  L.push("Our read: "+R.read+".");
+  var M=rvModel(c); if(M.N&&M.best){ L.push(""); L.push(M.N.gain>=M.best.gain? M.p.name+" at "+psf(M.P)+" psf also beats nearby resale at the same budget, by about "+sgd(M.N.gain-M.best.gain)+" by "+M.exitY+"." : "Against nearby resale at the same budget, "+(M.best.r.k.name||"resale")+" comes out about "+sgd(M.best.gain-M.N.gain)+" ahead of "+M.p.name+" by "+M.exitY+"."); }
+  L.push(""); L.push("Indicative only, based on current prices and our assumptions. Not financial advice.");
+  document.getElementById("summary").value=L.join("\n");
+}
+
+/* ---------- PROJECTS VIEW ---------- */
+function renderProjList(){
+  if(!editId||!D.projects.some(function(p){return p.id===editId;})) editId=D.projects[0].id;
+  document.getElementById("projList").innerHTML=D.projects.map(function(p){
+    return '<button class="item" type="button" data-pid="'+p.id+'" aria-current="'+(p.id===editId)+'"><b>'+esc(p.name||"Untitled project")+'</b><span>'+(p.status==="upcoming"?"Upcoming":"Launched")+(p.district?", "+esc(p.district):"")+(p.asOf?", prices as at "+esc(p.asOf):"")+'</span></button>'; }).join("");
+}
+function renderEditor(){
+  var p=proj(editId), e='';
+  e+='<h2>'+esc(p.name||"Untitled project")+'</h2><p class="hint">Saved automatically. Used by every client case that picks this project.</p>';
+  e+='<div class="two">';
+  e+='<div class="row"><label>Project name</label><input type="text" data-pe="name" value="'+esc(p.name)+'"></div>';
+  e+='<div class="row"><label>Status</label><select data-pe="status"><option value="launched"'+(p.status!=="upcoming"?" selected":"")+'>Launched, price known</option><option value="upcoming"'+(p.status==="upcoming"?" selected":"")+'>Upcoming, price unknown</option></select></div>';
+  e+='<div class="row"><label>District and road</label><input type="text" data-pe="district" value="'+esc(p.district)+'"></div>';
+  e+='<div class="row"><label>Tenure</label><select data-pe="ten"><option value="99"'+(p.ten!=="FH"?" selected":"")+'>99-year</option><option value="FH"'+(p.ten==="FH"?" selected":"")+'>Freehold / 999</option></select></div>';
+  e+='<div class="row"><label>Lease start year</label><input type="number" inputmode="numeric" data-pe="leaseStart" value="'+esc(p.leaseStart)+'"></div>';
+  e+='<div class="row"><label>TOP</label><input type="text" data-pe="top" value="'+esc(p.top)+'"></div>';
+  e+='<div class="row"><label>Proven exit psf nearby<small>From URA</small></label><input type="number" inputmode="numeric" data-pe="ceil" value="'+esc(p.ceil)+'"></div>';
+  e+='<div class="row"><label>Next buyer max budget (S$)<small>Optional</small></label><input type="number" inputmode="numeric" data-pe="bud" value="'+esc(p.bud)+'"></div>';
+  e+='<div class="row"><label>Prices as at</label><input type="date" data-pe="asOf" value="'+esc(p.asOf)+'"></div>';
+  e+='</div>';
+  e+='<div class="row" style="grid-template-columns:1fr"><label>Notes and sources<textarea data-pe="notes" rows="3" style="text-align:left;margin-top:6px">'+esc(p.notes)+'</textarea></label></div>';
+  e+='<h3 style="font-size:20px;margin:18px 0 8px">Unit types and prices</h3><div class="tablewrap"><table class="edit" style="min-width:560px"><thead><tr><th>Unit type</th><th>Price psf</th><th>Size (sqft)</th><th>Quantum</th><th></th></tr></thead><tbody>'+
+    p.units.map(function(u,i){ return '<tr><td><input data-pu="'+i+'" data-pf="label" value="'+esc(u.label)+'" aria-label="Unit type"></td><td><input class="num" data-pu="'+i+'" data-pf="psf" value="'+esc(u.psf)+'" inputmode="numeric" aria-label="Price psf" placeholder="'+(p.status==="upcoming"?"Unknown":"")+'"></td><td><input class="num" data-pu="'+i+'" data-pf="size" value="'+esc(u.size)+'" inputmode="numeric" aria-label="Size"></td><td>'+(num(u.psf)&&num(u.size)?sgd(u.psf*u.size):"n/a")+'</td><td><button class="btn danger small" type="button" data-urm="'+i+'">Remove</button></td></tr>'; }).join("")+'</tbody></table></div>';
+  e+='<div class="actions"><button class="btn ghost small" type="button" id="addUnit">Add unit type</button></div>';
+  if(p.status==="upcoming"){
+    e+='<h3 style="font-size:20px;margin:18px 0 8px">Launch price scenarios</h3>';
+    e+='<div class="scen"><span class="h">Scenario</span><span class="h">Launch psf</span><span class="h">Chance %</span></div>';
+    ["Low","Base","High"].forEach(function(n,i){ e+='<div class="scen"><label>'+n+'</label><input data-ps="'+i+'" data-pf="p" value="'+esc(p.scen[i].p)+'" inputmode="numeric" aria-label="'+n+' psf"><input data-ps="'+i+'" data-pf="w" value="'+esc(p.scen[i].w)+'" inputmode="numeric" aria-label="'+n+' chance"></div>'; });
+  }
+  e+='<p class="hint" style="margin-top:16px">Resale comparables for the lease reset test are edited on the Compare page.</p>';
+  e+='<div class="actions"><button class="btn danger" type="button" id="delProj">Delete project</button></div>';
+  document.getElementById("projEditor").innerHTML=e;
+}
+
+/* ---------- CASES VIEW ---------- */
+function renderCases(){
+  document.getElementById("caseBody").innerHTML=D.cases.map(function(c){
+    var a=proj(c.aId), b=proj(c.bId);
+    return '<tr'+(c.id===D.active?' class="mark"':'')+'><td>'+esc(c.client||"Unnamed")+'</td><td>'+esc(a.name)+'</td><td>'+esc(b.name)+'</td><td>'+esc(c.read||"")+'</td><td>'+esc(c.updated||"")+'</td><td>'+
+      '<button class="btn small" type="button" data-open="'+c.id+'">Open</button> <button class="btn ghost small" type="button" data-dup="'+c.id+'">Duplicate</button> <button class="btn danger small" type="button" data-del="'+c.id+'">Delete</button></td></tr>'; }).join("");
+}
+
+/* ---------- NAV + EVENTS ---------- */
+function show(v){
+  view=v; document.querySelectorAll(".view").forEach(function(el){ el.hidden=(el.id!==v); });
+  document.querySelectorAll("[data-view]").forEach(function(b){ b.setAttribute("aria-selected",b.getAttribute("data-view")===v); });
+  if(v==="vCompare"){ fillCompare(); renderCompare(); }
+  if(v==="vResale"){ fillResale(); renderResale(); }
+  if(v==="vReport") renderReport();
+  if(v==="vProjects"){ renderProjList(); renderEditor(); }
+  if(v==="vCases") renderCases();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("[data-view]").forEach(function(b){ b.addEventListener("click",function(){ show(b.getAttribute("data-view")); }); });
+
+document.getElementById("vCompare").addEventListener("input",function(e){
+  var el=e.target, path=el.getAttribute("data-b"); if(!path) return;
+  var r=ref(path); r[0][r[1]]=el.value; renderCompare();
+});
+document.getElementById("vCompare").addEventListener("change",function(e){
+  var el=e.target, sel=el.getAttribute("data-sel"), c=kase();
+  if(sel){ if(sel==="aId"||sel==="bId"){ c[sel]=el.value; c[sel==="aId"?"aUnit":"bUnit"]=0; } else c[sel]=parseInt(el.value,10)||0; fillCompare(); renderCompare(); return; }
+  var path=el.getAttribute("data-b"); if(path){ var r=ref(path); r[0][r[1]]=el.value; renderCompare(); }
+});
+document.addEventListener("click",function(e){ var g=e.target.closest("[data-goto]"); if(g) show(g.getAttribute("data-goto")); });
+
+document.getElementById("projList").addEventListener("click",function(e){ var b=e.target.closest("[data-pid]"); if(!b) return; editId=b.getAttribute("data-pid"); renderProjList(); renderEditor(); });
+document.getElementById("newProj").addEventListener("click",function(){
+  var p={id:uid(),name:"New project",status:"upcoming",district:"",ten:"99",leaseStart:YEAR,top:"",ceil:"",bud:"",asOf:today(),notes:"",units:[{label:"2BR",psf:"",size:""}],scen:[{p:"",w:25},{p:"",w:50},{p:"",w:25}],comps:[]};
+  D.projects.push(p); editId=p.id; save(); renderProjList(); renderEditor();
+  var n=document.querySelector('[data-pe="name"]'); if(n){ n.focus(); n.select(); }
+});
+var projEd=document.getElementById("projEditor");
+projEd.addEventListener("input",function(e){
+  var el=e.target, p=proj(editId), f;
+  if((f=el.getAttribute("data-pe"))){ p[f]=el.value; save(); if(f==="name"||f==="district"||f==="asOf") renderProjList(); return; }
+  if(el.getAttribute("data-pu")!==null){ p.units[+el.getAttribute("data-pu")][el.getAttribute("data-pf")]=el.value; save(); return; }
+  if(el.getAttribute("data-ps")!==null){ p.scen[+el.getAttribute("data-ps")][el.getAttribute("data-pf")]=el.value; save(); }
+});
+projEd.addEventListener("change",function(e){ var f=e.target.getAttribute("data-pe"); if(f==="status"||f==="ten"){ proj(editId)[f]=e.target.value; save(); renderProjList(); renderEditor(); } else if(e.target.getAttribute("data-pu")!==null){ renderEditor(); } });
+projEd.addEventListener("click",function(e){
+  var p=proj(editId);
+  if(e.target.id==="addUnit"){ p.units.push({label:"",psf:"",size:""}); save(); renderEditor(); return; }
+  var u=e.target.closest("[data-urm]"); if(u){ if(p.units.length<2) return; p.units.splice(+u.getAttribute("data-urm"),1); D.cases.forEach(function(c){ if(c.aId===p.id) c.aUnit=0; if(c.bId===p.id) c.bUnit=0; }); save(); renderEditor(); return; }
+  if(e.target.id==="delProj"){
+    if(D.projects.length<3){ alert("Keep at least two projects so a comparison is possible."); return; }
+    var used=D.cases.filter(function(c){return c.aId===p.id||c.bId===p.id;}).length;
+    if(!confirm("Delete "+(p.name||"this project")+"?"+(used?" "+used+" client case(s) use it and will switch to another project.":""))) return;
+    D.projects=D.projects.filter(function(x){return x.id!==p.id;});
+    D.cases.forEach(function(c){ if(c.aId===p.id){c.aId=D.projects[0].id;c.aUnit=0;} if(c.bId===p.id){c.bId=D.projects[D.projects.length>1?1:0].id;c.bUnit=0;} });
+    editId=D.projects[0].id; save(); renderProjList(); renderEditor();
+  }
+});
+
+document.getElementById("newCase").addEventListener("click",function(){
+  var cur=kase(), c={id:uid(),client:"",advisor:cur.advisor||"",aId:cur.aId,aUnit:cur.aUnit,bId:cur.bId,bUnit:cur.bUnit,updated:today(),read:"",as:JSON.parse(JSON.stringify(DEFAULT_AS))};
+  D.cases.unshift(c); D.active=c.id; save(); show("vCompare");
+  var n=document.querySelector('[data-b="case.client"]'); if(n) n.focus();
+});
+document.getElementById("caseBody").addEventListener("click",function(e){
+  var o=e.target.closest("[data-open]"), du=e.target.closest("[data-dup]"), de=e.target.closest("[data-del]");
+  if(o){ D.active=o.getAttribute("data-open"); save(); show("vCompare"); }
+  if(du){ var src=D.cases.filter(function(c){return c.id===du.getAttribute("data-dup");})[0], cp=JSON.parse(JSON.stringify(src)); cp.id=uid(); cp.client=(src.client||"")+" (copy)"; D.cases.unshift(cp); save(); renderCases(); }
+  if(de){ if(D.cases.length<2){ alert("Keep at least one client case."); return; } var id=de.getAttribute("data-del"), cc=D.cases.filter(function(c){return c.id===id;})[0];
+    if(!confirm("Delete the case for "+(cc.client||"this client")+"?")) return; D.cases=D.cases.filter(function(c){return c.id!==id;}); if(D.active===id) D.active=D.cases[0].id; save(); renderCases(); }
+});
+document.getElementById("exportBtn").addEventListener("click",function(){ document.getElementById("backup").value=JSON.stringify(D); document.getElementById("backupMsg").textContent="Backup text ready. Copy it somewhere safe."; });
+document.getElementById("importBtn").addEventListener("click",function(){
+  var m=document.getElementById("backupMsg");
+  try{ var x=JSON.parse(document.getElementById("backup").value); if(!x.projects||!x.cases||!x.projects.length||!x.cases.length) throw 0;
+    if(!confirm("Replace all projects and cases in this browser with the pasted backup?")) return; D=x; if(!D.active) D.active=D.cases[0].id; save(); m.textContent="Loaded "+D.projects.length+" projects and "+D.cases.length+" client cases."; renderCases(); }
+  catch(err){ m.textContent="That text is not a valid backup. Paste the full text from Show backup text."; }
+});
+document.getElementById("printBtn").addEventListener("click",function(){ renderReport(); window.print(); });
+document.getElementById("copyBtn").addEventListener("click",function(){
+  var t=document.getElementById("summary"), b=this; function done(){ b.textContent="Copied"; setTimeout(function(){b.textContent="Copy WhatsApp summary";},1600); }
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t.value).then(done,function(){ t.select(); try{document.execCommand("copy");done();}catch(x){} });
+  else { t.select(); try{document.execCommand("copy");done();}catch(x){} }
+});
+
+show("vCompare");
+})();
+</script>
+</body>
+</html>

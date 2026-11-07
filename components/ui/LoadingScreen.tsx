@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   dismissLoadingScreenDom,
   LOADING_FADE_MS,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/loading-screen-dismiss";
 
 export function LoadingScreen() {
+  const pathname = usePathname();
   const [fading, setFading] = useState(false);
   const [gone, setGone] = useState(false);
 
@@ -45,7 +47,7 @@ export function LoadingScreen() {
     };
   }, []);
 
-  if (gone) return null;
+  if (gone || pathname?.startsWith("/new-launch")) return null;
 
   return (
     <div
