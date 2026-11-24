@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-type BlendTone = "white" | "neutral-50" | "primary-50";
+export type BlendTone = "white" | "neutral-50" | "primary-50";
 
 const BLEND_FROM: Record<BlendTone, string> = {
   white: "from-white",
