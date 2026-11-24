@@ -9,6 +9,7 @@ import { HeroImagePreload } from "@/components/sections/HeroImagePreload";
 import { PropertyListings } from "@/components/sections/PropertyListings";
 import { SocialPanel } from "@/components/sections/SocialPanel";
 import { FAQSection } from "@/components/sections/FAQSection";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { WhyCheaperTeaser } from "@/components/sections/WhyCheaperTeaser";
 import PricingSection4 from "@/components/ui/pricing-section-4";
@@ -66,6 +67,7 @@ export default async function Home() {
         <Hero />
         <WhyCheaperTeaser listingCount={stats.total} />
         <PricingSection4 />
+        <GoogleReviews />
         <Testimonials />
         <PropertyListings listingCount={stats.total} initialListings={previewListings} />
         <BuyCta />
