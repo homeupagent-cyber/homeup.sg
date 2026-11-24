@@ -90,6 +90,54 @@ function ReviewCard({ review }: { review: GoogleReview }) {
   );
 }
 
+function ReviewLinks({
+  profileUrl,
+  writeReviewUrl,
+}: {
+  profileUrl: string;
+  writeReviewUrl: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      <a href={profileUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+        See all reviews
+      </a>
+      <a href={writeReviewUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+        Leave a review
+      </a>
+    </div>
+  );
+}
+
+function CtaCard({
+  rating,
+  countLabel,
+  profileUrl,
+  writeReviewUrl,
+}: {
+  rating: number;
+  countLabel: string;
+  profileUrl: string;
+  writeReviewUrl: string;
+}) {
+  return (
+    <article className="flex h-full flex-col items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 p-6 text-center shadow-sm">
+      <span className="text-4xl font-bold text-neutral-900">{rating.toFixed(1)}</span>
+      <div className="mt-2">
+        <Stars rating={rating} size="h-5 w-5" />
+      </div>
+      <p className="mt-2 text-sm text-neutral-500">{countLabel}</p>
+      <h3 className="mt-6 text-lg font-semibold text-neutral-900">Sold or bought with HomeUP?</h3>
+      <p className="mt-2 max-w-xs text-sm leading-relaxed text-neutral-600">
+        A few lines about your experience on Google help the next homeowner choose with confidence.
+      </p>
+      <div className="mt-6">
+        <ReviewLinks profileUrl={profileUrl} writeReviewUrl={writeReviewUrl} />
+      </div>
+    </article>
+  );
+}
+
 export async function GoogleReviews() {
   const data = await getGoogleReviews();
   if (!data) return null;
@@ -127,27 +175,16 @@ export async function GoogleReviews() {
             {data.reviews.map((review, i) => (
               <ReviewCard key={`${review.authorName}-${i}`} review={review} />
             ))}
+            <CtaCard
+              rating={data.rating}
+              countLabel={countLabel}
+              profileUrl={data.profileUrl}
+              writeReviewUrl={data.writeReviewUrl}
+            />
           </div>
-        ) : null}
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href={data.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary"
-          >
-            See all reviews
-          </a>
-          <a
-            href={data.writeReviewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            Leave a review
-          </a>
-        </div>
+        ) : (
+          <ReviewLinks profileUrl={data.profileUrl} writeReviewUrl={data.writeReviewUrl} />
+        )}
 
         <p className="mt-6 text-center text-xs text-neutral-500">
           Reviews and rating provided by Google. Updated daily.
