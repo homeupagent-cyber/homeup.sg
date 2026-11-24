@@ -232,14 +232,14 @@ export function SavingsSlider({
         "overflow-hidden ring-1 ring-black/[0.06]",
         isEmbedded
           ? "rounded-2xl shadow-md shadow-black/[0.06]"
-          : "rounded-3xl shadow-2xl shadow-black/[0.08]",
+          : "mx-auto max-w-5xl rounded-3xl shadow-2xl shadow-black/[0.08]",
         className,
       ]
         .filter(Boolean)
         .join(" ")}
     >
       {!isEmbedded && (
-        <div className="relative overflow-hidden bg-neutral-900 px-6 py-8 sm:px-10 sm:py-10">
+        <div className="relative overflow-hidden bg-neutral-900 px-5 py-5 sm:px-8 sm:py-6">
           <div
             className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary-600/20 blur-3xl"
             aria-hidden="true"
@@ -250,13 +250,13 @@ export function SavingsSlider({
           />
 
           <div className="relative z-10">
-            <span className="inline-flex items-center rounded-full bg-primary-600/20 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary-400 ring-1 ring-primary-500/30">
+            <span className="inline-flex items-center rounded-full bg-primary-600/20 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-widest text-primary-400 ring-1 ring-primary-500/30">
               {isBuy ? "Buying Fee Calculator" : "Savings Calculator"}
             </span>
-            <h3 className="mt-4 font-display text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
+            <h3 className="mt-2 font-display text-xl font-extrabold leading-tight tracking-tight text-white sm:text-2xl">
               {isBuy ? "What will it cost to buy?" : "How much will you save?"}
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-neutral-400">
+            <p className="mt-1 text-sm leading-relaxed text-neutral-400">
               {isBuy
                 ? "Select the property type you're buying to see your transparent HOMEUP fee."
                 : "Select your property type and enter its value to see your exact savings."}
@@ -268,7 +268,7 @@ export function SavingsSlider({
       <div
         className={cn(
           "bg-white",
-          isEmbedded ? "px-5 py-6 sm:px-6 sm:py-7" : "px-6 py-8 sm:px-10 sm:py-9",
+          isEmbedded ? "px-5 py-6 sm:px-6 sm:py-7" : "px-5 py-5 sm:px-8 sm:py-6",
         )}
       >
         {isEmbedded && (
@@ -277,9 +277,15 @@ export function SavingsSlider({
           </p>
         )}
 
+        <div
+          className={cn(
+            !isEmbedded && "lg:grid lg:grid-cols-2 lg:items-center lg:gap-8",
+          )}
+        >
+        <div>
         {!lockType && (
-          <div className="mb-7">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-400">
+          <div className={isEmbedded ? "mb-7" : "mb-5"}>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-neutral-400">
               {isBuy ? "I am buying a…" : "I am selling a…"}
             </p>
             <div className={cn("flex gap-1 rounded-xl p-1", sectionTheme.tabRail)}>
@@ -362,9 +368,17 @@ export function SavingsSlider({
           <span>{formatSGD(MIN)}</span>
           <span>{formatSGD(max)}</span>
         </div>
+        </div>
+
+        <div>
 
         {isBuy && complimentary ? (
-          <div className="mt-8 overflow-hidden rounded-2xl border border-[#c5ddd0] bg-[#eef5f0] p-8 text-center">
+          <div
+            className={cn(
+              "overflow-hidden rounded-2xl border border-[#c5ddd0] bg-[#eef5f0] text-center",
+              isEmbedded ? "mt-8 p-8" : "mt-5 p-6 lg:mt-0",
+            )}
+          >
             <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary-800 ring-1 ring-[#c5ddd0]">
               Your HOMEUP buying fee
             </span>
@@ -381,10 +395,10 @@ export function SavingsSlider({
           </div>
         ) : (
           <>
-            <div className="mt-8 grid grid-cols-2 gap-3">
+            <div className={cn("grid grid-cols-2 gap-3", isEmbedded ? "mt-8" : "mt-5 lg:mt-0")}>
               <div
                 className={cn(
-                  "flex flex-col gap-1 rounded-2xl border p-4",
+                  "flex flex-col gap-0.5 rounded-2xl border p-3 sm:p-4",
                   sectionTheme.feeCard,
                 )}
               >
@@ -410,7 +424,7 @@ export function SavingsSlider({
                 </p>
               </div>
 
-              <div className="flex flex-col gap-1 rounded-2xl border border-red-100 bg-red-50/60 p-4">
+              <div className="flex flex-col gap-0.5 rounded-2xl border border-red-100 bg-red-50/60 p-3 sm:p-4">
                 <p className="text-xs font-semibold uppercase tracking-wider text-red-400">
                   Typical {isBuy ? "1%" : "2%"}
                 </p>
@@ -424,13 +438,13 @@ export function SavingsSlider({
               </div>
             </div>
 
-            <div className="mt-3 overflow-hidden rounded-2xl border border-[#c5ddd0] bg-[#eef5f0] px-6 py-6">
+            <div className="mt-3 overflow-hidden rounded-2xl border border-[#c5ddd0] bg-[#eef5f0] px-5 py-4">
               <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary-800">
                 You save with HOMEUP
               </p>
               <p
-                className="mt-2 text-center font-display font-black tracking-tight text-primary-700"
-                style={{ fontSize: "clamp(2rem, 7vw, 3rem)" }}
+                className="mt-1 text-center font-display font-black leading-tight tracking-tight text-primary-700"
+                style={{ fontSize: "clamp(1.75rem, 5vw, 2.25rem)" }}
               >
                 S$
                 <AnimatedAmount value={Math.max(0, savings)} isDragging={isDragging} />
@@ -439,7 +453,7 @@ export function SavingsSlider({
                 inclusive of GST on both fees
               </p>
 
-              <div className="mt-5 flex items-center gap-3">
+              <div className="mt-3 flex items-center gap-3">
                 <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#c5ddd0]/70">
                   <div
                     className="h-full rounded-full bg-primary-600 transition-all duration-500 ease-out"
@@ -457,8 +471,10 @@ export function SavingsSlider({
             </div>
           </>
         )}
+        </div>
+        </div>
 
-        <p className="mt-5 text-center text-xs text-neutral-400">
+        <p className="mt-4 text-center text-xs text-neutral-400">
           {isBuy
             ? "Buyer representation fees shown are indicative. GST applicable on HOMEUP fees."
             : "Calculation uses a 2% agent commission. Actual savings vary by negotiated rate. GST applicable on HOMEUP fees."}
