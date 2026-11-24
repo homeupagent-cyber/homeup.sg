@@ -5,9 +5,17 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FadeInUp } from "@/components/ui/motion-primitives";
+import { SameServiceNote } from "@/components/ui/pricing-section-4";
 import { ListingCount } from "@/components/listings/ListingCount";
 
-export function WhyCheaperTeaser({ listingCount }: { listingCount?: number }) {
+export function WhyCheaperTeaser({
+  listingCount,
+  showSameService = false,
+}: {
+  listingCount?: number;
+  /** Render the "Same service. Different fee model." note under the teaser. */
+  showSameService?: boolean;
+}) {
   return (
     <section
       aria-label="Why HomeUP fees are lower"
@@ -33,6 +41,9 @@ export function WhyCheaperTeaser({ listingCount }: { listingCount?: number }) {
             </Link>
           </Button>
         </FadeInUp>
+        {showSameService && (
+          <SameServiceNote className="mx-auto mt-10 max-w-3xl sm:mt-12" delay={0.08} />
+        )}
       </div>
     </section>
   );

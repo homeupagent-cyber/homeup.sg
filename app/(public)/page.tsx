@@ -65,10 +65,18 @@ export default async function Home() {
       <Navbar />
       <main>
         <Hero />
-        <WhyCheaperTeaser listingCount={stats.total} />
-        <PricingSection4 />
+        <PricingSection4
+          id="savings-calculator"
+          showPlans={false}
+          showSameService={false}
+          showComparison={false}
+          blendFrom="white"
+          ariaLabel="Savings calculator"
+        />
+        <WhyCheaperTeaser listingCount={stats.total} showSameService />
         <GoogleReviews />
         <Testimonials />
+        <PricingSection4 showSlider={false} showSameService={false} />
         <PropertyListings listingCount={stats.total} initialListings={previewListings} />
         <BuyCta />
         <AgentProfiles />

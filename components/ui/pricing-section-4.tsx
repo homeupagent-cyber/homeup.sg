@@ -1,6 +1,6 @@
 "use client";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { SectionBlendTop } from "@/components/ui/SectionBlend";
+import { SectionBlendTop, type BlendTone } from "@/components/ui/SectionBlend";
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/ui/motion-primitives";
 import { SavingsSlider } from "@/components/ui/SavingsSlider";
 import { SellPlanCard } from "@/components/ui/SellPlanCard";
@@ -61,6 +61,36 @@ interface PricingSection4Props {
   showLearnMore?: boolean;
   defaultSliderType?: SellPropertyType;
   showSlider?: boolean;
+  /** "Our fixed fees" heading and plan cards. */
+  showPlans?: boolean;
+  /** "Same service. Different fee model." note. */
+  showSameService?: boolean;
+  /** "Compare the numbers" table and footnotes. */
+  showComparison?: boolean;
+  /** Tone of the section above, for the top edge fade. */
+  blendFrom?: BlendTone;
+  ariaLabel?: string;
+}
+
+/** Shared "Same service. Different fee model." note (carries the speakable fixed-fee definition). */
+export function SameServiceNote({
+  className = "mx-auto mt-14 max-w-3xl sm:mt-16",
+  delay = 0.12,
+}: {
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <FadeInUp delay={delay} className={className}>
+      <h3 className="text-center font-display text-xl font-extrabold tracking-tight text-neutral-900 sm:text-2xl">
+        Same service. Different fee model.
+      </h3>
+      <p className="mt-4 text-center text-sm leading-relaxed text-neutral-600 sm:text-base speakable-fixed-fee-definition">
+        A fixed-fee agent charges one flat fee. You still get listing, marketing,
+        negotiation, and full documentation. The only change is what you pay at the end.
+      </p>
+    </FadeInUp>
+  );
 }
 
 function ComparisonCards() {
@@ -183,6 +213,11 @@ export default function PricingSection4({
   showLearnMore = true,
   defaultSliderType = "HDB",
   showSlider = true,
+  showPlans = true,
+  showSameService = true,
+  showComparison = true,
+  blendFrom = "primary-50",
+  ariaLabel = "Fixed-fee pricing packages",
 }: PricingSection4Props) {
   const plans = filterType
     ? SELL_PLANS.filter((p) => p.type === filterType)
@@ -196,11 +231,11 @@ export default function PricingSection4({
 
   return (
     <section
-      aria-label="Fixed-fee pricing packages"
+      aria-label={ariaLabel}
       id={id}
       className="relative overflow-hidden section-padding bg-neutral-50"
     >
-      <SectionBlendTop from="primary-50" />
+      <SectionBlendTop from={blendFrom} />
       <div className="container-page">
         {showSlider && (
           <FadeInUp delay={0.06}>
@@ -208,62 +243,60 @@ export default function PricingSection4({
           </FadeInUp>
         )}
 
-        <FadeInUp delay={0.08} className="mt-10 sm:mt-12">
-          <p className="text-sm font-bold text-neutral-900">Our fixed fees</p>
-          <p className="mt-1 text-sm font-normal text-neutral-500">
-            What you pay when you choose HomeUP
-          </p>
-        </FadeInUp>
+        {showPlans && (
+          <>
+            <FadeInUp delay={0.08} className={cn(showSlider && "mt-10 sm:mt-12")}>
+              <p className="text-sm font-bold text-neutral-900">Our fixed fees</p>
+              <p className="mt-1 text-sm font-normal text-neutral-500">
+                What you pay when you choose HomeUP
+              </p>
+            </FadeInUp>
 
-        <StaggerContainer className={gridClass}>
-          {plans.map((plan) => (
-            <StaggerItem key={plan.name}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                className="h-full cursor-default"
-              >
-                <SellPlanCard
-                  filterType={plan.type}
-                  showLearnMore={showLearnMore}
-                  learnMoreHref={plan.learnMoreHref}
-                  reserveFootnoteSpace={reserveFootnoteSpace}
-                />
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+            <StaggerContainer className={gridClass}>
+              {plans.map((plan) => (
+                <StaggerItem key={plan.name}>
+                  <motion.div
+                    whileHover={{ y: -10 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                    className="h-full cursor-default"
+                  >
+                    <SellPlanCard
+                      filterType={plan.type}
+                      showLearnMore={showLearnMore}
+                      learnMoreHref={plan.learnMoreHref}
+                      reserveFootnoteSpace={reserveFootnoteSpace}
+                    />
+                  </motion.div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </>
+        )}
 
-        <FadeInUp delay={0.12} className="mx-auto mt-14 max-w-3xl sm:mt-16">
-          <h3 className="text-center font-display text-xl font-extrabold tracking-tight text-neutral-900 sm:text-2xl">
-            Same service. Different fee model.
-          </h3>
-          <p className="mt-4 text-center text-sm leading-relaxed text-neutral-600 sm:text-base speakable-fixed-fee-definition">
-            A fixed-fee agent charges one flat fee. You still get listing, marketing,
-            negotiation, and full documentation. The only change is what you pay at the end.
-          </p>
-        </FadeInUp>
+        {showSameService && <SameServiceNote />}
 
-        <FadeInUp delay={0.18} className="mt-12 sm:mt-14">
-          <div className="section-header mb-6">
-            <Eyebrow>Compare the numbers</Eyebrow>
-            <h3 className="section-title text-2xl sm:text-3xl">
-              HomeUP vs Typical 2% Agent
-            </h3>
-          </div>
+        {showComparison && (
+          <FadeInUp delay={0.18} className="mt-12 sm:mt-14">
+            <div className="section-header mb-6">
+              <Eyebrow>Compare the numbers</Eyebrow>
+              <h3 className="section-title text-2xl sm:text-3xl">
+                HomeUP vs Typical 2% Agent
+              </h3>
+            </div>
 
-          <ComparisonCards />
-          <ComparisonTable />
+            <ComparisonCards />
+            <ComparisonTable />
 
-          <p className="mt-4 text-center text-[10px] font-normal leading-relaxed text-neutral-400">
-            * HomeUP fixed fees shown before 9% GST. Savings = typical 2% commission (incl.
-            GST) minus HomeUP fixed fee (incl. GST), based on the example sale prices shown.
-          </p>
-          <p className="mt-2 text-center text-[10px] font-normal leading-relaxed text-neutral-400">
-            Typical 2% commission reflects common market practice among CEA-registered
-            salespersons in Singapore. It is not a statutory or regulated rate.
-          </p>
-        </FadeInUp>
+            <p className="mt-4 text-center text-[10px] font-normal leading-relaxed text-neutral-400">
+              * HomeUP fixed fees shown before 9% GST. Savings = typical 2% commission (incl.
+              GST) minus HomeUP fixed fee (incl. GST), based on the example sale prices shown.
+            </p>
+            <p className="mt-2 text-center text-[10px] font-normal leading-relaxed text-neutral-400">
+              Typical 2% commission reflects common market practice among CEA-registered
+              salespersons in Singapore. It is not a statutory or regulated rate.
+            </p>
+          </FadeInUp>
+        )}
 
       </div>
     </section>
