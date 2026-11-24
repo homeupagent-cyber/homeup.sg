@@ -127,9 +127,9 @@ function CtaCard({
         <Stars rating={rating} size="h-5 w-5" />
       </div>
       <p className="mt-2 text-sm text-neutral-500">{countLabel}</p>
-      <h3 className="mt-6 text-lg font-semibold text-neutral-900">Sold or bought with HomeUP?</h3>
+      <h3 className="mt-6 text-lg font-semibold text-neutral-900">Had a good experience?</h3>
       <p className="mt-2 max-w-xs text-sm leading-relaxed text-neutral-600">
-        A few lines about your experience on Google help the next homeowner choose with confidence.
+        Leave us a quick Google review. Every one helps the next family decide.
       </p>
       <div className="mt-6">
         <ReviewLinks profileUrl={profileUrl} writeReviewUrl={writeReviewUrl} />
