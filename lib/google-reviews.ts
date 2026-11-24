@@ -51,8 +51,13 @@ type PlacesResponse = {
   reviews?: PlacesReview[];
 };
 
+/** Google sometimes returns review text with markdown escapes such as "\!". Drop the stray backslashes. */
+function stripEscapes(text: string): string {
+  return text.replace(/\\([!-/:-@[-`{-~])/g, "$1");
+}
+
 function toReview(review: PlacesReview): GoogleReview | null {
-  const text = review.originalText?.text ?? review.text?.text ?? "";
+  const text = stripEscapes(review.originalText?.text ?? review.text?.text ?? "");
   const authorName = review.authorAttribution?.displayName ?? "";
   if (!authorName || typeof review.rating !== "number") return null;
 
